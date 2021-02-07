@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 // define the matrix dimensions A is MxP, B is PxN, and C is MxN
-#define M 12 
+#define M 512 
 #define N M 
 #define P M 
 #define Z 4
@@ -72,9 +72,10 @@ int main() {
   float** C;
   float** C_blk;
 
+
   create_matrix(&A, M, P);
   create_matrix(&B, P, N);
-  create_matrix(&C, M, N);
+  /* create_matrix(&C, M, N); */
   create_matrix(&C_blk, M, N);
 
   // assume some initialization of A and B
@@ -83,23 +84,23 @@ int main() {
   // in row-major.
 
   int i,j;
-  for(i = 0; i < M; i++) {
-    for(j = 0; j < M; j++) {
-      A[i][j] = i+j;
-      B[i][j] = i+j+2;
-    }
-  }
+  /* for(i = 0; i < M; i++) { */
+  /*   for(j = 0; j < M; j++) { */
+  /*     A[i][j] = i+j; */
+  /*     B[i][j] = i+j+2; */
+  /*   } */
+  /* } */
 
-  matmul(A, B, C);
+  /* matmul(A, B, C); */
   matmul_block(A, B, C_blk);
 
-  for(i = 0; i < M; i++) {
-    for(j = 0; j < M; j++) {
-      if(C[i][j] != C_blk[i][j]) {
-      	printf("%f %f\n", C[i][j], C_blk[i][j]);
-      }
-    }
-  }
+  /* for(i = 0; i < M; i++) { */
+  /*   for(j = 0; j < M; j++) { */
+  /*     if(C[i][j] != C_blk[i][j]) { */
+  /*     	printf("%f %f\n", C[i][j], C_blk[i][j]); */
+  /*     } */
+  /*   } */
+  /* } */
 
   return (0);
 }

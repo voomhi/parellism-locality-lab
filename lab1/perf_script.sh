@@ -31,7 +31,7 @@ done
 # then
 #     exit
 # fi
-
+rm -rf $PWD/$out_file
 for event in $events
 do
     perf stat -x, -e $event -o $out_file --append $PWD/$prog_file 

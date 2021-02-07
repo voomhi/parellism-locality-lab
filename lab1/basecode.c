@@ -53,3 +53,4 @@ int main() {
    matmul(A, B, C);
  
   return (0);
+}

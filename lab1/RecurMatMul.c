@@ -27,23 +27,28 @@ void matmul(float **A, float **B, float **C) {
   }
 }
 
-void recur_matmul(float **A, float **B, float **C, int b_size, int x, int y){
+void recur_matmul(float **A, float **B, float **C, int b_size, int a1, int a2, int b1, int b2, int c1, int c2){
+    float sum;
     if(b_size == B_SIZE_LIMIT){ // Base case
         for(int i = 0; i < b_size; i++){
             for(int j = 0; j < b_size; j++){
-                sum = 0.0f;
+                sum = C[i + c1][j + c2];
                 for(int k = 0; k < b_size; k++){
-                    sum += A[i + x][k + y]*B[k + x][j + y];
+                    sum += A[i + a1][k + a2]*B[k + b1][j + b2];
                 }
-                C[i + x][j + y] = sum;
+                C[i + c1][j + c2] += sum;
             }
         }
     } else{
-        int new_b_size = b_size / 2;
-        recur_matmul(A, B, C, new_b_size, x, y); // Top-left block
-        recur_matmul(A, B, C, new_b_size, x + new_b_size, y); // Top-right block
-        recur_matmul(A, B, C, new_b_size, x, y + new_b_size); // Bottom-left block
-        recur_matmul(A, B, C, new_b_size, x + new_b_size, y + new_b_size); // Bottom-right block
+        int new_b_size = b_size >> 1;
+        recur_matmul(A, B, C, new_b_size, a1, a2, b1, b2, c1, c2); // C1 = A1*B1
+        recur_matmul(A, B, C, new_b_size, a1 + new_b_size, a2, b1, b2 + new_b_size, c1, c2); // + A2*B3
+        recur_matmul(A, B, C, new_b_size, a1, a2, b1 + new_b_size, b2, c1 + new_b_size, c2); // C2 = A1*B2 
+        recur_matmul(A, B, C, new_b_size, a1 + new_b_size, a2, b1 + new_b_size, b2 + new_b_size, c1 + new_b_size, c2); // + A2*B4
+        recur_matmul(A, B, C, new_b_size, a1, a2 + new_b_size, b1, b2, c1, c2 + new_b_size); // C3 = A3*B1
+        recur_matmul(A, B, C, new_b_size, a1 + new_b_size, a2 + new_b_size, b1, b2 + new_b_size, c1, c2 + new_b_size); // + A4*B3
+        recur_matmul(A, B, C, new_b_size, a1, a2 + new_b_size, b1 + new_b_size, b2, c1 + new_b_size, c2 + new_b_size); // C4 = A3*B2 
+        recur_matmul(A, B, C, new_b_size, a1 + new_b_size, a2 + new_b_size, b1 + new_b_size, b2 + new_b_size, c1 + new_b_size, c2 + new_b_size); // + A4*B4
     }
 }
 
@@ -80,7 +85,7 @@ int main() {
   }  
 
   matmul(A, B, C);
-  recur_matmul(A, B, C, M, 0, 0);
+  recur_matmul(A, B, C, M, 0, 0, 0, 0, 0, 0);
 
   for(int i = 0; i < M; i++){
     for(int j = 0; j < M; j++){

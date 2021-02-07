@@ -1,7 +1,7 @@
 #!/bin/bash
 
-prog_file=""
-out_file=""
+prog_file=$PWD/basecode
+out_file="test.txt"
 events="instructions cycles branches branch-misses cache-misses cache-references"
 while [ "$1" != "" ];
  do
@@ -34,7 +34,7 @@ done
 
 for event in $events
 do
-    perf stat -x, -e $event -o test.txt --append $PWD/basecode 
+    perf stat -x, -e $event -o $out_file --append $PWD/$prog_file 
 done
 
 

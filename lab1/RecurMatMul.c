@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <malloc.h>
 
 // define the matrix dimensions A is MxP, B is PxN, and C is MxN
-#define M 16
-#define N 16
-#define P 16
+#define M 512
+#define N 512
+#define P 512
 #define B_SIZE_LIMIT 8
-/* #define AVX_512 */
+#define AVX_512
 
 #ifdef AVX_512
 #include <immintrin.h>
@@ -48,34 +49,41 @@ void recur_matmul(float **A, float **B, float **C, int b_size, int a1, int a2, i
             }
         }
 #else
-	float A_VEC[B_SIZE_LIMIT],B_VEC[B_SIZE_LIMIT],C_VEC[B_SIZE_LIMIT];
+	/* float A_VEC[B_SIZE_LIMIT],B_VEC[B_SIZE_LIMIT],C_VEC[B_SIZE_LIMIT]; */
 	__m256 A_vec512,B_vec512,C_vec512;
 	for(int i = 0; i < B_SIZE_LIMIT; i++){
 	    //Working Row of C and A
-	    for(int k = 0; k < B_SIZE_LIMIT; k++){ //LOAD A and C
-		C_VEC[k]=C[i+c1][k+c2];
+	    /* for(int k = 0; k < B_SIZE_LIMIT; k++){ //LOAD A and C */
+	    /* 	C_VEC[k]=C[i+c1][k+c2]; */
 
-	    }
-	    C_vec512 = _mm256_load_ps(C_VEC);	    
+	    /* } */
+	    /* float(*) C_VEC[8] = &(C[i+c1][c2]); */
+	    /* C_VEC=&C[i+c1][c2] ; */
+	    /* printf("%x, %x\n", C[i+c1]+c2*sizeof(float) ,&C[i+c1][c2] ); */
+	    C_vec512 = _mm256_load_ps(&C[i+c1][c2] );
+	    /* C_vec512 = _mm256_load_ps(C_VEC); */
+	    
 	    for(int j = 0; j < B_SIZE_LIMIT; j++){
 		//Working Row of B
-		for(int k = 0; k < b_size; k++){   //LOAD B		   
-		    A_VEC[k]=A[i+a1][j+a2];
-		    B_VEC[k]=B[j+b1][k+b2];
-		}
-		A_vec512 = _mm256_load_ps(A_VEC);
-		B_vec512 = _mm256_load_ps(B_VEC);	    
+		/* for(int k = 0; k < b_size; k++){   //LOAD B		    */
+		/*     A_VEC[k]=A[i+a1][j+a2]; */
+		/*     B_VEC[k]=B[j+b1][k+b2]; */
+		/* } */
+		A_vec512 = _mm256_broadcast_ss(&A[i+a1][j+a2]);
+		B_vec512 = _mm256_load_ps(&B[j+b1][b2] );	    
 		//DO MATH
 		B_vec512 = _mm256_mul_ps(A_vec512,B_vec512);
 		C_vec512 = _mm256_add_ps(B_vec512,C_vec512);
 	    }
 	    //STORE C
-	    _mm256_store_ps(C_VEC,C_vec512);
-	    for(int k = 0; k < B_SIZE_LIMIT; k++){ //LOAD A and C
-		C[i+c1][k+c2]=C_VEC[k];
-		/* printf("C_VEC %f A %f B %f\n",C_VEC[k],A_VEC[k],B_VEC[k]); */
+	    /* _mm256_store_ps(C_VEC,C_vec512); */
+	    _mm256_store_ps(&C[i+c1][c2],C_vec512);
 
-	    }
+	    /* for(int k = 0; k < B_SIZE_LIMIT; k++){ //LOAD A and C */
+	    /* 	C[i+c1][k+c2]=C_VEC[k]; */
+	    /* 	/\* printf("C_VEC %f A %f B %f\n",C_VEC[k],A_VEC[k],B_VEC[k]); *\/ */
+
+	    /* } */
 	    
 	}
 #endif
@@ -103,9 +111,9 @@ void create_matrix(float*** A, int m, int n) {
   float **T = 0;
   int i;
 
-  T = (float**)malloc(m*sizeof(float*));
+  T = (float**)memalign(32,m*sizeof(float*));
   for ( i=0; i<m; i++ ) {
-     T[i] = (float*)malloc(n*sizeof(float));
+      T[i] = (float*)memalign(32,n*sizeof(float));
   }
   *A = T;
 }
@@ -119,31 +127,31 @@ int main() {
   create_matrix(&A, M, P);
   create_matrix(&B, P, N);
   create_matrix(&C, M, N);
-  create_matrix(&D, M, N);
+  /* create_matrix(&D, M, N); */
 
-  for(int i = 0; i < M; i++){
-    for(int j = 0; j < M; j++){
-      A[i][j] = 1+j;
-      B[i][j] = 1;
-      D[i][j] = 0;
-      C[i][j] = 0;
+  /* for(int i = 0; i < M; i++){ */
+  /*   for(int j = 0; j < M; j++){ */
+  /*     A[i][j] = 1+j; */
+  /*     B[i][j] = 1; */
+  /*     D[i][j] = 0; */
+  /*     C[i][j] = 0; */
 
-    }
-  }
+  /*   } */
+  /* } */
 
-  matmul(A, B, D);
+  /* matmul(A, B, D); */
   recur_matmul(A, B, C, M, 0, 0, 0, 0, 0, 0);
 
-  for(int i = 0; i < M; i++){
-      for(int j = 0; j < M; j++){
-  	  if(C[i][j] != D[i][j]){
-  	      printf("C=%f,D=%f\n",C[i][j],D[i][j]);
+  /* for(int i = 0; i < M; i++){ */
+  /*     for(int j = 0; j < M; j++){ */
+  /* 	  if(C[i][j] != D[i][j]){ */
+  /* 	      printf("C=%f,D=%f\n",C[i][j],D[i][j]); */
 
-  	      printf("%d,%d\n",i,j);
-  	      return 1; // Failure
-  	  }
-      }
-  }
+  /* 	      printf("%d,%d\n",i,j); */
+  /* 	      return 1; // Failure */
+  /* 	  } */
+  /*     } */
+  /* } */
 
   return (0);
 }

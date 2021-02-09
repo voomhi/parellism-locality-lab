@@ -53,22 +53,10 @@ void recur_matmul(float **A, float **B, float **C, int b_size, int a1, int a2, i
 	__m256 A_vec512,B_vec512,C_vec512;
 	for(int i = 0; i < B_SIZE_LIMIT; i++){
 	    //Working Row of C and A
-	    /* for(int k = 0; k < B_SIZE_LIMIT; k++){ //LOAD A and C */
-	    /* 	C_VEC[k]=C[i+c1][k+c2]; */
-
-	    /* } */
-	    /* float(*) C_VEC[8] = &(C[i+c1][c2]); */
-	    /* C_VEC=&C[i+c1][c2] ; */
-	    /* printf("%x, %x\n", C[i+c1]+c2*sizeof(float) ,&C[i+c1][c2] ); */
 	    C_vec512 = _mm256_load_ps(&C[i+c1][c2] );
-	    /* C_vec512 = _mm256_load_ps(C_VEC); */
 	    
 	    for(int j = 0; j < B_SIZE_LIMIT; j++){
 		//Working Row of B
-		/* for(int k = 0; k < b_size; k++){   //LOAD B		    */
-		/*     A_VEC[k]=A[i+a1][j+a2]; */
-		/*     B_VEC[k]=B[j+b1][k+b2]; */
-		/* } */
 		A_vec512 = _mm256_broadcast_ss(&A[i+a1][j+a2]);
 		B_vec512 = _mm256_load_ps(&B[j+b1][b2] );	    
 		//DO MATH
@@ -76,14 +64,7 @@ void recur_matmul(float **A, float **B, float **C, int b_size, int a1, int a2, i
 		C_vec512 = _mm256_add_ps(B_vec512,C_vec512);
 	    }
 	    //STORE C
-	    /* _mm256_store_ps(C_VEC,C_vec512); */
 	    _mm256_store_ps(&C[i+c1][c2],C_vec512);
-
-	    /* for(int k = 0; k < B_SIZE_LIMIT; k++){ //LOAD A and C */
-	    /* 	C[i+c1][k+c2]=C_VEC[k]; */
-	    /* 	/\* printf("C_VEC %f A %f B %f\n",C_VEC[k],A_VEC[k],B_VEC[k]); *\/ */
-
-	    /* } */
 	    
 	}
 #endif

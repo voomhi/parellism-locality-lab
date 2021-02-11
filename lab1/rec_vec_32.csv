@@ -1,0 +1,16 @@
+
+253205,,instructions:u,192641,100.00,,
+
+209321,,cycles:u,155481,100.00,,
+
+52820,,branches:u,144672,100.00,,
+
+3403,,branch-misses:u,246893,100.00,,
+
+3707,,cache-misses:u,153167,100.00,,
+
+13492,,cache-references:u,151294,100.00,,
+
+303296,ns,duration_time:u,303296,100.00,,
+
+65536,,fp_ret_sse_avx_ops.all:u,155341,100.00,,

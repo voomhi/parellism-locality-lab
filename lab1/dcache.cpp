@@ -195,7 +195,7 @@ COMPRESSOR_COUNTER<ADDRINT, UINT32, COUNTER_HIT_MISS> profile2;
 VOID LoadMulti2(ADDRINT addr, UINT32 size, UINT32 instId)
 {
     // first level D-cache
-    const BOOL dl2Hit = dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_LOAD);
+    const BOOL dl2Hit = dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_LOAD, dl1);
 
     const COUNTER counter = dl2Hit ? COUNTER_HIT : COUNTER_MISS;
     profile2[instId][counter]++;
@@ -206,7 +206,7 @@ VOID LoadMulti2(ADDRINT addr, UINT32 size, UINT32 instId)
 VOID StoreMulti2(ADDRINT addr, UINT32 size, UINT32 instId)
 {
     // first level D-cache
-    const BOOL dl2Hit = dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_STORE);
+    const BOOL dl2Hit = dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_STORE, dl1);
 
     const COUNTER counter = dl2Hit ? COUNTER_HIT : COUNTER_MISS;
     profile2[instId][counter]++;
@@ -218,7 +218,7 @@ VOID LoadSingle2(ADDRINT addr, UINT32 instId)
 {
     // @todo we may access several cache lines for 
     // first level D-cache
-    const BOOL dl2Hit = dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_LOAD);
+    const BOOL dl2Hit = dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_LOAD, dl1);
 
     const COUNTER counter = dl2Hit ? COUNTER_HIT : COUNTER_MISS;
     profile2[instId][counter]++;
@@ -229,7 +229,7 @@ VOID StoreSingle2(ADDRINT addr, UINT32 instId)
 {
     // @todo we may access several cache lines for 
     // first level D-cache
-    const BOOL dl2Hit = dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_STORE);
+    const BOOL dl2Hit = dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_STORE, dl1);
 
     const COUNTER counter = dl2Hit ? COUNTER_HIT : COUNTER_MISS;
     profile2[instId][counter]++;
@@ -239,28 +239,28 @@ VOID StoreSingle2(ADDRINT addr, UINT32 instId)
 
 VOID LoadMultiFast2(ADDRINT addr, UINT32 size)
 {
-    dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_LOAD);
+    dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_LOAD, dl1);
 }
 
 /* ===================================================================== */
 
 VOID StoreMultiFast2(ADDRINT addr, UINT32 size)
 {
-    dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_STORE);
+    dl2->Access(addr, size, CACHE_BASE::ACCESS_TYPE_STORE, dl1);
 }
 
 /* ===================================================================== */
 
 VOID LoadSingleFast2(ADDRINT addr)
 {
-    dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_LOAD);    
+    dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_LOAD, dl1);    
 }
 
 /* ===================================================================== */
 
 VOID StoreSingleFast2(ADDRINT addr)
 {
-    dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_STORE);    
+    dl2->AccessSingleLine(addr, CACHE_BASE::ACCESS_TYPE_STORE, dl1);    
 }
 
 

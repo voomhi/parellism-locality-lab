@@ -201,16 +201,32 @@ class LRU
         }
     }
 
-    // TODO write cache invalidation function
+    bool InvalidateTag(CACHE_TAG tag){
+      for (INT32 index = _tagsLastIndex; index >= 0; index--)
+      {
+        if(_tags[index] == tag) 
+        {
+          _tags[index] = CACHE_TAG(0);  
+          for(INT32 j = index; j < _tagsLastIndex; j++)
+          {
+            _queue[j + 1] = _queue[j];
+          }
+          _queue[_tagsLastIndex] = index;
+          _nextReplaceIndex = _queue[_tagsLastIndex];
+          return true;
+        }              
+      }
+      return false;
+    }
 
     VOID ReplaceTag(CACHE_TAG _oldtag, CACHE_TAG _newtag)
     {
       for (INT32 index = _tagsLastIndex; index >= 0; index--)
       {
-          if(_tags[index] == _oldtag){
-            _tags[index] = _newtag;
-            return;
-          }
+        if(_tags[index] == _oldtag){
+          _tags[index] = _newtag;
+          return;
+        }
       }
     }
 
@@ -464,7 +480,8 @@ class CACHE : public CACHE_BASE
     bool AccessSingleLine(ADDRINT addr, ACCESS_TYPE accessType);
     bool AccessSingleLine(ADDRINT addr, ACCESS_TYPE accessType, CACHE levelBelow);
 
-    // TODO add invalidate tag function
+    // Invalidates a cache line with the specified tag
+    bool InvalidateLine(CACHE_TAG _tag);
 };
 
 /*!
@@ -533,7 +550,7 @@ bool CACHE<SET,MAX_SETS,STORE_ALLOCATION>::AccessSingleLine(ADDRINT addr, ACCESS
 }
 
 template <class SET, UINT32 MAX_SETS, UINT32 STORE_ALLOCATION>
-bool CACHE<SET,MAX_SETS,STORE_ALLOCATION>::Access(ADDRINT addr, UINT32 size, ACCESS_TYPE accessType, CACHE levelBelow)
+bool CACHE<SET,MAX_SETS,STORE_ALLOCATION>::Access(ADDRINT addr, UINT32 size, ACCESS_TYPE accessType, CACHE* levelBelow)
 {
     const ADDRINT highAddr = addr + size;
     bool allHit = true;
@@ -557,8 +574,7 @@ bool CACHE<SET,MAX_SETS,STORE_ALLOCATION>::Access(ADDRINT addr, UINT32 size, ACC
         {
             CACHE_TAG temp = set.GetLRUTag();
             set.Replace(tag);
-            // TODO Using temp, because it includes the set index, search L1 for temp, and then invalidate.
-                        
+            levelBelow->InvalidateLine(temp);                        
         }
 
         addr = (addr & notLineMask) + lineSize; // start of next cache line
@@ -570,7 +586,12 @@ bool CACHE<SET,MAX_SETS,STORE_ALLOCATION>::Access(ADDRINT addr, UINT32 size, ACC
     return allHit;
 }
 
-// TODO add invalidate tag function
+bool InvalidateLine(CACHE_TAG tag)
+{
+  UINT32 setIndex = tag & _setIndexMask;
+  SET & set = _sets[setIndex];
+  return set.InvalidateTag(tag);
+}
 
 /*!
  *  @return true if accessed cache line hits
@@ -590,7 +611,9 @@ bool CACHE<SET,MAX_SETS,STORE_ALLOCATION>::AccessSingleLine(ADDRINT addr, ACCESS
     // on miss, loads always allocate, stores optionally
     if ( (! hit) && (accessType == ACCESS_TYPE_LOAD || STORE_ALLOCATION == CACHE_ALLOC::STORE_ALLOCATE))
     {
+        CACHE_TAG temp = set.GetLRUTag();
         set.Replace(tag);
+        levelBelow->InvalidateLine(temp);       
     }
 
     _access[accessType][hit]++;

@@ -254,8 +254,8 @@ namespace CACHE_SET
 		    if(_tags[index] == tag) {
 			for(UINT32 i = 0; i <= _tagsLastIndex; i++){
 			    if(_queue[i] == (UINT32) index){
-				for(UINT32 j = 0; j < i && i != _tagsLastIndex ; j++){
-				    _queue[j + 1] = _queue[j];
+			      for(UINT32 j = index; j > 0; j--){
+				    _queue[j] = _queue[j-1];
 				}
 			    }
 			}
@@ -276,8 +276,8 @@ namespace CACHE_SET
         
 	    _tags[index] = tag;
         
-	    for(UINT32 j = 0; j < _tagsLastIndex; j++){
-		_queue[j + 1] = _queue[j];
+	    for(UINT32 j = _tagsLastIndex; j > 0; j--) {
+		_queue[j] = _queue[j-1];
 	    }
 	    _queue[0] = index;
 	    _nextReplaceIndex = _queue[_tagsLastIndex];

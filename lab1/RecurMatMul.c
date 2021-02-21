@@ -32,7 +32,7 @@ void recur_matmul(float **A, float **B, float **C, int b_size, int a1, int a2, i
     if(b_size == B_SIZE_LIMIT){ // Base case
         for(int i = 0; i < b_size; i++){
             for(int j = 0; j < b_size; j++){
-                sum = C[i + c1][j + c2];
+                sum = 0;
                 for(int k = 0; k < b_size; k++){
                     sum += A[i + a1][k + a2]*B[k + b1][j + b2];
                 }

@@ -1,0 +1,9 @@
+# started on Wed Feb 24 19:05:38 2021
+
+0.00,Joules,power/energy-cores/,86668408871,100.00,,,,
+# started on Wed Feb 24 19:06:21 2021
+
+4860.61,Joules,power/energy-pkg/,86024552899,100.00,,,,
+# started on Wed Feb 24 19:07:05 2021
+
+649.22,Joules,power/energy-ram/,86856383701,100.00,,,,

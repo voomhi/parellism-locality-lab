@@ -1,0 +1,27 @@
+# started on Wed Feb 24 18:18:31 2021
+
+982895,,cache-references,121468915,100.00,,,,
+# started on Wed Feb 24 18:18:32 2021
+
+454358931,,L1-dcache-loads,120783810,100.00,,,,
+# started on Wed Feb 24 18:18:33 2021
+
+135023879,,L1-dcache-stores,119048643,100.00,,,,
+# started on Wed Feb 24 18:18:34 2021
+
+563516,,LLC-loads,120041412,100.00,,,,
+# started on Wed Feb 24 18:18:35 2021
+
+6920,,LLC-stores,120637535,100.00,,,,
+# started on Wed Feb 24 18:18:36 2021
+
+1312771,,cache-references,118923311,100.00,,,,
+# started on Wed Feb 24 18:18:37 2021
+
+8565888,,l2_rqsts.all_demand_references,119268106,100.00,,,,
+# started on Wed Feb 24 18:18:38 2021
+
+12534832,,l2_rqsts.references,120149488,100.00,,,,
+# started on Wed Feb 24 18:18:39 2021
+
+8438350,,l2_rqsts.all_demand_data_rd,119510559,100.00,,,,

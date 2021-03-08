@@ -4,8 +4,11 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include <assert.h>
 #include "saxpy.h"
 #include "common.h"
+#include "CycleTimer.h"
+
 double timeKernelAvg = 0.0;
 double timeCopyH2DAvg = 0.0;
 double timeCopyD2HAvg = 0.0;
@@ -94,20 +97,27 @@ int main(int argc, char** argv)
     //
     // TODO: allocate host-side memory
     //
- 
+    // xarray = (float *)malloc(sizeof(float)*total_elems);
+    // yarray = (float *)malloc(sizeof(float)*total_elems);
+    // resultarray= (float *)malloc(sizeof(float)*total_elems);
+    
+
     //
     // TODO: initialize input arrays
     //
-/*
+    getArrays( total_elems,  &xarray,  &yarray,  &resultarray);
+
+        assert(xarray != NULL);
+    assert(resultarray != NULL);
+    assert(yarray != NULL);
+
     srand(time(NULL));
     for (long i=0; i<total_elems; i++) {
         xarray[i] = rand() / 100;
         yarray[i] = rand() / 100;
     }
-*/
 
     printCudaInfo();
-
     for (int i=0; i<iterations; i++) { 
         saxpyCuda(total_elems, alpha, xarray, yarray, resultarray, partitions);
     }
@@ -115,17 +125,18 @@ int main(int argc, char** argv)
     timeKernelAvg /= iterations;
     timeCopyH2DAvg /= iterations;
     timeCopyD2HAvg /= iterations;
-
-    const int totalBytes = sizeof(float) * 3 * total_elems;
+    const long totalBytes = sizeof(float) * 3 * total_elems;
     printf("Overall time : %8.3f ms [%8.3f GB/s ]\n", 1000.f * totalTimeAvg, toBW(totalBytes, totalTimeAvg));
-    printf("GPU Kernel   : %8.3f ms [%8.3f Ops/s]\n", 1000.f * timeKernelAvg, toBW(totalBytes/3, timeKernelAvg));
-    printf("Copy CPU->GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyH2DAvg, toBW(totalBytes*2/3, timeCopyH2DAvg));
+    printf("GPU Kernel   : %8.3f ms [%8.3f GOps/s]\n", 1000.f * timeKernelAvg, toBW(totalBytes/3, timeKernelAvg));
+    printf("Copy CPU->GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyH2DAvg, toBW((totalBytes*2)/3, timeCopyH2DAvg));
     printf("Copy CPU<-GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyD2HAvg, toBW(totalBytes/3, timeCopyD2HAvg));
     
     if (resultarray != NULL) {
         float* resultrefer = new float[total_elems]();
+	double cpuStart = CycleTimer::currentSeconds();
         saxpyCpu(total_elems, alpha, xarray, yarray, resultrefer);
-    
+	double cpuEnd =CycleTimer::currentSeconds();
+	printf("Overall CPU time : %8.3f ms\n", 1000.f * (cpuEnd-cpuStart));
         if (check_saxpy(total_elems, resultarray, resultrefer)) {
             printf("Test succeeded\n");
         } else {
@@ -136,6 +147,9 @@ int main(int argc, char** argv)
     //
     // TODO: deallocate host-side memory
     //
- 
+    // free(xarray);
+    // free(yarray);
+    // free(resultarray);
+    freeArrays(xarray,yarray,resultarray);
     return 0;
 }

@@ -20,7 +20,8 @@ saxpy_kernel(int N, float alpha, float* x, float* y, float* result) {
 
 static inline
 int getBlocks(long working_set_size, int threadsPerBlock) {
-  // TODO: implement and use this interface if necessary  
+  // TODO: implement and use this interface if necessary
+    return 0;
 }
 
 void 
@@ -36,11 +37,11 @@ freeArrays(float *xarray, float *yarray, float *resultarray) {
 void
 saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* resultarray, int partitions) {
 
-    const int threadsPerBlock = 512; // change this if necessary
+    const int threadsPerBlock = 256; // change this if necessary
 
-    float *device_x;
-    float *device_y;
-    float *device_result;
+    // float *device_x;
+    // float *device_y;
+    // float *device_result;
 
     //
     // TODO: allocate device memory buffers on the GPU using
@@ -48,19 +49,60 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     // these buffers are used in the call to saxpy_kernel below
     // without being initialized.
     //
+    
+    int size = total_elems * sizeof(float);
+    float *xarray_cuda,*yarray_cuda,*resarray_cuda,*alpha_cuda;
+    cudaError_t test;
+    // printf("malloc0");
+    test = cudaMalloc(&xarray_cuda, size);
+    if(test != cudaSuccess)
+	exit(EXIT_FAILURE);
+    // printf("malloc1");
+    test = cudaMalloc(&yarray_cuda, size);
+    if(test != cudaSuccess)
+	exit(EXIT_FAILURE);
+    // printf("malloc2");
 
+    test = cudaMalloc(&resarray_cuda, size);
+    if(test != cudaSuccess)
+	exit(EXIT_FAILURE);
+
+    // test = cudaMalloc(&alpha, sizeof(float));
+    // if(test != cudaSuccess)
+    // 	exit(EXIT_FAILURE);
 
     // start timing after allocation of device memory.
     double startTime = CycleTimer::currentSeconds();
 
     //
     // TODO: Compute number of thread blocks.
-    // 
-
+    //
+    int blocks = (total_elems + threadsPerBlock-1)/threadsPerBlock;
 
     //
     // TODO: copy input arrays to the GPU using cudaMemcpy
     //
+
+    // printf("copy0");
+    double startGPUTime_H2D = CycleTimer::currentSeconds();
+
+    test =cudaMemcpy(xarray_cuda,xarray,size, cudaMemcpyHostToDevice);
+    if(test != cudaSuccess)
+	exit(EXIT_FAILURE);
+    // printf("copy1");
+
+    test =cudaMemcpy(yarray_cuda,yarray,size, cudaMemcpyHostToDevice);
+    if(test != cudaSuccess)
+	exit(EXIT_FAILURE);
+    
+    cudaDeviceSynchronize();
+    double endGPUTime_H2D = CycleTimer::currentSeconds();
+    timeCopyH2DAvg += (endGPUTime_H2D-startGPUTime_H2D);
+
+    // test =cudaMemcpy(alpha_cuda,alpha,sizeof(float), cudaMemcpyHostToDevice);
+    // if(test != cudaSuccess)
+    // 	exit(EXIT_FAILURE);
+
 
 
     //
@@ -69,7 +111,9 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     double startGPUTime = CycleTimer::currentSeconds();
 
     // run saxpy_kernel on the GPU
+    // printf("kernal0");
 
+    saxpy_kernel<<<blocks,threadsPerBlock>>>(total_elems,alpha,xarray_cuda,yarray_cuda,resarray_cuda);
 
 
     //
@@ -79,8 +123,7 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     // ensure the kernel running on the GPU has completed.  (Otherwise
     // you will incorrectly observe that almost no time elapses!)
     //
-    // cudaDeviceSynchronize();
-
+    cudaDeviceSynchronize();
     double endGPUTime = CycleTimer::currentSeconds();
     double timeKernel = endGPUTime - startGPUTime;
     
@@ -92,8 +135,17 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     //
     // TODO: copy result from GPU using cudaMemcpy
     //
-    
+    // printf("copy2");
+    double startGPUTime_D2H = CycleTimer::currentSeconds();
 
+    test =cudaMemcpy(resultarray,resarray_cuda,size, cudaMemcpyDeviceToHost);
+        if(test != cudaSuccess)
+    	exit(EXIT_FAILURE);
+    cudaDeviceSynchronize();
+
+    double endGPUTime_D2H = CycleTimer::currentSeconds();
+    timeCopyD2HAvg += (endGPUTime_D2H-startGPUTime_D2H);
+    
     // end timing after result has been copied back into host memory.
     // The time elapsed between startTime and endTime is the total
     // time to copy data to the GPU, run the kernel, and copy the
@@ -101,10 +153,13 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     double endTime = CycleTimer::currentSeconds();
     double overallDuration = endTime - startTime;
     totalTimeAvg   += overallDuration;
-
+    timeKernelAvg += timeKernel;
     //
     // TODO free memory buffers on the GPU
     //
+    cudaFree(xarray_cuda);
+    cudaFree(yarray_cuda);
+    cudaFree(resarray_cuda);
 
 }
 

@@ -9,6 +9,7 @@
 #include <thrust/device_malloc.h>
 #include <thrust/device_free.h>
 #include <math.h>
+#include <cmath.h>
 
 #include "CycleTimer.h"
 
@@ -79,7 +80,7 @@ void exclusive_scan(int* device_start, int length, int* device_result)
         #endif
     }
 
-    int log2 = (31 - __builtin_clz(length)) + ((unsigned int)0xFFFFFFFF >> (unsigned int)__builtin_clz(length)) ? 1 : 0;
+    int log2 = (int)(ceil(log2((double)length)));
     printf("ceiling of log2 of %d is %d", length, log2);
     for(int i = 0; i < log2 - 1; i++){
         int twotoi = 2 << i;

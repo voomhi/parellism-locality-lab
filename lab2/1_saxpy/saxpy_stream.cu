@@ -35,6 +35,7 @@ freeArrays(float *xarray, float *yarray, float *resultarray) {
 
 void
 saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* resultarray, int partitions) {
+
 //total_elems must be divisible by partitions
     const int threadsPerBlock = 512; // change this if necessary
 
@@ -67,7 +68,6 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     test = cudaMalloc(&resarray_cuda, size);
     if(test != cudaSuccess)
 	exit(EXIT_FAILURE);
-
 
     
     // start timing after allocation of device memory.

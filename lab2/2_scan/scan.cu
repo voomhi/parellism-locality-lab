@@ -46,7 +46,7 @@ exclusive_scan_kernel_inital( int elem_count, int * device_array, int * device_r
 __global__ void
 exclusive_scan_kernel(int cumulation_idx, int elem_count, int * device_result,int* device_temp)
 {
-    int index = blockIdx.x * blockDim.x + threadIdx.x;  
+    int index = blockIdx.x * blockDim.x + threadIdx.x+ cumulation_idx;  
     if(index < elem_count)
     {
 	cumulation_idx = index - cumulation_idx;
@@ -61,9 +61,9 @@ exclusive_scan_kernel(int cumulation_idx, int elem_count, int * device_result,in
 
 }
 __global__ void
-exclusive_scan_kernel_copy(int elem_count, int * device_result,int* device_temp)
+exclusive_scan_kernel_copy(int elem_count, int * device_result,int* device_temp,int offset)
 {
-    int index = blockIdx.x * blockDim.x + threadIdx.x;  
+    int index = blockIdx.x * blockDim.x + threadIdx.x+offset;  
     if(index < elem_count)
     {
 	device_result[index] = device_temp[index];
@@ -84,7 +84,7 @@ void exclusive_scan(int* device_start, int length, int* device_result)
 
     //length = nextPow2(length); //is this necessary?
 
-    int threadsPerBlock = 64;
+    int threadsPerBlock = 256;
     unsigned int numBlocks = getBlocks(length, threadsPerBlock);
 
     if(length >= 0)
@@ -101,20 +101,14 @@ void exclusive_scan(int* device_start, int length, int* device_result)
 
 	for(int I = 0; I < MSB; I++)
 	{
-	    // printf("Call %d\n",I);
-
 	    int cumulation_idx =  (1<<I);
+	    numBlocks = getBlocks(length - cumulation_idx, threadsPerBlock);
 	    exclusive_scan_kernel<<<numBlocks,threadsPerBlock>>>(cumulation_idx,length
-								 ,device_result,device_temp);
+								 ,device_result,device_temp
+								 );
 	    exclusive_scan_kernel_copy<<<numBlocks,threadsPerBlock>>>(length
-								      ,device_result,device_temp);
-	    // cudaDeviceSynchronize();
-
-	    // for(int J = 0; J < numBlocks; J++)
-	    // {
-	    // 	exclusive_scan_kernel<<<1,threadsPerBlock>>>(cumulation_idx,length
-	    // 						     ,&device_result[J*threadsPerBlock]);
-	    // }
+								      ,device_result,device_temp
+								      ,cumulation_idx);
 	}
 	cudaFree(device_temp);
     }
@@ -195,6 +189,33 @@ double cudaScanThrust(int* inarray, int* end, int* resultarray) {
     return overallDuration;
 }
 
+__global__ void
+indicate_repeat( int *device_input, int length, int *device_output)
+{
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    if(index < length-1)
+    {
+	device_output[index] = (device_input[index] == device_input[index+1]);
+    } else if(index == length-1)
+    {
+	device_output[index] = 0;
+    }
+
+}
+__global__ void
+store_repeat( int *device_input, int length, int *device_output,int target_idx)
+{
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    if(index < length)
+    {
+	for(int I = 0; I < target_idx; I++)
+	{
+	    if(device_input[index] == I &&  device_input[index+1] != I)
+		device_output[I]=  index;
+	}
+    }
+}
+
 int find_repeats(int *device_input, int length, int *device_output) {
     /* Finds all pairs of adjacent repeated elements in the list, storing the
      * indices of the first element of each pair (in order) into device_result.
@@ -207,9 +228,37 @@ int find_repeats(int *device_input, int length, int *device_output) {
      * it requires that. However, you must ensure that the results of
      * find_repeats are correct given the original length.
      */
+    int* device_num_repeats;
+    int* device_num_repeats_prefix_sum;
+    int rounded_length = nextPow2(length);
+    int threadsPerBlock = 64;
+    unsigned int numBlocks = getBlocks(length, threadsPerBlock);
+    cudaError_t test;
+    test = cudaMalloc((void **)&device_num_repeats_prefix_sum, sizeof(int) * rounded_length);
+    if(test != cudaSuccess)
+        exit(EXIT_FAILURE);
+    test = cudaMalloc((void **)&device_num_repeats, sizeof(int) * rounded_length);
+    if(test != cudaSuccess)
+        exit(EXIT_FAILURE);
 
+    indicate_repeat<<<numBlocks,threadsPerBlock>>>( device_input, length, device_num_repeats);
+
+    exclusive_scan( device_num_repeats, length, device_num_repeats_prefix_sum);
+    
+    //The last integer would indicate the number of repeats in the pattern
     //Uses PrefixSum
-    return 0;
+
+    int numRepeats;
+    cudaMemcpy(&numRepeats, &(device_num_repeats_prefix_sum[length-1]), sizeof(int),
+               cudaMemcpyDeviceToHost);
+
+    printf("Number of Repeats %d \n",numRepeats);
+    store_repeat<<<numBlocks,threadsPerBlock>>>(device_num_repeats_prefix_sum,length,device_output,numRepeats);
+    cudaFree(device_num_repeats_prefix_sum);
+    cudaFree(device_num_repeats);
+    
+
+    return numRepeats;
 }
 
 /* Timing wrapper around find_repeats. You should not modify this function.

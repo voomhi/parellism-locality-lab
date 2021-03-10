@@ -28,6 +28,10 @@ static inline int nextPow2(int n)
     return n;
 }
 
+__global__ void
+exclusive_scan_kernel(int N)
+{
+}
 void exclusive_scan(int* device_start, int length, int* device_result)
 {
     /* Fill in this function with your exclusive scan implementation.
@@ -39,6 +43,9 @@ void exclusive_scan(int* device_start, int length, int* device_result)
      * both the input and the output arrays are sized to accommodate the next
      * power of 2 larger than the input.
      */
+
+    
+    
 }
 
 /* This function is a wrapper around the code you will write - it copies the
@@ -125,7 +132,9 @@ int find_repeats(int *device_input, int length, int *device_output) {
      * of 2 in size, so you can use your exclusive_scan function with them if 
      * it requires that. However, you must ensure that the results of
      * find_repeats are correct given the original length.
-     */    
+     */
+
+    //Uses PrefixSum
     return 0;
 }
 

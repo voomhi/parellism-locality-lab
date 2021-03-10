@@ -9,7 +9,6 @@
 #include <thrust/device_malloc.h>
 #include <thrust/device_free.h>
 #include <math.h>
-#include <cmath.h>
 
 #include "CycleTimer.h"
 

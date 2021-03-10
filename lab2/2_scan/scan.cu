@@ -79,9 +79,9 @@ void exclusive_scan(int* device_start, int length, int* device_result)
         #endif
     }
 
-    int log2 = (int)(ceil(log2((double)length)));
-    printf("ceiling of log2 of %d is %d", length, log2);
-    for(int i = 0; i < log2 - 1; i++){
+    int logtwo = (int)(ceil(log2((double)length)));
+    printf("ceiling of logtwo of %d is %d", length, logtwo);
+    for(int i = 0; i < logtwo - 1; i++){
         int twotoi = 2 << i;
         for(int j = 0; j < length - 1; j++){
             // Call kernel

@@ -8,8 +8,10 @@
 #include <thrust/device_ptr.h>
 #include <thrust/device_malloc.h>
 #include <thrust/device_free.h>
+#include <math.h>
 
 #include "CycleTimer.h"
+
 
 extern float toBW(int bytes, float sec);
 
@@ -28,24 +30,69 @@ static inline int nextPow2(int n)
     return n;
 }
 
-__global__ void
-exclusive_scan_kernel(int N)
-{
+static inline
+int getBlocks(long working_set_size, int threadsPerBlock) {
+    return (working_set_size+threadsPerBlock-1)/threadsPerBlock;
 }
+
+__global__ void
+exclusive_scan_kernel(int i, int twotoi, int j, int * device_result)
+{
+    // if(j < twotoi){
+    //     device_result[j] = device_result[j];
+    // } else {
+    //     device_result[j] = device_result[j] + device_result[j - twotoi];
+    // }
+    if(j >= twotoi){
+        device_result[j] = device_result[j] + device_result[j - twotoi];
+    }
+}
+
 void exclusive_scan(int* device_start, int length, int* device_result)
 {
     /* Fill in this function with your exclusive scan implementation.
-     * You are passed the locations of the input and output in device memory,
-     * but this is host code -- you will need to declare one or more CUDA 
-     * kernels (with the __global__ decorator) in order to actually run code
-     * in parallel on the GPU.
-     * Note you are given the real length of the array, but may assume that
-     * both the input and the output arrays are sized to accommodate the next
-     * power of 2 larger than the input.
-     */
+    * You are passed the locations of the input and output in device memory,
+    * but this is host code -- you will need to declare one or more CUDA 
+    * kernels (with the __global__ decorator) in order to actually run code
+    * in parallel on the GPU.
+    * Note you are given the real length of the array, but may assume that
+    * both the input and the output arrays are sized to accommodate the next
+    * power of 2 larger than the input.
+    */
 
-    
-    
+    //length = nextPow2(length); //is this necessary?
+
+    int threadsPerBlock = 1024;
+    int numBlocks = getBlocks(length, threadsPerBlock);
+   
+
+    cudaStream_t stream[length - 1];
+    for(int i = 0; i < length - 1; i++){
+        cudaStreamCreate(&stream[i]);
+        cudaError_t errCode = cudaPeekAtLastError();
+
+        #ifdef DEBUG
+        if (errCode != cudaSuccess) {
+            fprintf(stderr, "WARNING: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+	        exit(1);
+        }
+        #endif
+    }
+
+    int log2 = (31 - __builtin_clz(length)) + ((unsigned int)0xFFFFFFFF >> (unsigned int)__builtin_clz(length)) ? 1 : 0;
+    printf("ceiling of log2 of %d is %d", length, log2);
+    for(int i = 0; i < log2 - 1; i++){
+        int twotoi = 2 << i;
+        for(int j = 0; j < length - 1; j++){
+            // Call kernel
+            exclusive_scan_kernel<<<numBlocks, threadsPerBlock, 0, stream[j]>>>(i, twotoi, j, device_result);
+        }
+        cudaDeviceSynchronize(); // Need to synchronzize "timesteps" of algorithm
+    }
+
+    for(int i = 0; i < length - 1; i++){
+        cudaStreamDestroy(&stream[i]);
+    }    
 }
 
 /* This function is a wrapper around the code you will write - it copies the

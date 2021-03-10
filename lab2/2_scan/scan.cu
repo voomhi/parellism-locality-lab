@@ -91,7 +91,7 @@ void exclusive_scan(int* device_start, int length, int* device_result)
     }
 
     for(int i = 0; i < length - 1; i++){
-        cudaStreamDestroy(&stream[i]);
+        cudaStreamDestroy(stream[i]);
     }    
 }
 

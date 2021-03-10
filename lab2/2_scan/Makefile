@@ -10,7 +10,7 @@ LOGS	   := logs
 ###########################################################
 
 ARCH=$(shell uname | sed -e 's/-.*//g')
-CUDA_PATH=$(TACC_CUDA_DIR)
+CUDA_PATH=/usr/local/cuda)
 OBJDIR=objs
 INC_FLAGS=-I../common
 CXX=g++ 

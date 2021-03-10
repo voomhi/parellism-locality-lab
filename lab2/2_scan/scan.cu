@@ -34,20 +34,42 @@ static inline
 int getBlocks(long working_set_size, int threadsPerBlock) {
     return (working_set_size+threadsPerBlock-1)/threadsPerBlock;
 }
-
 __global__ void
-exclusive_scan_kernel(int i, int twotoi, int j, int * device_result)
+exclusive_scan_kernel_inital( int elem_count, int * device_array, int * device_result)
 {
-    // if(j < twotoi){
-    //     device_result[j] = device_result[j];
-    // } else {
-    //     device_result[j] = device_result[j] + device_result[j - twotoi];
-    // }
-    if(j >= twotoi){
-        device_result[j] = device_result[j] + device_result[j - twotoi];
+    int index = blockIdx.x * blockDim.x + threadIdx.x ;
+    if(index < elem_count)
+    {
+	device_result[index] = (index != 0) ? device_array[index-1] : 0;
     }
 }
+__global__ void
+exclusive_scan_kernel(int cumulation_idx, int elem_count, int * device_result,int* device_temp)
+{
+    int index = blockIdx.x * blockDim.x + threadIdx.x;  
+    if(index < elem_count)
+    {
+	cumulation_idx = index - cumulation_idx;
+	if(cumulation_idx >= 0)
+	    device_temp[index] = device_result[index] + device_result[cumulation_idx];
+	else
+	{
+	    device_temp[index] = device_result[index];
+	}
+	// __syncthreads();
+    }
 
+}
+__global__ void
+exclusive_scan_kernel_copy(int elem_count, int * device_result,int* device_temp)
+{
+    int index = blockIdx.x * blockDim.x + threadIdx.x;  
+    if(index < elem_count)
+    {
+	device_result[index] = device_temp[index];
+    }
+
+}
 void exclusive_scan(int* device_start, int length, int* device_result)
 {
     /* Fill in this function with your exclusive scan implementation.
@@ -62,37 +84,42 @@ void exclusive_scan(int* device_start, int length, int* device_result)
 
     //length = nextPow2(length); //is this necessary?
 
-    int threadsPerBlock = 1024;
-    int numBlocks = getBlocks(length, threadsPerBlock);
+    int threadsPerBlock = 64;
+    unsigned int numBlocks = getBlocks(length, threadsPerBlock);
+
+    if(length >= 0)
+    {
+	unsigned int MSB =  31 - __builtin_clz((unsigned int)length);
+	// printf("0: Length %d MSB %d FFS %d \n",length,MSB,__builtin_ffs((unsigned int)length) );
+	MSB = (MSB == (__builtin_ffs((unsigned int)length)-1))? MSB : MSB+1;
+	printf("1: Length %d MSB %d \n",length,MSB);
+	exclusive_scan_kernel_inital<<<numBlocks,threadsPerBlock>>>(length,device_start,device_result);	
+	cudaDeviceSynchronize();
+	int* device_temp;    int rounded_length = nextPow2(length);
+       
+	cudaMalloc((void **)&device_temp, sizeof(int) * rounded_length);
+
+	for(int I = 0; I < MSB; I++)
+	{
+	    // printf("Call %d\n",I);
+
+	    int cumulation_idx =  (1<<I);
+	    exclusive_scan_kernel<<<numBlocks,threadsPerBlock>>>(cumulation_idx,length
+								 ,device_result,device_temp);
+	    exclusive_scan_kernel_copy<<<numBlocks,threadsPerBlock>>>(length
+								      ,device_result,device_temp);
+	    // cudaDeviceSynchronize();
+
+	    // for(int J = 0; J < numBlocks; J++)
+	    // {
+	    // 	exclusive_scan_kernel<<<1,threadsPerBlock>>>(cumulation_idx,length
+	    // 						     ,&device_result[J*threadsPerBlock]);
+	    // }
+	}
+	cudaFree(device_temp);
+    }
+    
    
-
-    cudaStream_t stream[length - 1];
-    for(int i = 0; i < length - 1; i++){
-        cudaStreamCreate(&stream[i]);
-        cudaError_t errCode = cudaPeekAtLastError();
-
-        #ifdef DEBUG
-        if (errCode != cudaSuccess) {
-            fprintf(stderr, "WARNING: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
-	        exit(1);
-        }
-        #endif
-    }
-
-    int logtwo = (int)(ceil(log2((double)length)));
-    printf("ceiling of logtwo of %d is %d", length, logtwo);
-    for(int i = 0; i < logtwo - 1; i++){
-        int twotoi = 1 << i;
-        for(int j = 0; j < length - 1; j++){
-            // Call kernel
-            exclusive_scan_kernel<<<numBlocks, threadsPerBlock, 0, stream[j]>>>(i, twotoi, j, device_result);
-        }
-        cudaDeviceSynchronize(); // Need to synchronzize "timesteps" of algorithm
-    }
-
-    for(int i = 0; i < length - 1; i++){
-        cudaStreamDestroy(stream[i]);
-    }    
 }
 
 /* This function is a wrapper around the code you will write - it copies the

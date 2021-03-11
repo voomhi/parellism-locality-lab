@@ -46,7 +46,9 @@ exclusive_scan_kernel_inital( int elem_count, int * device_array, int * device_r
 __global__ void
 exclusive_scan_kernel(int cumulation_idx, int elem_count, int * device_result,int* device_temp)
 {
-    int index = blockIdx.x * blockDim.x + threadIdx.x+ cumulation_idx;  
+    int index = blockIdx.x * blockDim.x + threadIdx.x ;  
+    // int index = blockIdx.x * blockDim.x + threadIdx.x+ cumulation_idx;  
+
     if(index < elem_count)
     {
 	cumulation_idx = index - cumulation_idx;
@@ -70,6 +72,44 @@ exclusive_scan_kernel_copy(int elem_count, int * device_result,int* device_temp,
     }
 
 }
+
+__global__ void
+exclusive_scan_kernel_work_eff_upper(int elem_count, int * device_result,int current_power,int offset)
+{
+    int index = (threadIdx.x<<(current_power+1))+offset + ((blockIdx.x * blockDim.x)<<(current_power+1)) ;  
+    if(index < elem_count)
+    {
+	//I is less than log2(numThreads) if numThreads = 256 then I < 
+	for(int I=0 ; I < 8;I++)
+	{
+	    int tempCheck= (1<<I) -1;
+	    // int temp = device_result[index];
+	    if(((threadIdx.x & tempCheck) == tempCheck))
+		// temp = 	device_result[index] + device_result[index -(1<<(I+current_power))];
+		device_result[index] += device_result[index -(1<<(I+current_power))];
+	     __syncthreads();
+	    // device_result[index] = temp;
+	}
+    }
+
+}
+__global__ void
+exclusive_scan_kernel_work_eff_bott(long elem_count, int * device_result,int current_power,int offset)
+{
+    long index = (threadIdx.x<<(current_power+1))+offset + ((blockIdx.x * blockDim.x)<<(current_power+1)) ;  
+    if(index < elem_count)
+    {
+	//I is less than log2(numThreads) if numThreads = 256 then I < 
+	// for(int I=0 ; I < 8;I++)
+	// {
+	    // int tempCheck= (1<<I) -1;
+	    // if(((threadIdx.x & tempCheck) == tempCheck))
+	device_result[index] += device_result[index - (1<<(current_power))];
+	// }
+    }
+
+}
+
 void exclusive_scan(int* device_start, int length, int* device_result)
 {
     /* Fill in this function with your exclusive scan implementation.
@@ -85,34 +125,77 @@ void exclusive_scan(int* device_start, int length, int* device_result)
     //length = nextPow2(length); //is this necessary?
 
     int threadsPerBlock = 256;
-    unsigned int numBlocks = getBlocks(length, threadsPerBlock);
+    unsigned int numBlocks = (length+threadsPerBlock-1)/threadsPerBlock;// = getBlocks(length, threadsPerBlock);
+    // cudaError_t errCode;
+	// errCode = cudaPeekAtLastError();
+        // if (errCode != cudaSuccess) {
+        //     printf( "WARNING START: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        // }
 
     if(length >= 0)
     {
 	unsigned int MSB =  31 - __builtin_clz((unsigned int)length);
 	// printf("0: Length %d MSB %d FFS %d \n",length,MSB,__builtin_ffs((unsigned int)length) );
 	MSB = (MSB == (__builtin_ffs((unsigned int)length)-1))? MSB : MSB+1;
-	printf("1: Length %d MSB %d \n",length,MSB);
-	exclusive_scan_kernel_inital<<<numBlocks,threadsPerBlock>>>(length,device_start,device_result);	
-	cudaDeviceSynchronize();
-	int* device_temp;    int rounded_length = nextPow2(length);
-       
-	cudaMalloc((void **)&device_temp, sizeof(int) * rounded_length);
+	// printf("Length %d MSB %d \n",length,MSB);
 
-	for(int I = 0; I < MSB; I++)
+	// int cumulation_idx;
+	exclusive_scan_kernel_inital<<<numBlocks,threadsPerBlock>>>(length,device_start,device_result);	
+	// errCode = cudaPeekAtLastError();
+        // if (errCode != cudaSuccess) {
+        //     printf( "WARNING PRE: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        // }
+
+	for(int I = 0; I < MSB; I+=8)
 	{
-	    int cumulation_idx =  (1<<I);
-	    numBlocks = getBlocks(length - cumulation_idx, threadsPerBlock);
-	    exclusive_scan_kernel<<<numBlocks,threadsPerBlock>>>(cumulation_idx,length
-								 ,device_result,device_temp
-								 );
-	    exclusive_scan_kernel_copy<<<numBlocks,threadsPerBlock>>>(length
-								      ,device_result,device_temp
-								      ,cumulation_idx);
+	    int threads  = (length) >>(I+1);
+	    numBlocks = (threads+threadsPerBlock-1)/threadsPerBlock;
+	    if(numBlocks > 0)
+		exclusive_scan_kernel_work_eff_upper<<<numBlocks,threadsPerBlock>>>(
+		    length, device_result,
+		    I,(1<<(I+1))-1);
+	//     printf("LoopA %d : %d,%d \n",I,numBlocks,threads);
+	//     	    cudaDeviceSynchronize();
+        // errCode = cudaPeekAtLastError();
+        // if (errCode != cudaSuccess) {
+        //     printf( "WARNING A %d: A CUDA error occured: code=%d, %s\n",I, errCode, cudaGetErrorString(errCode));
+        // }
+
 	}
-	cudaFree(device_temp);
+        // errCode = cudaPeekAtLastError();
+        // if (errCode != cudaSuccess) {
+        //     printf( "WARNING A: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        // }
+	//     cudaDeviceSynchronize();
+
+	for(int I = MSB-2,J = 1; I >=0; I--,J++)
+	{
+	    int threads = (1<<J) -1;
+	    if(threads > length/2)
+		threads = length/2;
+	    numBlocks = (threads+threadsPerBlock-1)/threadsPerBlock;
+	     exclusive_scan_kernel_work_eff_bott<<<numBlocks,threadsPerBlock>>>(
+		length, device_result,
+		I,(3<<I)-1);
+	    // printf("LoopB %d : %d,%d \n",I,numBlocks,threads);
+	    // cudaDeviceSynchronize();
+
+	     // printf("Offset %d \n",(3<<I)-1);
+	    // errCode = cudaGetLastError();
+	    // if (errCode != cudaSuccess) {
+	    // 	printf( "WARNING B %d: A CUDA error occured: code=%d, %s\n",J, errCode, cudaGetErrorString(errCode));
+	    // }
+	    //     cudaDeviceSynchronize();
+
+
+	}
+	// errCode = cudaPeekAtLastError();
+        // if (errCode != cudaSuccess) {
+        //     printf( "WARNING B: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        // }
+
     }
-    
+
    
 }
 
@@ -131,10 +214,26 @@ double cudaScan(int* inarray, int* end, int* resultarray)
     // array's length is a power of 2, but this will result in extra work on
     // non-power-of-2 inputs.
     int rounded_length = nextPow2(end - inarray);
-    cudaMalloc((void **)&device_result, sizeof(int) * rounded_length);
-    cudaMalloc((void **)&device_input, sizeof(int) * rounded_length);
-    cudaMemcpy(device_input, inarray, (end - inarray) * sizeof(int), 
+    // cudaMalloc((void **)&device_result, sizeof(int) * rounded_length);
+    cudaError_t errCode;
+    errCode =  cudaMalloc((void **)&device_result, sizeof(int) * rounded_length);
+        if (errCode != cudaSuccess) {
+            fprintf(stderr, "MALLOC WARNING: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        }
+
+    // cudaMalloc((void **)&device_input, sizeof(int) * rounded_length);
+    errCode =  cudaMalloc((void **)&device_input, sizeof(int) * rounded_length);
+        if (errCode != cudaSuccess) {
+            fprintf(stderr, "MALLOC WARNING: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        }
+
+    // cudaMemcpy(device_input, inarray, (end - inarray) * sizeof(int), 
+               // cudaMemcpyHostToDevice);
+    errCode = cudaMemcpy(device_input, inarray, (end - inarray) * sizeof(int), 
                cudaMemcpyHostToDevice);
+        if (errCode != cudaSuccess) {
+            fprintf(stderr, "MEM_COPY WARNING: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
+        }
 
     // For convenience, both the input and output vectors on the device are
     // initialized to the input values. This means that you are free to simply
@@ -155,6 +254,16 @@ double cudaScan(int* inarray, int* end, int* resultarray)
     
     cudaMemcpy(resultarray, device_result, (end - inarray) * sizeof(int),
                cudaMemcpyDeviceToHost);
+
+    // for(int I = 0; I < (end-inarray); I++)
+    // {
+    // 	printf("%d ",resultarray[I]);
+    // }
+    // printf("\n ");
+
+    cudaFree(device_result);
+    cudaFree(device_input);
+    
     return overallDuration;
 }
 
@@ -203,16 +312,13 @@ indicate_repeat( int *device_input, int length, int *device_output)
 
 }
 __global__ void
-store_repeat( int *device_input, int length, int *device_output,int target_idx)
+store_repeat( int *device_input, int length, int *device_output)
 {
     int index = blockIdx.x * blockDim.x + threadIdx.x;
     if(index < length)
     {
-	for(int I = 0; I < target_idx; I++)
-	{
-	    if(device_input[index] == I &&  device_input[index+1] != I)
-		device_output[I]=  index;
-	}
+	if(device_input[index] != device_input[index+1])
+	    device_output[device_input[index]]=  index;
     }
 }
 
@@ -248,15 +354,18 @@ int find_repeats(int *device_input, int length, int *device_output) {
     //The last integer would indicate the number of repeats in the pattern
     //Uses PrefixSum
 
+    store_repeat<<<numBlocks,threadsPerBlock>>>(device_num_repeats_prefix_sum,length,device_output);
+
     int numRepeats;
     cudaMemcpy(&numRepeats, &(device_num_repeats_prefix_sum[length-1]), sizeof(int),
                cudaMemcpyDeviceToHost);
 
-    printf("Number of Repeats %d \n",numRepeats);
-    store_repeat<<<numBlocks,threadsPerBlock>>>(device_num_repeats_prefix_sum,length,device_output,numRepeats);
+    // printf("Number of Repeats %d \n",numRepeats);
+
+    
     cudaFree(device_num_repeats_prefix_sum);
     cudaFree(device_num_repeats);
-    
+
 
     return numRepeats;
 }

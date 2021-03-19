@@ -376,15 +376,14 @@ shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr) {
 
     // END SHOULD-BE-ATOMIC REGION
 }
-
 // kernelRenderCircles -- (CUDA device code)
 //
 // Each thread renders a circle.  Since there is no protection to
 // ensure order of update or mutual exclusion on the output image, the
 // resulting image will be incorrect.
-__global__ void kernelRenderCircles() {
+__global__ void kernelRenderCircles(int startidx) {
 
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int index = (startidx + blockIdx.x) * blockDim.x + threadIdx.x;
 
     if (index >= cuConstRendererParams.numCircles)
         return;
@@ -409,7 +408,7 @@ __global__ void kernelRenderCircles() {
     short screenMaxX = (maxX > 0) ? ((maxX < imageWidth) ? maxX : imageWidth) : 0;
     short screenMinY = (minY > 0) ? ((minY < imageHeight) ? minY : imageHeight) : 0;
     short screenMaxY = (maxY > 0) ? ((maxY < imageHeight) ? maxY : imageHeight) : 0;
-
+    // float test = clamp(0,0,0);
     float invWidth = 1.f / imageWidth;
     float invHeight = 1.f / imageHeight;
 
@@ -423,6 +422,7 @@ __global__ void kernelRenderCircles() {
             imgPtr++;
         }
     }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -630,14 +630,67 @@ CudaRenderer::advanceAnimation() {
     }
     cudaDeviceSynchronize();
 }
+__global__ void blockRender()   
+{
+    int imageHeight = cuConstRendererParams.imageHeight;
+    int imageWidth = cuConstRendererParams.imageWidth;
+
+    float invWidth = 1.f / imageWidth;
+    float invHeight = 1.f / imageHeight;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+
+    int pixelY=4*blockIdx.x;//8x16
+    int pixelX=4*threadIdx.x;
+    for(int I = 0; I < cuConstRendererParams.numCircles; I++)
+    {
+    	float3 p = *(float3*)(&cuConstRendererParams.position[3*I]);
+    	for(int K = pixelY; K < pixelY+4;K++)
+    	{
+    	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+    	    for(int J = pixelX; J < pixelX+4;J++)
+    	    {
+    		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+    						     invHeight * (static_cast<float>(K) + 0.5f));
+    		shadePixel(I, pixelCenterNorm, p, imgPtr);
+    		imgPtr++;
+    	    }
+    	}      	
+    }
+
+    
+    // int pixelY=0;//8x16
+    // int pixelX=0;
+    // for(int I = 0; I < 1; I++)
+    // {
+    // 	float3 p = *(float3*)(&cuConstRendererParams.position[3*I]);
+    // 	for(int K = pixelY; K < pixelY+1024;K++)
+    // 	{
+    // 	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+    // 	    for(int J = pixelX; J < pixelX+1024;J++)
+    // 	    {
+    // 		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+    // 						     invHeight * (static_cast<float>(K) + 0.5f));
+    // 		shadePixel(index, pixelCenterNorm, p, imgPtr);
+    // 		imgPtr++;
+    // 	    }
+    // 	}      	
+    // }
+
+}
 
 void
 CudaRenderer::render() {
 
     // 256 threads per block is a healthy number
+    int numBlocks = 8192<<3; //each block is 8x16 128 x columns and 64 y rows
+    
     dim3 blockDim(256, 1);
-    dim3 gridDim((numCircles + blockDim.x - 1) / blockDim.x);
+    // dim3 gridDim(((numCircles) + blockDim.x - 1) / blockDim.x);
+    dim3 gridDim(((numBlocks) + blockDim.x - 1) / blockDim.x);
 
-    kernelRenderCircles<<<gridDim, blockDim>>>();
+    // kernelRenderCircles<<<gridDim, blockDim>>>(0);
+    blockRender<<<gridDim, blockDim>>>();
+
+    // kernelRenderCircles<<<1, blockDim>>>(0);
     cudaDeviceSynchronize();
 }

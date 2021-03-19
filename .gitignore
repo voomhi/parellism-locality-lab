@@ -1,4 +1,4 @@
 lab*/test.*
 lab2/histogram_optional/india_high_res.ppm
-../../lab1/*.txt
+lab*/*.txt
 ../*/*.o

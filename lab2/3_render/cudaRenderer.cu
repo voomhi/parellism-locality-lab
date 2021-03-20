@@ -712,7 +712,7 @@ __global__ void blockRender()
     // 	}      	
     // }
 }
-__global__ void blockRender_alt(int* checkblock)   
+__global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numboxes,int boxsize)   
 {
     int imageHeight = cuConstRendererParams.imageHeight;
     int imageWidth = cuConstRendererParams.imageWidth;
@@ -732,14 +732,18 @@ __global__ void blockRender_alt(int* checkblock)
     boxT=invHeight *static_cast<float>(pixelY+4);
 
     // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
-    for(int I = 0; I < cuConstRendererParams.numCircles; I++)
+    int megablock=pixelY/boxsize*(imageWidth/boxsize)+pixelX/boxsize;
+    int numCirlesToRender= checkblock_size[megablock];
+    // int base = (numCirlesToRender >= 500) ? numCirlesToRender-501 : numCirlesToRender;
+    
+    for(int I = 0; I < numCirlesToRender; I++)
     {
-    	float3 p = *(float3*)(&cuConstRendererParams.position[3*I]);
-	float  rad = cuConstRendererParams.radius[I];
-	bool cont = circleInBoxConservative(
-	    p.x,p.y,rad,
-	    boxL, boxR, boxT, boxB);
-	if(cont)
+	int indexofcircle = checkblock[I+megablock*cuConstRendererParams.numCircles];
+    	float3 p = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+	float  rad = cuConstRendererParams.radius[indexofcircle];
+	bool cont = circleInBoxConservative(p.x,p.y,rad,
+					    boxL, boxR, boxT, boxB);
+	if(cont) 
 	    for(int K = pixelY; K < pixelY+4;K++)
 	    {
 		float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
@@ -747,7 +751,7 @@ __global__ void blockRender_alt(int* checkblock)
 		{
 		    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
 							 invHeight * (static_cast<float>(K) + 0.5f));
-		    shadePixel(I, pixelCenterNorm, p, imgPtr);
+		    shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr);
 		    imgPtr++;
 		}
 	    }      	
@@ -756,25 +760,25 @@ __global__ void blockRender_alt(int* checkblock)
 
 //,float3 p,float rad
 
-__global__ void circle_filter_sub(int* arrayout,int index,float invHeight,float invWidth)
-{
-	int index_0 = blockIdx.x * blockDim.x + threadIdx.x;
-	int pixelY=256*(index_0>>3);//8x16
-	int pixelX=256*(index_0&0x07);
-	float3 p = *(float3*)(&cuConstRendererParams.position[3*index]);
-	float  rad = cuConstRendererParams.radius[index];
+// __global__ void circle_filter_sub(int* arrayout,int index,float invHeight,float invWidth)
+// {
+// 	int index_0 = blockIdx.x * blockDim.x + threadIdx.x;
+// 	int pixelY=256*(index_0>>3);//8x16
+// 	int pixelX=256*(index_0&0x07);
+// 	float3 p = *(float3*)(&cuConstRendererParams.position[3*index]);
+// 	float  rad = cuConstRendererParams.radius[index];
 
-	float boxL,boxR,boxT,boxB;
-	boxL=invWidth *static_cast<float>(pixelX);
-	boxR=invWidth *static_cast<float>(pixelX+256);
-	boxB=invHeight *static_cast<float>(pixelY);
-	boxT=invHeight *static_cast<float>(pixelY+256);
+// 	float boxL,boxR,boxT,boxB;
+// 	boxL=invWidth *static_cast<float>(pixelX);
+// 	boxR=invWidth *static_cast<float>(pixelX+256);
+// 	boxB=invHeight *static_cast<float>(pixelY);
+// 	boxT=invHeight *static_cast<float>(pixelY+256);
 
 
-	bool cont = circleInBoxConservative(p.x,p.y,rad,
-					    boxL, boxR, boxT, boxB);
-	arrayout[(index)+(index_0*cuConstRendererParams.numCircles)]=cont;
-}
+// 	bool cont = circleInBoxConservative(p.x,p.y,rad,
+// 					    boxL, boxR, boxT, boxB);
+// 	arrayout[(index)+(index_0*cuConstRendererParams.numCircles)]=cont;
+// }
 __global__ void circle_filter(int* arrayout,short numboxes,int boxsize)   
 {
     int index = blockIdx.x * blockDim.x + threadIdx.x;
@@ -793,16 +797,16 @@ __global__ void circle_filter(int* arrayout,short numboxes,int boxsize)
     
     // circle_filter_sub<<<gridDim_sub, blockDim>>>(arrayout,index,invHeight,invWidth);
     // cudaDeviceSynchronize();
-
+    int xboxes = imageHeight/boxsize;
     for(int I = 0; I < numboxes;I++)
     {
-    	int pixelY=boxsize*(I/numboxes);//8x16
-    	int pixelX=boxsize*(I%numboxes);
+    	int pixelY=boxsize*(I/xboxes);//8x16
+    	int pixelX=boxsize*(I%xboxes);
     	float boxL,boxR,boxT,boxB;
     	boxL=invWidth *static_cast<float>(pixelX);
-    	boxR=invWidth *static_cast<float>(pixelX+boxsize);
+    	boxR=invWidth *(static_cast<float>(pixelX+boxsize) + .5f);
     	boxB=invHeight *static_cast<float>(pixelY);
-    	boxT=invHeight *static_cast<float>(pixelY+boxsize);
+    	boxT=invHeight *(static_cast<float>(pixelY+boxsize) + .5f);
 
 
     	bool cont = circleInBoxConservative(p.x,p.y,rad,
@@ -818,6 +822,7 @@ __global__ void circle_filter_find_circles(int* arrayin,int* arrayout,int* array
 	return;
     if(index == 0)
     {
+	
 	for(int I = 0; I < numboxes;I++)
 	{
 	    int test=I*cuConstRendererParams.numCircles + index;
@@ -836,12 +841,52 @@ __global__ void circle_filter_find_circles(int* arrayin,int* arrayout,int* array
 	    arrayout[outputpart]=index;
 	}
     }
-    if(index == cuConstRendererParams.numCircles)
+    
+    if(index ==( cuConstRendererParams.numCircles-1))
     {
+	for(int I = 0; I < numboxes;I++)
+	{
+	    int test=I*cuConstRendererParams.numCircles + index;
+	    arrayout_size[I] = arrayin[test];
+	}
     }
     else
 	return;
 }
+struct printf_functor
+{
+  __host__ __device__
+  void operator()(int x)
+  {
+    // note that using printf in a __device__ function requires
+    // code compiled for a GPU with compute capability 2.0 or
+    // higher (nvcc --arch=sm_20)
+    printf("Array Value %d\n", x);
+  }
+};
+struct printf_functor_0
+{
+  __host__ __device__
+  void operator()(int x)
+  {
+    // note that using printf in a __device__ function requires
+    // code compiled for a GPU with compute capability 2.0 or
+    // higher (nvcc --arch=sm_20)
+    printf("Value %d\n", x);
+  }
+};
+struct printf_functor_1
+{
+  __host__ __device__
+  void operator()(int x)
+  {
+    // note that using printf in a __device__ function requires
+    // code compiled for a GPU with compute capability 2.0 or
+    // higher (nvcc --arch=sm_20)
+    printf("Value %d\n", x);
+  }
+};
+
 
 void
 CudaRenderer::render() {
@@ -859,35 +904,85 @@ CudaRenderer::render() {
     {
 	//Rough circle elimination with few boxes break up into 2^4 boxes so each box is 256x256 
 	//
-	size_t length = (1<<4)*numCircles;
-	int boxsize = 256;
+	size_t length = (1<<2)*numCircles;
+	int boxsize = 512;
 
+	if(numCircles > 3000)
+	{
+	    length = (1<<4)*numCircles;
+	    boxsize = 256;
+	}       
 	if(numCircles  > 10000)
 	{
-	    length = (1<<6)*numCircles;
-	    boxsize = 128;
+	    length = (1<<8)*numCircles;
+	    boxsize = 64;
+	    numRoughBlocks = 256;
 	}
 	thrust::device_ptr<int> d_input = thrust::device_malloc<int>(length);
 	thrust::device_ptr<int> d_output = thrust::device_malloc<int>(length);
 	thrust::device_ptr<int> d_output_reduction = thrust::device_malloc<int>(numRoughBlocks);
 	circle_filter<<<gridDim_Circles, blockDim>>>(thrust::raw_pointer_cast(d_input),numRoughBlocks,boxsize);
-    
+	// cudaDeviceSynchronize();
+	// thrust::for_each(thrust::device,d_input,d_input+length, printf_functor_0());
+	// printf("Number of blocks %d \n",numRoughBlocks);
 	for(int roughbox=0;roughbox < numRoughBlocks;roughbox++)
 	{
+
+	    // for(int K = roughbox*numCircles; K < roughbox*numCircles+numCircles;K++)
+	    // {
+	    // 	printf("Box %d Index ingrid %d ",roughbox,K);
+	    // 	thrust::for_each(thrust::device,d_input+K,d_input+K+1, printf_functor_0());
+	    // 	cudaDeviceSynchronize();
+	    // }
 	    thrust::device_ptr<int> d_input_box=d_input+(roughbox*numCircles);
 	    // thrust::device_ptr<int> d_output_box=d_output+(roughbox*numCircles);
 	    thrust::inclusive_scan(thrust::device,d_input_box, d_input_box + numCircles, d_input_box);
-	}
-	circle_filter_find_circles<<<gridDim_Circles, blockDim>>>(thrust::raw_pointer_cast(d_input),
-						     thrust::raw_pointer_cast(d_output),
-						     thrust::raw_pointer_cast(d_output_reduction),
-						     numRoughBlocks,boxsize);
+	    // cudaDeviceSynchronize();
+	    // for(int K = roughbox*numCircles; K < roughbox*numCircles+numCircles;K++)
+	    // {
+	    // 	printf("Box %d Index prefixsum %d ",roughbox,K);
+	    // 	thrust::for_each(thrust::device,d_input+K,d_input+K+1, printf_functor_1());
+	    // 	cudaDeviceSynchronize();
 
+	    // }
+
+	}	
+	circle_filter_find_circles<<<gridDim_Circles, blockDim>>>(thrust::raw_pointer_cast(d_input),
+								  thrust::raw_pointer_cast(d_output),
+								  thrust::raw_pointer_cast(d_output_reduction),
+								  numRoughBlocks,boxsize);
+	dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);    
+	blockRender_alt<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
+						  thrust::raw_pointer_cast(d_output_reduction),
+						  numRoughBlocks,boxsize);
 	
+	cudaDeviceSynchronize();
+	// printf("%d \n",thrust::max_element(thrust::device,d_output_reduction,d_output_reduction+numRoughBlocks));
+
+	for(int K = 0; K < numRoughBlocks;K++)
+	{
+	    printf("Index %d ",K);
+	    thrust::for_each(thrust::device,d_output_reduction+K,d_output_reduction+K+1, printf_functor_1());
+	    cudaDeviceSynchronize();
+
+	}
+
+	// for(int K = 0; K < length;K++)
+	// {
+	//     printf("Box %d Index prefixsum %d ",K/numCircles,K);
+	//     thrust::for_each(thrust::device,d_output+K,d_output+K+1, printf_functor_1());
+	//     cudaDeviceSynchronize();
+
+	// }
+
+	thrust::device_free(d_input);
+	thrust::device_free(d_output);
+	thrust::device_free(d_output_reduction);
+
     }
     else
     {
-	printf("Didn't filter Circles \n");
+	// printf("Didn't filter Circles \n");
 	dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);    
 	blockRender<<<gridDim_render, blockDim>>>();
     }
@@ -895,7 +990,6 @@ CudaRenderer::render() {
 //Finer circle elimination with more boxes
     //Finer elimination will spawn the child threads that fill in the image
     //
-
     cudaDeviceSynchronize();
-    // cudaFree(boxoutarray);
+
 }

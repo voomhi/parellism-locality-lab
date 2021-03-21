@@ -865,7 +865,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 //Calculate the box to shade
     const int pixelX=megaRow*boxsize+blocksize*rowInThread;
     const int pixelY=megaCol*boxsize+blocksize*colInThread;//8x16
-#define sharedmem 1024        
+#define sharedmem (512)        
     __shared__ float3 sharedp[sharedmem];
     __shared__ float sharedrad[sharedmem];
     __shared__ int sharedidx[sharedmem];
@@ -891,7 +891,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 
     }
     
-    const short limit = 150;
+    const short limit = 120;
     short countIterations = 0;
     int startIdx = 0;
 //Can improve with shared memory for p and rad

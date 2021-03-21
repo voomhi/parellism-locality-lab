@@ -743,7 +743,7 @@ __global__ void blockRender()
     
 }
 #undef blocksize
-#define blocksize 4
+#define blocksize 2
 
 // __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numboxes,int boxsize)   
 // {
@@ -1159,16 +1159,17 @@ CudaRenderer::render() {
 								  thrust::raw_pointer_cast(d_output),
 								  thrust::raw_pointer_cast(d_output_reduction),
 								  numRoughBlocks,boxsize);
-	numBlocks = numBlocks >> 2;
-	blockDim.x=64;//must be powers of 4
-	dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
 
 	if(numCircles > 3000)
 	{
 	    // int max_size_array = (6000)*sizeof(int)*128;
 	    // // thrust::device_free(d_input);
 	    // thrust::device_ptr<int> d_fine_blocks = thrust::device_malloc<int>(max_size_array);
-	
+	    // numBlocks = numBlocks >> 2;
+	    blockDim.x=256;//must be powers of 4
+
+	    dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
+		
 	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
 	    					  thrust::raw_pointer_cast(d_output_reduction),
 	    					  numRoughBlocks,boxsize);
@@ -1177,6 +1178,9 @@ CudaRenderer::render() {
 	}
 	else
 	{
+	    // numBlocks = numBlocks >> 2;
+	    blockDim.x=256;//must be powers of 4
+	    dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
 
 	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
 	    						  thrust::raw_pointer_cast(d_output_reduction),

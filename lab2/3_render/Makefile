@@ -8,16 +8,16 @@ CC_FILES   := main.cpp \
 
 LOGS	   := logs
 
-OPENGL_ENABLED=0
+OPENGL_ENABLED=1
 ###########################################################
 
 ARCH=$(shell uname | sed -e 's/-.*//g')
-CUDA_PATH=$(TACC_CUDA_DIR)
+CUDA_PATH=/usr/local/cuda
 OBJDIR=objs
 INC_FLAGS=-I../common
 CXX=g++
 CXXFLAGS=-O3 -Wall $(INC_FLAGS)
-LDFLAGS =
+LDFLAGS = 
 ################################################################################
 # When compiling with NVCC, the arch flag (-arch) specifies the name of 
 # the NVIDIA GPU architecture that the CUDA files will be compiled for.
@@ -34,13 +34,13 @@ LDFLAGS =
 GENCODE_SM20    := -gencode arch=compute_20,code=sm_20
 GENCODE_SM30    := -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35
 GENCODE_SM50    := -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 
-GENCODE_SM60    := -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61
+GENCODE_SM60    := -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61 
 GENCODE_SM70    := -gencode arch=compute_70,code=sm_70 -gencode arch=compute_70,code=compute_70
 GENCODE_FLAGS   := $(GENCODE_SM60) # For Pascal architecture
 ################################################################################
-NVCC_LDFLAGS=-L$(CUDA_PATH)/lib64/ -lcudart -Wl,-rpath=$(CUDA_PATH)/lib64
-NVCC=$(CUDA_PATH)/bin/nvcc -ccbin=$(CXX) 
-NVCC_FLAGS=-O3 -m64 $(GENCODE_FLAGS) $(INC_FLAGS)
+NVCC_LDFLAGS=-L$(CUDA_PATH)/lib64/ -lcudart -Wl,-rpath=$(CUDA_PATH)/lib64 -lcudadevrt 
+NVCC=$(CUDA_PATH)/bin/nvcc -ccbin=$(CXX)  
+NVCC_FLAGS=-O3 -m64 $(GENCODE_FLAGS) $(INC_FLAGS) -Xptxas -dlcm=ca  #  -maxrregcount 42 
 
 COMMON_OBJS=$(OBJDIR)/main.o \
 			$(OBJDIR)/benchmark.o \
@@ -50,12 +50,13 @@ COMMON_OBJS=$(OBJDIR)/main.o \
 			$(OBJDIR)/sceneLoader.o 
 
 ifeq ($(OPENGL_ENABLED),1)
-CONDA_PATH=$(HOME)/miniconda3
+CONDA_PATH=/usr/local/miniconda3
 CXXFLAGS += -DENABLE_OPENGL -I$(CONDA_PATH)/include
 LDFLAGS += -L$(CONDA_PATH)/lib -lGL -lGLU -lglut -Wl,-rpath=$(CONDA_PATH)/lib
 CC_FILES += display.cpp 
 COMMON_OBJS += $(OBJDIR)/display.o 
 endif
+# $(NVCC) $GENCODE_FLAGS -dlink -lcudadevrt -o test_link.o $@
 
 OBJS = $(COMMON_OBJS) $(OBJDIR)/cudaRenderer.o 
 
@@ -73,10 +74,12 @@ check:	default
 		./checker.pl
 
 $(EXECUTABLE): dirs $(OBJS)
-		$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(NVCC_LDFLAGS) $(LDFLAGS)
+		$(CXX) $(CXXFLAGS) -o $@  test_link.o $(OBJS) $(NVCC_LDFLAGS) $(LDFLAGS) -lcudadevrt
 
 $(OBJDIR)/%.o: %.cpp
-		$(CXX) $< $(CXXFLAGS) -c -o $@ $(LDFLAGS)
+		$(CXX) $< $(CXXFLAGS) -c -o $@  $(LDFLAGS)
+
 
 $(OBJDIR)/%.o: %.cu
-		$(NVCC) $< $(NVCC_FLAGS) -c -o $@
+		$(NVCC) $< $(NVCC_FLAGS) -rdc=true -dc -o $@
+		$(NVCC) $(GENCODE_FLAGS) -dlink -lcudadevrt -o test_link.o $@

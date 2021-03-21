@@ -634,9 +634,12 @@ circleInBox(
 {
 
     // clamp circle center to box (finds the closest point on the box)
-    float closestX = (circleX > boxL) ? ((circleX < boxR) ? circleX : boxR) : boxL;
-    float closestY = (circleY > boxB) ? ((circleY < boxT) ? circleY : boxT) : boxB;
+    // float closestX = (circleX > boxL) ? ((circleX < boxR) ? circleX : boxR) : boxL;
+    // float closestY = (circleY > boxB) ? ((circleY < boxT) ? circleY : boxT) : boxB;
+    float closestX = fmaxf(boxL,fminf(circleX,boxR));
+    float closestY = fmaxf(boxB,fminf(circleY,boxT));
 
+    
     // is circle radius less than the distance to the closest point on
     // the box?
     float distX = closestX - circleX;
@@ -648,6 +651,8 @@ circleInBox(
         return 0;
     }
 }
+#define blocksize 2
+
 __global__ void blockRender()   
 {
     int imageHeight = cuConstRendererParams.imageHeight;
@@ -663,35 +668,74 @@ __global__ void blockRender()
     //calculate the array to look at for texture elemination
     float boxL,boxR,boxT,boxB;
     boxL=invWidth *static_cast<float>(pixelX);
-    boxR=invWidth *static_cast<float>(pixelX+2);
+    boxR=invWidth *static_cast<float>(pixelX+blocksize);
     boxB=invHeight *static_cast<float>(pixelY);
-    boxT=invHeight *static_cast<float>(pixelY+2);
+    boxT=invHeight *static_cast<float>(pixelY+blocksize);
+    const int numCirlesToRender = cuConstRendererParams.numCircles;
+    __shared__ float3 sharedp[1024*2];
+    __shared__ float sharedrad[1024*2];
 
     // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
-    for(int I = 0; I < cuConstRendererParams.numCircles; I++)
-    {
-    	float3 p = *(float3*)(&cuConstRendererParams.position[3*I]);
-	float  rad = cuConstRendererParams.radius[I];
+    // for(int I = 0; I < cuConstRendererParams.numCircles; I++)
+    // {
+    // 	float3 p = *(float3*)(&cuConstRendererParams.position[3*I]);
+    // 	float  rad = cuConstRendererParams.radius[I];
 
-	bool cont = circleInBoxConservative(
-	    p.x,p.y,rad,
-	    boxL, boxR, boxT, boxB);
-	if(cont)
-	{
-	    float maxDist = rad * rad;
-	    for(int K = pixelY; K < pixelY+2;K++)
+    // 	bool cont = circleInBoxConservative(
+    // 	    p.x,p.y,rad,
+    // 	    boxL, boxR, boxT, boxB);
+    // 	if(cont)
+    // 	{
+    // 	    float maxDist = rad * rad;
+    // 	    for(int K = pixelY; K < pixelY+2;K++)
+    // 	    {
+    // 	    	float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+    // 	    	for(int J = pixelX; J < pixelX+2;J++)
+    // 	    	{
+    // 	    	    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+    // 	    						 invHeight * (static_cast<float>(K) + 0.5f));
+    // 	    	    shadePixel(I, pixelCenterNorm, p, imgPtr,rad,maxDist);
+    // 	    	    imgPtr++;
+    // 	    	}
+    // 	    }      	
+    // 	}
+    // }
+    
+    for(int J = 0; J < numCirlesToRender; J += 1024*2)
+    {
+	// int offset= J;
+	if(threadIdx.x+J<numCirlesToRender)
+	    for(int I = threadIdx.x; I < 1024*2 && I+J < numCirlesToRender; I+= blockDim.x)
 	    {
-	    	float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
-	    	for(int J = pixelX; J < pixelX+2;J++)
+		int indexofcircle = I;
+		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
+	    }    
+	__syncthreads();
+	for(int I = 0; I+J < numCirlesToRender && I < 1024*2; I++)
+	{
+	    float3 p = sharedp[I];
+	    float  rad = sharedrad[I];
+	    bool cont = circleInBoxConservative(p.x,p.y,rad,
+						boxL, boxR, boxT, boxB);
+	    if(cont) 
+	    {
+	    	float maxDist = rad * rad;
+	    	for(int K = pixelY; K < pixelY+blocksize;K++)
 	    	{
-	    	    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
-	    						 invHeight * (static_cast<float>(K) + 0.5f));
-	    	    shadePixel(I, pixelCenterNorm, p, imgPtr,rad,maxDist);
-	    	    imgPtr++;
-	    	}
-	    }      	
+	    	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+	    	    for(int J = pixelX; J < pixelX+blocksize;J++)
+	    	    {
+	    		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+	    						     invHeight * (static_cast<float>(K) + 0.5f));
+	    		shadePixel(I, pixelCenterNorm, p, imgPtr,rad,maxDist);
+	    		imgPtr++;
+	    	    }
+	    	}      	
+
+	    }
 	}
-    }
+    }    
 
     
     // int pixelY=0;//8x16
@@ -712,7 +756,6 @@ __global__ void blockRender()
     // 	}      	
     // }
 }
-#define blocksize 2
 
 __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numboxes,int boxsize)   
 {
@@ -791,16 +834,18 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     const int imageWidth = cuConstRendererParams.imageWidth;
     const float invWidth = 1.f / imageWidth;
     const float invHeight = 1.f / imageHeight;
+    
     // int index = blockIdx.x * blockDim.x + threadIdx.x;
     //calculate the array to look at for texture elemination
     // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
     const int numBlocksPerMega = boxsize*boxsize/blocksize/blocksize/blockDim.x;
-    const int megablock= blockIdx.x/numBlocksPerMega;
-    const int blockInMega= blockIdx.x%numBlocksPerMega;
+    const int blockInMega= blockIdx.x&(numBlocksPerMega-1);
+    const int megablock= blockIdx.x>>(31 - __clz(numBlocksPerMega));
     const int rowInThread= (threadIdx.x+blockInMega* blockDim.x ) %( boxsize / blocksize)  ;
     const int colInThread= (threadIdx.x+blockInMega* blockDim.x) / (boxsize/blocksize);
-    const int megaRow= megablock%(imageHeight/boxsize);
-    const int megaCol= megablock/(imageHeight/boxsize);
+    const int MegaBoxDim=imageHeight/boxsize;
+    const int megaRow= megablock&(MegaBoxDim-1);
+    const int megaCol= megablock>>(31 - __clz(MegaBoxDim));
     const int numCirlesToRender= checkblock_size[megablock];
     //Calculate the box to shade
     const int pixelX=megaRow*boxsize+blocksize*rowInThread;
@@ -809,11 +854,13 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     __shared__ float3 sharedp[sharedmem];
     __shared__ float sharedrad[sharedmem];
     __shared__ int sharedidx[sharedmem];
+    __shared__ char sharedBlock[sharedmem];
+
     const float boxL=invWidth *static_cast<float>(pixelX);
     const float boxR=invWidth *(static_cast<float>(pixelX+blocksize)+.5f);
     const float boxB=invHeight *static_cast<float>(pixelY);
     const float boxT=invHeight *(static_cast<float>(pixelY+blocksize)+.5f);
-
+    
     const int limit = 250;
     int countIterations = 0;
     int startIdx = 0;
@@ -830,6 +877,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 		    sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
 		    sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
 		    sharedidx[I] = indexofcircle;
+		    
 		}    
 	    __syncthreads();
 	    for(int I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
@@ -837,7 +885,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 		int indexofcircle = sharedidx[I];
 		float3 p = sharedp[I];
 		float  rad = sharedrad[I];
-		bool cont = circleInBox(p.x,p.y,rad,
+		bool cont = circleInBoxConservative(p.x,p.y,rad,
 					boxL, boxR, boxT, boxB);
 		if(cont && (startIdx == 0)) 
 		{
@@ -932,7 +980,7 @@ __global__ void circle_filter(int* arrayout,short numboxes,int boxsize)
     	boxT=invHeight *(static_cast<float>(pixelY+boxsize) + .5f);
 
 
-    	bool cont = circleInBoxConservative(p.x,p.y,rad,
+    	bool cont = circleInBox(p.x,p.y,rad,
     					    boxL, boxR, boxT, boxB);
     	arrayout[(index)+(I*cuConstRendererParams.numCircles)]=cont;
     }
@@ -1047,12 +1095,18 @@ CudaRenderer::render() {
 	thrust::device_ptr<int> d_input = thrust::device_malloc<int>(length);
 	thrust::device_ptr<int> d_output = thrust::device_malloc<int>(length);
 	thrust::device_ptr<int> d_output_reduction = thrust::device_malloc<int>(numRoughBlocks);
+	//     int max_size_array = (6000)*sizeof(int)*128;
+	    // // thrust::device_free(d_input);
+	    // thrust::device_ptr<int> d_fine_blocks = thrust::device_malloc<int>(max_size_array);
+
 	circle_filter<<<gridDim_Circles, blockDim>>>(thrust::raw_pointer_cast(d_input),numRoughBlocks,boxsize);
+
 	for(int roughbox=0;roughbox < numRoughBlocks;roughbox++)
 	{
 	    thrust::device_ptr<int> d_input_box=d_input+(roughbox*numCircles);
 	    thrust::inclusive_scan(thrust::device,d_input_box, d_input_box + numCircles, d_input_box);
 	}	
+
 	circle_filter_find_circles<<<gridDim_Circles, blockDim>>>(thrust::raw_pointer_cast(d_input),
 								  thrust::raw_pointer_cast(d_output),
 								  thrust::raw_pointer_cast(d_output_reduction),
@@ -1063,7 +1117,7 @@ CudaRenderer::render() {
 
 	if(numCircles > 3000)
 	{
-	    // int max_size_array = (6000)*sizeof(int)*128*128;
+	    // int max_size_array = (6000)*sizeof(int)*128;
 	    // // thrust::device_free(d_input);
 	    // thrust::device_ptr<int> d_fine_blocks = thrust::device_malloc<int>(max_size_array);
 	
@@ -1075,9 +1129,11 @@ CudaRenderer::render() {
 	}
 	else
 	{
+
 	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
 	    						  thrust::raw_pointer_cast(d_output_reduction),
 	    						  numRoughBlocks,boxsize);
+
 
 	}
 	cudaDeviceSynchronize();
@@ -1090,6 +1146,7 @@ CudaRenderer::render() {
 	//     cudaDeviceSynchronize();
 
 	// }
+	    // thrust::device_free(d_fine_blocks);
 
 	thrust::device_free(d_input);
 	thrust::device_free(d_output);

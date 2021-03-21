@@ -321,7 +321,7 @@ __global__ void kernelAdvanceSnowflake() {
 // given a pixel and a circle, determines the contribution to the
 // pixel from the circle.  Update of the image is done in this
 // function.  Called by kernelRenderCircles()
-__device__ __inline__ void
+__device__ __forceinline__ void
 shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad, float maxDist) {
 
     float diffX = p.x - pixelCenter.x;
@@ -374,9 +374,15 @@ shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, floa
     newColor.y = alpha * rgb.y + oneMinusAlpha * existingColor.y;
     newColor.z = alpha * rgb.z + oneMinusAlpha * existingColor.z;
     newColor.w = alpha + existingColor.w;
+    // existingColor.x = alpha * rgb.x + oneMinusAlpha * existingColor.x;
+    // existingColor.y = alpha * rgb.y + oneMinusAlpha * existingColor.y;
+    // existingColor.z = alpha * rgb.z + oneMinusAlpha * existingColor.z;
+    // existingColor.w = alpha + existingColor.w;
 
+    
     // global memory write
-    *imagePtr = newColor;
+    *imagePtr=newColor;
+    // *imagePtr = existingColor;
 
     // END SHOULD-BE-ATOMIC REGION
 }
@@ -586,7 +592,7 @@ CudaRenderer::advanceAnimation() {
     }
     cudaDeviceSynchronize();
 }
-__device__ __inline__ int
+__device__ __forceinline__ int
 circleInBoxConservative(
     float circleX, float circleY, float circleRadius,
     float boxL, float boxR, float boxT, float boxB)
@@ -603,7 +609,7 @@ circleInBoxConservative(
         return 0;
     }
 }
-__device__ __inline__ int
+__device__ __forceinline__ int
 circleInBox(
     float circleX, float circleY, float circleRadius,
     float boxL, float boxR, float boxT, float boxB)
@@ -657,14 +663,14 @@ __global__ void blockRender()
 	    float maxDist = rad * rad;
 	    for(int K = pixelY; K < pixelY+4;K++)
 	    {
-		float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
-		for(int J = pixelX; J < pixelX+4;J++)
-		{
-		    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
-							 invHeight * (static_cast<float>(K) + 0.5f));
-		    shadePixel(I, pixelCenterNorm, p, imgPtr,rad,maxDist);
-		    imgPtr++;
-		}
+	    	float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+	    	for(int J = pixelX; J < pixelX+4;J++)
+	    	{
+	    	    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+	    						 invHeight * (static_cast<float>(K) + 0.5f));
+	    	    shadePixel(I, pixelCenterNorm, p, imgPtr,rad,maxDist);
+	    	    imgPtr++;
+	    	}
 	    }      	
 	}
     }
@@ -695,7 +701,7 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 
     float invWidth = 1.f / imageWidth;
     float invHeight = 1.f / imageHeight;
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    // int index = blockIdx.x * blockDim.x + threadIdx.x;
 
     //calculate the array to look at for texture elemination
     float boxL,boxR,boxT,boxB;
@@ -717,10 +723,18 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 
     
     // int base = (numCirlesToRender >= 500) ? numCirlesToRender-501 : numCirlesToRender;
-    __shared__ float3 sharedp[2048];
+    __shared__ float3 sharedp[1024*2];
     __shared__ float sharedrad[1024*2];
     __shared__ int sharedidx[1024*2];
+    // __shared__ float3 sharedcolor[1024*2];
 
+    // int indexes[128];
+    // float3 ps[128];
+    // float rads[128];
+
+    // int indexBegin= 0;
+    // int indexEnd=0;
+    // bool maxSize = 0;
     boxL=invWidth *static_cast<float>(pixelX);
     boxR=invWidth *static_cast<float>(pixelX+4);
     boxB=invHeight *static_cast<float>(pixelY);
@@ -738,6 +752,7 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
 		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
 		sharedidx[I] = indexofcircle;
+		// sharedcolor[I] = *(float3*)&(cuConstRendererParams.color[indexofcircle*3]) ;
 	    }
 
 
@@ -753,28 +768,61 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 	    int indexofcircle = sharedidx[I];
 	    float3 p = sharedp[I];
 	    float  rad = sharedrad[I];
-	    bool cont = circleInBoxConservative(p.x,p.y,rad,
+	    bool cont = circleInBox(p.x,p.y,rad,
 						boxL, boxR, boxT, boxB);
 	    // float rad = cuConstRendererParams.radius[circleIndex];;
 
 	    if(cont) 
 	    {
-		float maxDist = rad * rad;
-		for(int K = pixelY; K < pixelY+4;K++)
-		{
-		    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
-		    for(int J = pixelX; J < pixelX+4;J++)
-		    {
-			float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
-							     invHeight * (static_cast<float>(K) + 0.5f));
-			shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
-			imgPtr++;
-		    }
-		}      	
+	    	// indexes[indexEnd]=indexofcircle;
+	    	// ps[indexEnd]=sharedp[I];
+	    	// rads[indexEnd]=rad;
+	    	// if((indexEnd+1)&0xF==0)
+	    	//     maxSize=true;
+	    	// indexEnd = (indexEnd + 1)&0x0F;
+		// float3 rgb = sharedcolor[I];
+	    	float maxDist = rad * rad;
+	    	for(int K = pixelY; K < pixelY+4;K++)
+	    	{
+	    	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+	    	    for(int J = pixelX; J < pixelX+4;J++)
+	    	    {
+	    		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+	    						     invHeight * (static_cast<float>(K) + 0.5f));
+	    		shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
+	    		imgPtr++;
+	    	    }
+	    	}      	
 
 	    }
 	}
     }
+    // int start=0;
+    // if(maxSize)
+    // {
+    // 	start = (indexEnd+1)&0x0F;
+    // }
+    // for(int I = 0; I <16 ; I  = (I+1))
+    // {
+    // 	int indexofcircle = indexes[I];
+    // 	float3 p = ps[I];
+    // 	float rad =rads[I];
+    // 	float maxDist = rad * rad;
+    // 	for(int K = pixelY; K < pixelY+4;K++)
+    // 	{
+    // 	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+    // 	    for(int J = pixelX; J < pixelX+4;J++)
+    // 	    {
+    // 		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+    // 						     invHeight * (static_cast<float>(K) + 0.5f));
+    // 		shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
+    // 		imgPtr++;
+    // 	    }
+    // 	}      	
+
+    // }
+    
+
 }
 
 //,float3 p,float rad
@@ -929,9 +977,13 @@ CudaRenderer::render() {
 
 	if(numCircles > 3000)
 	{
+	    // length = (1<<12)*numCircles; // 16 boxes
+	    // boxsize = 16;
+	    // numRoughBlocks=4096;
 	    length = (1<<4)*numCircles; // 16 boxes
 	    boxsize = 256;
 	    numRoughBlocks=16;
+
 	}       
 	if(numCircles  > 10000) // 64 boxes
 	{
@@ -961,16 +1013,16 @@ CudaRenderer::render() {
 	    // thrust::device_ptr<int> d_fine_blocks = thrust::device_malloc<int>(max_size_array);
 	
 	    blockRender_alt<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
-						  thrust::raw_pointer_cast(d_output_reduction),
-						  numRoughBlocks,boxsize);
+	    					  thrust::raw_pointer_cast(d_output_reduction),
+	    					  numRoughBlocks,boxsize);
 	    // thrust::device_free(d_fine_blocks);
 
 	}
 	else
 	{
 	    blockRender_alt<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
-							  thrust::raw_pointer_cast(d_output_reduction),
-							  numRoughBlocks,boxsize);
+	    						  thrust::raw_pointer_cast(d_output_reduction),
+	    						  numRoughBlocks,boxsize);
 
 	}
 	cudaDeviceSynchronize();
@@ -983,15 +1035,6 @@ CudaRenderer::render() {
 	//     cudaDeviceSynchronize();
 
 	// }
-
-	// for(int K = 0; K < length;K++)
-	// {
-	//     printf("Box %d Index prefixsum %d ",K/numCircles,K);
-	//     thrust::for_each(thrust::device,d_output+K,d_output+K+1, printf_functor_1());
-	//     cudaDeviceSynchronize();
-
-	// }
-	// thrust::device_free(d_input);
 
 	thrust::device_free(d_input);
 	thrust::device_free(d_output);

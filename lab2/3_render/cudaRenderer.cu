@@ -865,7 +865,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 //Calculate the box to shade
     const int pixelX=megaRow*boxsize+blocksize*rowInThread;
     const int pixelY=megaCol*boxsize+blocksize*colInThread;//8x16
-#define sharedmem 1024+512        
+#define sharedmem 1024        
     __shared__ float3 sharedp[sharedmem];
     __shared__ float sharedrad[sharedmem];
     __shared__ int sharedidx[sharedmem];
@@ -891,50 +891,55 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 
     }
     
-    const short limit = 100;
+    const short limit = 150;
     short countIterations = 0;
     int startIdx = 0;
 //Can improve with shared memory for p and rad
     if(numCirlesToRender > (limit<<1))
     {
-	__syncthreads();
-	for(int J = 0; J < numCirlesToRender; J += sharedmem)
-	{
-	    // int offset= J;
-	    // if(threadIdx.x+J<numCirlesToRender)
-		for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
-		{
-		    int indexofcircle = checkblock[(numCirlesToRender-1-I+J)+megablock*cuConstRendererParams.numCircles];
-		    sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
-		    sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
-		    sharedidx[I] = indexofcircle;
-		    bool test = circleInBoxConservative(sharedp[I].x,
-		    					    sharedp[I].y,
-		    					    sharedrad[I],
-		    					    botL.x, topR.x, topR.y, botL.y);
-		    sharedBlock[I] =  test;
+    	__syncthreads();
+    	for(int J = 0; J < numCirlesToRender; J += sharedmem)
+    	{
+    	    // int offset= J;
+    	    // if(threadIdx.x+J<numCirlesToRender)
+    		for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
+    		{
+    		    int indexofcircle = checkblock[(numCirlesToRender-1-I+J)+megablock*cuConstRendererParams.numCircles];
+    		     float3 pa= *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+    		    float rad =  cuConstRendererParams.radius[indexofcircle];
+    		    sharedidx[I] = indexofcircle;
+    		    bool test = circleInBoxConservative(pa.x,
+    		    					    pa.y,
+    		    					    rad,
+    		    					    botL.x, topR.x, topR.y, botL.y);
+    		    sharedBlock[I] =  test;
+    		    if(test)
+    		    {
+    			sharedrad[I] = rad;
+    			sharedp[I] = pa;
+    		    }
 
-		}    
-	    __syncthreads();
-	    for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
-	    {
-		if(sharedBlock[I] && (startIdx == 0))
-		{
-		    int indexofcircle = sharedidx[I];
-		    float3 p = sharedp[I];
-		    float  rad = sharedrad[I];
-		    bool cont = circleInBoxConservative(p.x,p.y,rad,
-							boxL, boxR, boxT, boxB);
-		    if(cont && (startIdx == 0)) 
-		    {
-			//First pass runs backwards and only counts till a specific value
-			countIterations++;
-			startIdx=(countIterations >= limit)? indexofcircle:startIdx;
-		    }
+    		}    
+    	    __syncthreads();
+    	    for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
+    	    {
+    		if(sharedBlock[I] && (startIdx == 0))
+    		{
+    		    int indexofcircle = sharedidx[I];
+    		    float3 p = sharedp[I];
+    		    float  rad = sharedrad[I];
+    		    bool cont = circleInBoxConservative(p.x,p.y,rad,
+    							boxL, boxR, boxT, boxB);
+    		    if(cont && (startIdx == 0)) 
+    		    {
+    			//First pass runs backwards and only counts till a specific value
+    			countIterations++;
+    			startIdx=(countIterations >= limit)? indexofcircle:startIdx;
+    		    }
 
-		}
-	    }
-	}    
+    		}
+    	    }
+    	}    
     }
 
     //Forward order start drawing
@@ -1170,7 +1175,7 @@ CudaRenderer::render() {
 								  thrust::raw_pointer_cast(d_output_reduction),
 								  numRoughBlocks,boxsize);
 	// numBlocks = numBlocks >> 2;
-	blockDim.x=1024;//must be powers of 4
+	blockDim.x=256;//must be powers of 4
 	dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
 
 	if(numCircles > 3000)

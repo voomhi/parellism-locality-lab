@@ -321,7 +321,7 @@ __global__ void kernelAdvanceSnowflake() {
 // given a pixel and a circle, determines the contribution to the
 // pixel from the circle.  Update of the image is done in this
 // function.  Called by kernelRenderCircles()
-__device__ __forceinline__ void
+__device__ __inline__ void
 shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad, float maxDist) {
 
     float diffX = p.x - pixelCenter.x;
@@ -696,49 +696,32 @@ __global__ void blockRender()
 }
 __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numboxes,int boxsize)   
 {
-    int imageHeight = cuConstRendererParams.imageHeight;
-    int imageWidth = cuConstRendererParams.imageWidth;
-
-    float invWidth = 1.f / imageWidth;
-    float invHeight = 1.f / imageHeight;
+    const int imageHeight = cuConstRendererParams.imageHeight;
+    const int imageWidth = cuConstRendererParams.imageWidth;
+    const float invWidth = 1.f / imageWidth;
+    const float invHeight = 1.f / imageHeight;
     // int index = blockIdx.x * blockDim.x + threadIdx.x;
-
     //calculate the array to look at for texture elemination
-    float boxL,boxR,boxT,boxB;
-
     // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
-    int numBlocksPerMega = boxsize*boxsize/4/blockDim.x;
-    int megablock= blockIdx.x/numBlocksPerMega;
-    int blockInMega= blockIdx.x%numBlocksPerMega;
-    int rowInThread= (threadIdx.x+blockInMega* blockDim.x ) %( boxsize / 2)  ;
-    int colInThread= (threadIdx.x+blockInMega* blockDim.x) / (boxsize/2);
-    int megaRow= megablock%(imageHeight/boxsize);
-    int megaCol= megablock/(imageHeight/boxsize);
-    int numCirlesToRender= checkblock_size[megablock];
-
+    const int numBlocksPerMega = boxsize*boxsize/4/blockDim.x;
+    const int megablock= blockIdx.x/numBlocksPerMega;
+    const int blockInMega= blockIdx.x%numBlocksPerMega;
+    const int rowInThread= (threadIdx.x+blockInMega* blockDim.x ) %( boxsize / 2)  ;
+    const int colInThread= (threadIdx.x+blockInMega* blockDim.x) / (boxsize/2);
+    const int megaRow= megablock%(imageHeight/boxsize);
+    const int megaCol= megablock/(imageHeight/boxsize);
+    const int numCirlesToRender= checkblock_size[megablock];
     //Calculate the box to shade
-    int pixelX=megaRow*boxsize+2*rowInThread;
-    int pixelY=megaCol*boxsize+2*colInThread;//8x16
-    
-
-    
-    // int base = (numCirlesToRender >= 500) ? numCirlesToRender-501 : numCirlesToRender;
+    const int pixelX=megaRow*boxsize+2*rowInThread;
+    const int pixelY=megaCol*boxsize+2*colInThread;//8x16
+        
     __shared__ float3 sharedp[1024*2];
     __shared__ float sharedrad[1024*2];
     __shared__ int sharedidx[1024*2];
-    // __shared__ float3 sharedcolor[1024*2];
-
-    // int indexes[128];
-    // float3 ps[128];
-    // float rads[128];
-
-    // int indexBegin= 0;
-    // int indexEnd=0;
-    // bool maxSize = 0;
-    boxL=invWidth *static_cast<float>(pixelX);
-    boxR=invWidth *static_cast<float>(pixelX+2);
-    boxB=invHeight *static_cast<float>(pixelY);
-    boxT=invHeight *static_cast<float>(pixelY+2);
+    const float boxL=invWidth *static_cast<float>(pixelX);
+    const float boxR=invWidth *static_cast<float>(pixelX+2);
+    const float boxB=invHeight *static_cast<float>(pixelY);
+    const float boxT=invHeight *static_cast<float>(pixelY+2);
 
 
 //Can improve with shared memory for p and rad
@@ -752,35 +735,17 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
 		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
 		sharedidx[I] = indexofcircle;
-		// sharedcolor[I] = *(float3*)&(cuConstRendererParams.color[indexofcircle*3]) ;
-	    }
-
-
-    
+	    }    
 	__syncthreads();
-	// if(J<numCirlesToRender)
 	for(int I = 0; I+J < numCirlesToRender && I < 1024*2; I++)
 	{
-	    // int indexofcircle = checkblock[I+megablock*cuConstRendererParams.numCircles];
-
-	    // float3 p = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
-	    // float  rad = cuConstRendererParams.radius[indexofcircle];
 	    int indexofcircle = sharedidx[I];
 	    float3 p = sharedp[I];
 	    float  rad = sharedrad[I];
 	    bool cont = circleInBox(p.x,p.y,rad,
 						boxL, boxR, boxT, boxB);
-	    // float rad = cuConstRendererParams.radius[circleIndex];;
-
 	    if(cont) 
 	    {
-	    	// indexes[indexEnd]=indexofcircle;
-	    	// ps[indexEnd]=sharedp[I];
-	    	// rads[indexEnd]=rad;
-	    	// if((indexEnd+1)&0xF==0)
-	    	//     maxSize=true;
-	    	// indexEnd = (indexEnd + 1)&0x0F;
-		// float3 rgb = sharedcolor[I];
 	    	float maxDist = rad * rad;
 	    	for(int K = pixelY; K < pixelY+2;K++)
 	    	{
@@ -796,56 +761,120 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 
 	    }
 	}
-    }
-    // int start=0;
-    // if(maxSize)
-    // {
-    // 	start = (indexEnd+1)&0x0F;
-    // }
-    // for(int I = 0; I <16 ; I  = (I+1))
-    // {
-    // 	int indexofcircle = indexes[I];
-    // 	float3 p = ps[I];
-    // 	float rad =rads[I];
-    // 	float maxDist = rad * rad;
-    // 	for(int K = pixelY; K < pixelY+4;K++)
-    // 	{
-    // 	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
-    // 	    for(int J = pixelX; J < pixelX+4;J++)
-    // 	    {
-    // 		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
-    // 						     invHeight * (static_cast<float>(K) + 0.5f));
-    // 		shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
-    // 		imgPtr++;
-    // 	    }
-    // 	}      	
-
-    // }
-    
+    }    
 
 }
+__global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short numboxes,int boxsize)   
+{
+    const int imageHeight = cuConstRendererParams.imageHeight;
+    const int imageWidth = cuConstRendererParams.imageWidth;
+    const float invWidth = 1.f / imageWidth;
+    const float invHeight = 1.f / imageHeight;
+    // int index = blockIdx.x * blockDim.x + threadIdx.x;
+    //calculate the array to look at for texture elemination
+    // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
+    const int numBlocksPerMega = boxsize*boxsize/4/blockDim.x;
+    const int megablock= blockIdx.x/numBlocksPerMega;
+    const int blockInMega= blockIdx.x%numBlocksPerMega;
+    const int rowInThread= (threadIdx.x+blockInMega* blockDim.x ) %( boxsize / 2)  ;
+    const int colInThread= (threadIdx.x+blockInMega* blockDim.x) / (boxsize/2);
+    const int megaRow= megablock%(imageHeight/boxsize);
+    const int megaCol= megablock/(imageHeight/boxsize);
+    const int numCirlesToRender= checkblock_size[megablock];
+    //Calculate the box to shade
+    const int pixelX=megaRow*boxsize+2*rowInThread;
+    const int pixelY=megaCol*boxsize+2*colInThread;//8x16
+        
+    __shared__ float3 sharedp[1024*2];
+    __shared__ float sharedrad[1024*2];
+    __shared__ int sharedidx[1024*2];
+    const float boxL=invWidth *static_cast<float>(pixelX);
+    const float boxR=invWidth *static_cast<float>(pixelX+2);
+    const float boxB=invHeight *static_cast<float>(pixelY);
+    const float boxT=invHeight *static_cast<float>(pixelY+2);
 
-//,float3 p,float rad
+    const int limit = 200;
+    int countIterations = 0;
+    int startIdx = 0;
+//Can improve with shared memory for p and rad
+    for(int J = 0; J < numCirlesToRender; J += 1024*2)
+    {
+	// int offset= J;
+	if(threadIdx.x+J<numCirlesToRender)
+	    for(int I = threadIdx.x; I < 1024*2 && I+J < numCirlesToRender; I+= blockDim.x)
+	    {
+		int indexofcircle = checkblock[(numCirlesToRender-1-I+J)+megablock*cuConstRendererParams.numCircles];
+		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
+		sharedidx[I] = indexofcircle;
+	    }    
+	__syncthreads();
+	for(int I = 0; I+J < numCirlesToRender && I < 1024*2; I++)
+	{
+	    int indexofcircle = sharedidx[I];
+	    float3 p = sharedp[I];
+	    float  rad = sharedrad[I];
+	    bool cont = circleInBox(p.x,p.y,rad,
+						boxL, boxR, boxT, boxB);
+	    if(cont && (startIdx == 0)) 
+	    {
+		//First pass runs backwards and only counts till a specific value
+		countIterations++;
+		startIdx=(countIterations >= limit)? indexofcircle:startIdx;
+	    }
+	}
+    }    
 
-// __global__ void circle_filter_sub(int* arrayout,int index,float invHeight,float invWidth)
-// {
-// 	int index_0 = blockIdx.x * blockDim.x + threadIdx.x;
-// 	int pixelY=256*(index_0>>3);//8x16
-// 	int pixelX=256*(index_0&0x07);
-// 	float3 p = *(float3*)(&cuConstRendererParams.position[3*index]);
-// 	float  rad = cuConstRendererParams.radius[index];
 
-// 	float boxL,boxR,boxT,boxB;
-// 	boxL=invWidth *static_cast<float>(pixelX);
-// 	boxR=invWidth *static_cast<float>(pixelX+256);
-// 	boxB=invHeight *static_cast<float>(pixelY);
-// 	boxT=invHeight *static_cast<float>(pixelY+256);
+    //Forward order start drawing
+    for(int J = 0; J < numCirlesToRender; J += 1024*2)
+    {
+	// int offset= J;
+	if(threadIdx.x+J<numCirlesToRender)
+	    for(int I = threadIdx.x; I < 1024*2 && I+J < numCirlesToRender; I+= blockDim.x)
+	    {
+		int indexofcircle = checkblock[I+J+megablock*cuConstRendererParams.numCircles];
+		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
+		sharedidx[I] = indexofcircle;
+	    }    
+	__syncthreads();
+	for(int I = 0; I+J < numCirlesToRender && I < 1024*2; I++)
+	{
+	    int indexofcircle = sharedidx[I];
+	    float3 p = sharedp[I];
+	    float  rad = sharedrad[I];
+	    bool cont = circleInBox(p.x,p.y,rad,
+						boxL, boxR, boxT, boxB);
+	    if(cont && indexofcircle >= startIdx) 
+	    {
+		// Second pass will only draw if idx > start index
+		
+	    	float maxDist = rad * rad;
+	    	for(int K = pixelY; K < pixelY+2;K++)
+	    	{
+	    	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
+	    	    for(int J = pixelX; J < pixelX+2;J++)
+	    	    {
+	    		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
+	    						     invHeight * (static_cast<float>(K) + 0.5f));
+	    		shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
+	    		imgPtr++;
+	    	    }
+	    	}      	
+
+	    }
+	}
+    }    
 
 
-// 	bool cont = circleInBoxConservative(p.x,p.y,rad,
-// 					    boxL, boxR, boxT, boxB);
-// 	arrayout[(index)+(index_0*cuConstRendererParams.numCircles)]=cont;
-// }
+    
+}
+
+
+
+
+
 __global__ void circle_filter(int* arrayout,short numboxes,int boxsize)   
 {
     int index = blockIdx.x * blockDim.x + threadIdx.x;
@@ -977,9 +1006,6 @@ CudaRenderer::render() {
 
 	if(numCircles > 3000)
 	{
-	    // length = (1<<12)*numCircles; // 16 boxes
-	    // boxsize = 16;
-	    // numRoughBlocks=4096;
 	    length = (1<<4)*numCircles; // 16 boxes
 	    boxsize = 256;
 	    numRoughBlocks=16;
@@ -1012,7 +1038,7 @@ CudaRenderer::render() {
 	    // // thrust::device_free(d_input);
 	    // thrust::device_ptr<int> d_fine_blocks = thrust::device_malloc<int>(max_size_array);
 	
-	    blockRender_alt<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
+	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
 	    					  thrust::raw_pointer_cast(d_output_reduction),
 	    					  numRoughBlocks,boxsize);
 	    // thrust::device_free(d_fine_blocks);

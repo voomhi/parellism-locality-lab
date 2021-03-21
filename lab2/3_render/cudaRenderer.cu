@@ -640,14 +640,14 @@ __global__ void blockRender()
     // int index = blockIdx.x * blockDim.x + threadIdx.x;
 
     //Calculate the box to shade
-    int pixelY=4*blockIdx.x;//8x16
-    int pixelX=4*threadIdx.x;
+    int pixelY=2*blockIdx.x;//8x16
+    int pixelX=2*threadIdx.x;
     //calculate the array to look at for texture elemination
     float boxL,boxR,boxT,boxB;
     boxL=invWidth *static_cast<float>(pixelX);
-    boxR=invWidth *static_cast<float>(pixelX+4);
+    boxR=invWidth *static_cast<float>(pixelX+2);
     boxB=invHeight *static_cast<float>(pixelY);
-    boxT=invHeight *static_cast<float>(pixelY+4);
+    boxT=invHeight *static_cast<float>(pixelY+2);
 
     // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
     for(int I = 0; I < cuConstRendererParams.numCircles; I++)
@@ -661,10 +661,10 @@ __global__ void blockRender()
 	if(cont)
 	{
 	    float maxDist = rad * rad;
-	    for(int K = pixelY; K < pixelY+4;K++)
+	    for(int K = pixelY; K < pixelY+2;K++)
 	    {
 	    	float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
-	    	for(int J = pixelX; J < pixelX+4;J++)
+	    	for(int J = pixelX; J < pixelX+2;J++)
 	    	{
 	    	    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
 	    						 invHeight * (static_cast<float>(K) + 0.5f));
@@ -707,18 +707,18 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
     float boxL,boxR,boxT,boxB;
 
     // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
-    int numBlocksPerMega = boxsize*boxsize/16/blockDim.x;
+    int numBlocksPerMega = boxsize*boxsize/4/blockDim.x;
     int megablock= blockIdx.x/numBlocksPerMega;
     int blockInMega= blockIdx.x%numBlocksPerMega;
-    int rowInThread= (threadIdx.x+blockInMega* blockDim.x ) %( boxsize / 4)  ;
-    int colInThread= (threadIdx.x+blockInMega* blockDim.x) / (boxsize/4);
+    int rowInThread= (threadIdx.x+blockInMega* blockDim.x ) %( boxsize / 2)  ;
+    int colInThread= (threadIdx.x+blockInMega* blockDim.x) / (boxsize/2);
     int megaRow= megablock%(imageHeight/boxsize);
     int megaCol= megablock/(imageHeight/boxsize);
     int numCirlesToRender= checkblock_size[megablock];
 
     //Calculate the box to shade
-    int pixelX=megaRow*boxsize+4*rowInThread;
-    int pixelY=megaCol*boxsize+4*colInThread;//8x16
+    int pixelX=megaRow*boxsize+2*rowInThread;
+    int pixelY=megaCol*boxsize+2*colInThread;//8x16
     
 
     
@@ -736,9 +736,9 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
     // int indexEnd=0;
     // bool maxSize = 0;
     boxL=invWidth *static_cast<float>(pixelX);
-    boxR=invWidth *static_cast<float>(pixelX+4);
+    boxR=invWidth *static_cast<float>(pixelX+2);
     boxB=invHeight *static_cast<float>(pixelY);
-    boxT=invHeight *static_cast<float>(pixelY+4);
+    boxT=invHeight *static_cast<float>(pixelY+2);
 
 
 //Can improve with shared memory for p and rad
@@ -782,10 +782,10 @@ __global__ void blockRender_alt(int* checkblock,int* checkblock_size,short numbo
 	    	// indexEnd = (indexEnd + 1)&0x0F;
 		// float3 rgb = sharedcolor[I];
 	    	float maxDist = rad * rad;
-	    	for(int K = pixelY; K < pixelY+4;K++)
+	    	for(int K = pixelY; K < pixelY+2;K++)
 	    	{
 	    	    float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * (K * imageWidth + pixelX)]);
-	    	    for(int J = pixelX; J < pixelX+4;J++)
+	    	    for(int J = pixelX; J < pixelX+2;J++)
 	    	    {
 	    		float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J) + 0.5f),
 	    						     invHeight * (static_cast<float>(K) + 0.5f));
@@ -959,9 +959,9 @@ void
 CudaRenderer::render() {
 
     // 256 threads per block is a healthy number
-    int numBlocks = 8192<<3; //each block is 4x4 or the image is 256x256 boxes    
+    int numBlocks = 8192<<5; //each block is 4x4 or the image is 256x256 boxes    
     int numRoughBlocks = 16;
-    dim3 blockDim(256, 1);
+    dim3 blockDim(512, 1);
     dim3 gridDim_Circles(((numCircles) + blockDim.x - 1) / blockDim.x);    
 
     // cudaMalloc(&boxoutarray, sizeof(short) *(1<<6)*numCircles);

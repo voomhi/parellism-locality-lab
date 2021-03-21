@@ -1129,9 +1129,9 @@ CudaRenderer::render() {
 
 	if(numCircles > 3000)
 	{
-	    length = (1<<6)*numCircles; // 16 boxes
-	    boxsize = 128;
-	    numRoughBlocks=64;
+	    length = (1<<4)*numCircles; // 16 boxes
+	    boxsize = 256;
+	    numRoughBlocks=16;
 
 	}       
 	if(numCircles  > 20000) // 64 boxes

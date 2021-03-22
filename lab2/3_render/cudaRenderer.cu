@@ -887,8 +887,8 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     const short limit = 64;
     short countIterations = 0;
     int startIdx = -1;
-    if(numCirlesToRender > (limit<<1))
-    {
+    // if(numCirlesToRender > (limit<<1))
+    // {
     	for(int J = 0; J < numCirlesToRender; J += sharedmem)
     	{
 	    __syncthreads();
@@ -929,7 +929,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     		}
     	    }
     	}    
-    }
+    // }
     if(startIdx == -1)
 	startIdx = 0;
     for(int J = 0; J < numCirlesToRender; J += sharedmem)
@@ -959,10 +959,11 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 					boxL, boxR, boxT, boxB);
 		if(cont) 
 		{
-		    countIterations--;			
+#pragma unroll
 		    for(short K = 0; K < blocksize;K++)
 		    {
 			float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * ((K+pixelY) * imageWidth + pixelX)]);
+#pragma unroll
 			for(short J = 0; J < blocksize;J++)
 			{
 			    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J+pixelX) + 0.5f),
@@ -1045,12 +1046,13 @@ __global__ void blockRender_alt_limit_small(int* checkblock,int* checkblock_size
     // const short limit = 64;
     short countIterations = 0;
     int startIdx = 0;
-    for(int J = 0; J < numCirlesToRender; J += sharedmem)
-    {
 	__syncthreads();
+
+for(int J = 0; J < numCirlesToRender; J += sharedmem)
+    {
 	    for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
 	    {
-		int indexofcircle = checkblock[I+J+megablock*cuConstRendererParams.numCircles];
+		int indexofcircle = checkblock[I+J+megablock*cuConstRendererParams.numCircles];			
 		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
 		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
 		sharedidx[I] = indexofcircle;
@@ -1066,16 +1068,18 @@ __global__ void blockRender_alt_limit_small(int* checkblock,int* checkblock_size
 	    int indexofcircle = sharedidx[I];
 	    if(sharedBlock[I]&& (indexofcircle >= startIdx))
 	    {
-		float3 p = sharedp[I];
-		float  rad = sharedrad[I];
+		float3 p = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+		float  rad = cuConstRendererParams.radius[indexofcircle];
 		bool cont = circleInBox(p.x,p.y,rad,
 					boxL, boxR, boxT, boxB);
 		if(cont) 
 		{
-		    countIterations--;			
+		    // countIterations--;			
+#pragma unroll
 		    for(short K = 0; K < blocksize;K++)
 		    {
 			float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * ((K+pixelY) * imageWidth + pixelX)]);
+#pragma unroll			
 			for(short J = 0; J < blocksize;J++)
 			{
 			    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J+pixelX) + 0.5f),
@@ -1194,9 +1198,9 @@ CudaRenderer::render() {
 
 	if(numCircles > 3000)
 	{
-	    length = (1<<4)*numCircles; // 16 boxes
-	    boxsize = 256;
-	    numRoughBlocks=16;
+	    length = (1<<6)*numCircles; // 16 boxes
+	    boxsize = 128;
+	    numRoughBlocks=64;
 
 	}       
 	if(numCircles  > 20000) // 64 boxes

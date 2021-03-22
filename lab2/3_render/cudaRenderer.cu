@@ -876,7 +876,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 
     }
     
-    const short limit = 120;
+    const short limit = 64;
     short countIterations = 0;
     int startIdx = -1;
     // int check0 = 0;

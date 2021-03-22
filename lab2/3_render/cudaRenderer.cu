@@ -323,6 +323,90 @@ __global__ void kernelAdvanceSnowflake() {
 // function.  Called by kernelRenderCircles()
 __device__ __inline__ void
 // shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad, float maxDist) {
+shadePixel_alt(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad,float3 inputrgb) {
+
+    float diffX = p.x - pixelCenter.x;
+    float diffY = p.y - pixelCenter.y;
+    float pixelDist = diffX * diffX + diffY * diffY;
+
+    // float rad = cuConstRendererParams.radius[circleIndex];;
+    float maxDist = rad * rad;
+
+    // circle does not contribute to the image
+    if (pixelDist > maxDist)
+        return;
+
+    float3 rgb;
+    float alpha;
+
+    // there is a non-zero contribution.  Now compute the shading value
+
+    // This conditional is in the inner loop, but it evaluates the
+    // same direction for all threads so it's cost is not so
+    // bad. Attempting to hoist this conditional is not a required
+    // student optimization in Assignment 2
+    if (cuConstRendererParams.sceneName == SNOWFLAKES || cuConstRendererParams.sceneName == SNOWFLAKES_SINGLE_FRAME) {
+
+        const float kCircleMaxAlpha = .5f;
+        const float falloffScale = 4.f;
+
+        float normPixelDist = sqrt(pixelDist) / rad;
+        rgb = lookupColor(normPixelDist);
+
+        float maxAlpha = .6f + .4f * (1.f-p.z);
+        maxAlpha = kCircleMaxAlpha * fmaxf(fminf(maxAlpha, 1.f), 0.f); // kCircleMaxAlpha * clamped value
+        alpha = maxAlpha * exp(-1.f * falloffScale * normPixelDist * normPixelDist);
+	// float oneMinusAlpha = 1.f - alpha;
+
+	// float4 existingColor = *imagePtr;
+	// float4 newColor;
+	// newColor.x = alpha * rgb.x + oneMinusAlpha * existingColor.x;
+	// newColor.y = alpha * rgb.y + oneMinusAlpha * existingColor.y;
+	// newColor.z = alpha * rgb.z + oneMinusAlpha * existingColor.z;
+	// newColor.w = alpha + existingColor.w;
+	// *imagePtr=newColor;
+
+
+    } else {
+        // simple: each circle has an assigned color
+        // int index3 =  (circleIndex<<1) + (circleIndex);
+        // rgb = *(float3*)&(cuConstRendererParams.color[index3]);
+	rgb = inputrgb;
+        alpha = .5f;
+
+
+	// float4 existingColor = *imagePtr;
+	// float4 newColor;
+	// newColor.x = alpha * rgb.x + alpha * existingColor.x;
+	// newColor.y = alpha * rgb.y + alpha * existingColor.y;
+	// newColor.z = alpha * rgb.z + alpha * existingColor.z;
+	// newColor.w = alpha + existingColor.w;
+	// *imagePtr=newColor;
+
+    }
+
+    float oneMinusAlpha = 1.f - alpha;
+
+    // // BEGIN SHOULD-BE-ATOMIC REGION
+    // // global memory read
+
+    float4 existingColor = *imagePtr;
+    float4 newColor;
+    newColor.x = alpha * rgb.x + oneMinusAlpha * existingColor.x;
+    newColor.y = alpha * rgb.y + oneMinusAlpha * existingColor.y;
+    newColor.z = alpha * rgb.z + oneMinusAlpha * existingColor.z;
+    newColor.w = alpha + existingColor.w;
+    *imagePtr=newColor;
+
+
+    
+    // // global memory write
+    // *imagePtr=newColor;
+    // // *imagePtr = existingColor;
+
+    // END SHOULD-BE-ATOMIC REGION
+}
+__device__ __inline__ void
 shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad) {
 
     float diffX = p.x - pixelCenter.x;
@@ -371,6 +455,7 @@ shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, floa
         // simple: each circle has an assigned color
         int index3 =  (circleIndex<<1) + (circleIndex);
         rgb = *(float3*)&(cuConstRendererParams.color[index3]);
+	// rgb = inputrgb;
         alpha = .5f;
 
 
@@ -863,11 +948,13 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     // bool *sharedBlock = (bool*)(&sharedrad[1024]);
     // // assert((float*)(sharedp + sizeof(float3)*sharedmem) == sharedrad);
     // // assert((bool*)(sharedrad + sizeof(float)*sharedmem) == sharedBlock);
-    const int sharedmem=1024+256;
+    const int sharedmem=256;
     __shared__ float3 sharedp[sharedmem];
     __shared__ float sharedrad[sharedmem];
     __shared__ int sharedidx[sharedmem];
     __shared__ bool sharedBlock[sharedmem];    
+    // __shared__ float3 sharedColor[sharedmem];    
+
     __shared__ float2 botL;
      __shared__ float2 topR;        
     const float boxL=invWidth *static_cast<float>(pixelX);
@@ -886,7 +973,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     }    
     const short limit = 64;
     short countIterations = 0;
-    int startIdx = -1;
+    int startIdx = -1;		// 
     // if(numCirlesToRender > (limit<<1))
     // {
     	for(int J = 0; J < numCirlesToRender; J += sharedmem)
@@ -946,6 +1033,9 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 						    sharedrad[I],
 						    botL.x, topR.x, topR.y, botL.y);
 		sharedBlock[I] =  test ;
+		// if(test)
+		//     sharedColor[I]= *(float3*)&(cuConstRendererParams.color[3*indexofcircle]);
+
 	    }
 	__syncthreads();
 	for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
@@ -959,6 +1049,7 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 					boxL, boxR, boxT, boxB);
 		if(cont) 
 		{
+		    // float3 inputrgb=sharedColor[I];
 #pragma unroll
 		    for(short K = 0; K < blocksize;K++)
 		    {
@@ -1044,7 +1135,7 @@ __global__ void blockRender_alt_limit_small(int* checkblock,int* checkblock_size
 	topR.y = boxT;
     }    
     // const short limit = 64;
-    short countIterations = 0;
+    // short countIterations = 0;
     int startIdx = 0;
 	__syncthreads();
 
@@ -1198,9 +1289,9 @@ CudaRenderer::render() {
 
 	if(numCircles > 3000)
 	{
-	    length = (1<<6)*numCircles; // 16 boxes
-	    boxsize = 128;
-	    numRoughBlocks=64;
+	    length = (1<<4)*numCircles; // 16 boxes
+	    boxsize = 256;
+	    numRoughBlocks=16;
 
 	}       
 	if(numCircles  > 20000) // 64 boxes
@@ -1228,6 +1319,7 @@ CudaRenderer::render() {
 								  thrust::raw_pointer_cast(d_output),
 								  thrust::raw_pointer_cast(d_output_reduction),
 								  numRoughBlocks,boxsize);
+	// thrust::device_free(d_input);
 
 	if(numCircles > 3000)
 	{
@@ -1246,22 +1338,18 @@ CudaRenderer::render() {
 	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
 						      thrust::raw_pointer_cast(d_output_reduction),
 						      numRoughBlocks,boxsize);
-
 	}
 	else
 	{
 	    // numBlocks = numBlocks >> 2;
 	    blockDim.x=256;//must be powers of 4
 	    dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
-
 	    // blockRender_alt_limit<<<gridDim_render, blockDim,	512*sizeof(int)+512*sizeof(float3) + 512*sizeof(float) + 512*sizeof(bool)>>>(thrust::raw_pointer_cast(d_output),
 	    // 						  thrust::raw_pointer_cast(d_output_reduction),
 	    // 							numRoughBlocks,boxsize,512);
 	    blockRender_alt_limit_small<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
 								thrust::raw_pointer_cast(d_output_reduction),
 								numRoughBlocks,boxsize);
-
-
 	}
 	cudaDeviceSynchronize();
 	// printf("%d \n",thrust::max_element(thrust::device,d_output_reduction,d_output_reduction+numRoughBlocks));

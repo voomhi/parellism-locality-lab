@@ -878,22 +878,30 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     
     const short limit = 120;
     short countIterations = 0;
-    int startIdx = 0;
+    int startIdx = -1;
+    // int check0 = 0;
+    // int check1 = 0;
+    // int check2 = 0;
+    // int check3 = 0;
+
 //Can improve with shared memory for p and rad
     if(numCirlesToRender > (limit<<1))
     {
-    	__syncthreads();
+    	// __syncthreads();
     	for(int J = 0; J < numCirlesToRender; J += sharedmem)
     	{
     	    // int offset= J;
     	    // if(threadIdx.x+J<numCirlesToRender)
+	    __syncthreads();
+
     		for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
     		{
-    		    int indexofcircle = checkblock[(numCirlesToRender-1-I+J)+megablock*cuConstRendererParams.numCircles];
-    		     float3 pa= *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+    		    int indexofcircle = checkblock[(numCirlesToRender-1-I-J)+megablock*cuConstRendererParams.numCircles];
+		    // assert((numCirlesToRender-1-I-J)>=0);
+		    float3 pa= *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
     		    float rad =  cuConstRendererParams.radius[indexofcircle];
     		    sharedidx[I] = indexofcircle;
-    		    bool test = circleInBoxConservative(pa.x,
+    		    bool test = circleInBox(pa.x,
     		    					    pa.y,
     		    					    rad,
     		    					    botL.x, topR.x, topR.y, botL.y);
@@ -905,17 +913,21 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     		    }
 
     		}    
-    	    __syncthreads();
+	    __syncthreads();
+	    // __threadfence_block();
+
     	    for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
     	    {
-    		if(sharedBlock[I] && (startIdx == 0))
+		// check2++;
+    		if(sharedBlock[I])
     		{
+		    // check0++;
     		    int indexofcircle = sharedidx[I];
     		    float3 p = sharedp[I];
     		    float  rad = sharedrad[I];
-    		    bool cont = circleInBoxConservative(p.x,p.y,rad,
+    		    bool cont = circleInBox(p.x,p.y,rad,
     							boxL, boxR, boxT, boxB);
-    		    if(cont && (startIdx == 0)) 
+    		    if(cont && (startIdx == -1)) 
     		    {
     			//First pass runs backwards and only counts till a specific value
     			countIterations++;
@@ -926,7 +938,9 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     	    }
     	}    
     }
-
+    // int tempCount = countIterations;
+    if(startIdx == -1)
+	startIdx = 0;
     //Forward order start drawing
     for(int J = 0; J < numCirlesToRender; J += sharedmem)
     {
@@ -939,17 +953,24 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
 		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
 		sharedidx[I] = indexofcircle;
-		bool test = circleInBoxConservative(sharedp[I].x,
+		bool test = circleInBox(sharedp[I].x,
 						    sharedp[I].y,
 						    sharedrad[I],
 						    botL.x, topR.x, topR.y, botL.y);
 		sharedBlock[I] =  test ;
 
-	    }    
+	    }
 	__syncthreads();
+	// __threadfence_block();
 	for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
 	{
+	    // check3++;
 	    int indexofcircle = sharedidx[I];
+	    // assert(indexofcircle >= 0);
+	    // if(sharedBlock[I])
+	    // {
+	    // 	// check1++;
+	    // }
 	    if(sharedBlock[I]&& (indexofcircle >= startIdx))
 	    {
 		float3 p = sharedp[I];
@@ -962,9 +983,9 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 		
 		    // float maxDist = rad * rad;
 // #pragma unroll
+		    countIterations--;			
 		    for(short K = 0; K < blocksize;K++)
 		    // for(short K = 0; K < 1;K++)
-
 		    {
 			float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * ((K+pixelY) * imageWidth + pixelX)]);
 // #pragma unroll
@@ -988,8 +1009,16 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 	}
 	// __syncthreads();
 
-    }    
+    }//end of main shared parser    
 
+    // if(countIterations != 0)
+    // {
+    // 	printf("thread %d Counts %d start %d count og %d  %d %d %d\n",threadIdx.x,
+    // 	       countIterations,startIdx,tempCount,check0,check1,numCirlesToRender	     
+    // 	    );
+
+    // }
+    // assert(countIterations == 0);
 
     
 }

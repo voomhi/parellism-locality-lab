@@ -820,7 +820,7 @@ __global__ void blockRender()
 
 #define blog2(a) (31-__clz(a))
 #define bmod(a,b) (a&(b-1))
-__global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short numboxes,int boxsize)   
+__global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short numboxes,int boxsize				      )   
 {
     // #define blocksize 2
     const int imageHeight = cuConstRendererParams.imageHeight;
@@ -850,50 +850,48 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 //Calculate the box to shade
     const int pixelX=megaRow*boxsize+blocksize*rowInThread;
     const int pixelY=megaCol*boxsize+blocksize*colInThread;//8x16
-#define sharedmem (512)        
+// #define sharedmem (768)        
+    // __shared__ float3 sharedp[sharedmem];
+    // __shared__ float sharedrad[sharedmem];
+    // __shared__ int sharedidx[sharedmem];
+    // __shared__ bool sharedBlock[sharedmem];
+
+    // extern __shared__ char sharedmemearr[];
+    // int *sharedidx = (int*)sharedmemearr; 
+    // float3* sharedp = (float3*) &sharedmemearr[1024];
+    // float *sharedrad = (float*)(&sharedp[1024]);
+    // bool *sharedBlock = (bool*)(&sharedrad[1024]);
+    // // assert((float*)(sharedp + sizeof(float3)*sharedmem) == sharedrad);
+    // // assert((bool*)(sharedrad + sizeof(float)*sharedmem) == sharedBlock);
+    const int sharedmem=1024+256;
     __shared__ float3 sharedp[sharedmem];
     __shared__ float sharedrad[sharedmem];
     __shared__ int sharedidx[sharedmem];
-    __shared__ bool sharedBlock[sharedmem];
+    __shared__ bool sharedBlock[sharedmem];    
     __shared__ float2 botL;
-    __shared__ float2 topR;
-        
+     __shared__ float2 topR;        
     const float boxL=invWidth *static_cast<float>(pixelX);
     const float boxR=invWidth *(static_cast<float>(pixelX+blocksize)+.5f);
     const float boxB=invHeight *static_cast<float>(pixelY);
     const float boxT=invHeight *(static_cast<float>(pixelY+blocksize)+.5f);
-
     if(threadIdx.x == 0)
     {
 	botL.x = boxL;
-	botL.y = boxB;
-	
+	botL.y = boxB;       
     }
     if(threadIdx.x == blockDim.x -1)
     {
 	topR.x = boxR;
 	topR.y = boxT;
-
-    }
-    
+    }    
     const short limit = 64;
     short countIterations = 0;
     int startIdx = -1;
-    // int check0 = 0;
-    // int check1 = 0;
-    // int check2 = 0;
-    // int check3 = 0;
-
-//Can improve with shared memory for p and rad
     if(numCirlesToRender > (limit<<1))
     {
-    	// __syncthreads();
     	for(int J = 0; J < numCirlesToRender; J += sharedmem)
     	{
-    	    // int offset= J;
-    	    // if(threadIdx.x+J<numCirlesToRender)
 	    __syncthreads();
-
     		for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
     		{
     		    int indexofcircle = checkblock[(numCirlesToRender-1-I-J)+megablock*cuConstRendererParams.numCircles];
@@ -911,17 +909,12 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     			sharedrad[I] = rad;
     			sharedp[I] = pa;
     		    }
-
     		}    
 	    __syncthreads();
-	    // __threadfence_block();
-
     	    for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
     	    {
-		// check2++;
     		if(sharedBlock[I])
     		{
-		    // check0++;
     		    int indexofcircle = sharedidx[I];
     		    float3 p = sharedp[I];
     		    float  rad = sharedrad[I];
@@ -929,7 +922,6 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     							boxL, boxR, boxT, boxB);
     		    if(cont && (startIdx == -1)) 
     		    {
-    			//First pass runs backwards and only counts till a specific value
     			countIterations++;
     			startIdx=(countIterations >= limit)? indexofcircle:startIdx;
     		    }
@@ -938,15 +930,11 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
     	    }
     	}    
     }
-    // int tempCount = countIterations;
     if(startIdx == -1)
 	startIdx = 0;
-    //Forward order start drawing
     for(int J = 0; J < numCirlesToRender; J += sharedmem)
     {
 	__syncthreads();
-	// int offset= J;
-	// if(threadIdx.x+J<numCirlesToRender)
 	    for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
 	    {
 		int indexofcircle = checkblock[I+J+megablock*cuConstRendererParams.numCircles];
@@ -958,19 +946,11 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 						    sharedrad[I],
 						    botL.x, topR.x, topR.y, botL.y);
 		sharedBlock[I] =  test ;
-
 	    }
 	__syncthreads();
-	// __threadfence_block();
 	for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
 	{
-	    // check3++;
 	    int indexofcircle = sharedidx[I];
-	    // assert(indexofcircle >= 0);
-	    // if(sharedBlock[I])
-	    // {
-	    // 	// check1++;
-	    // }
 	    if(sharedBlock[I]&& (indexofcircle >= startIdx))
 	    {
 		float3 p = sharedp[I];
@@ -979,48 +959,182 @@ __global__ void blockRender_alt_limit(int* checkblock,int* checkblock_size,short
 					boxL, boxR, boxT, boxB);
 		if(cont) 
 		{
-		    // Second pass will only draw if idx > start index
-		
-		    // float maxDist = rad * rad;
-// #pragma unroll
 		    countIterations--;			
 		    for(short K = 0; K < blocksize;K++)
-		    // for(short K = 0; K < 1;K++)
 		    {
 			float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * ((K+pixelY) * imageWidth + pixelX)]);
-// #pragma unroll
-			// for(short J = 0; J < 1;J++)
 			for(short J = 0; J < blocksize;J++)
-
 			{
 			    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J+pixelX) + 0.5f),
 								 invHeight * (static_cast<float>(K+pixelY) + 0.5f));
 			    // shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
 			    shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad);
-
 			    imgPtr++;
 			}
 		    }      	
-
 		}
-
 	    }
-
 	}
 	// __syncthreads();
-
-    }//end of main shared parser    
-
-    // if(countIterations != 0)
-    // {
-    // 	printf("thread %d Counts %d start %d count og %d  %d %d %d\n",threadIdx.x,
-    // 	       countIterations,startIdx,tempCount,check0,check1,numCirlesToRender	     
-    // 	    );
-
-    // }
-    // assert(countIterations == 0);
-
+    }//end of main shared parser        
+}
+__global__ void blockRender_alt_limit_small(int* checkblock,int* checkblock_size,short numboxes,int boxsize				      )   
+{
+    // #define blocksize 2
+    const int imageHeight = cuConstRendererParams.imageHeight;
+    const int imageWidth = cuConstRendererParams.imageWidth;
+    const float invWidth = 1.f / imageWidth;
+    const float invHeight = 1.f / imageHeight;
     
+    // int index = blockIdx.x * blockDim.x + threadIdx.x;
+    //calculate the array to look at for texture elemination
+    // for(int I = 0; I < 1000 && I < cuConstRendererParams.numCircles; I++)
+    const int numBlocksPerMega = boxsize*boxsize/blocksize/blocksize/blockDim.x;
+    const int blockInMega= blockIdx.x&(numBlocksPerMega-1);
+    const int megablock= blockIdx.x>>(blog2(numBlocksPerMega));
+
+    // const int blockrowsize = boxsize / blocksize;
+    const int dimSqrt = 1<<(blog2(blockDim.x)/2);
+    const int dimBlockSqrt= 1<<(blog2(numBlocksPerMega)/2);
+    const int rowInThread=  bmod(threadIdx.x,dimSqrt) + bmod(blockInMega,dimBlockSqrt)*dimSqrt;
+    const int colInThread= (threadIdx.x>>blog2(dimSqrt))+(blockInMega>>blog2(dimBlockSqrt))*dimSqrt;
+    
+    const int MegaBoxDim=imageHeight/boxsize;
+    const int megaRow= megablock&(MegaBoxDim-1);
+    const int megaCol= megablock>>(31 - __clz(MegaBoxDim));
+    
+    const int numCirlesToRender= checkblock_size[megablock];
+
+//Calculate the box to shade
+    const int pixelX=megaRow*boxsize+blocksize*rowInThread;
+    const int pixelY=megaCol*boxsize+blocksize*colInThread;//8x16
+// #define sharedmem (768)        
+    // __shared__ float3 sharedp[sharedmem];
+    // __shared__ float sharedrad[sharedmem];
+    // __shared__ int sharedidx[sharedmem];
+    // __shared__ bool sharedBlock[sharedmem];
+
+    // extern __shared__ char sharedmemearr[];
+    // int *sharedidx = (int*)sharedmemearr; 
+    // float3* sharedp = (float3*) &sharedmemearr[1024];
+    // float *sharedrad = (float*)(&sharedp[1024]);
+    // bool *sharedBlock = (bool*)(&sharedrad[1024]);
+    // // assert((float*)(sharedp + sizeof(float3)*sharedmem) == sharedrad);
+    // // assert((bool*)(sharedrad + sizeof(float)*sharedmem) == sharedBlock);
+    const int sharedmem=512;
+    __shared__ float3 sharedp[sharedmem];
+    __shared__ float sharedrad[sharedmem];
+    __shared__ int sharedidx[sharedmem];
+    __shared__ bool sharedBlock[sharedmem];    
+     __shared__ float2 botL;
+      __shared__ float2 topR;        
+    const float boxL=invWidth *static_cast<float>(pixelX);
+    const float boxR=invWidth *(static_cast<float>(pixelX+blocksize)+.5f);
+    const float boxB=invHeight *static_cast<float>(pixelY);
+    const float boxT=invHeight *(static_cast<float>(pixelY+blocksize)+.5f);
+    if(threadIdx.x == 0)
+    {
+	botL.x = boxL;
+	botL.y = boxB;       
+    }
+    if(threadIdx.x == blockDim.x -1)
+    {
+	topR.x = boxR;
+	topR.y = boxT;
+    }    
+    const short limit = 64;
+    short countIterations = 0;
+    int startIdx = -1;
+    if(numCirlesToRender > (limit<<1))
+    {
+    	for(int J = 0; J < numCirlesToRender; J += sharedmem)
+    	{
+	    __syncthreads();
+    		for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
+    		{
+    		    int indexofcircle = checkblock[(numCirlesToRender-1-I-J)+megablock*cuConstRendererParams.numCircles];
+		    // assert((numCirlesToRender-1-I-J)>=0);
+		    float3 pa= *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+    		    float rad =  cuConstRendererParams.radius[indexofcircle];
+    		    sharedidx[I] = indexofcircle;
+    		    bool test = circleInBox(pa.x,
+    		    					    pa.y,
+    		    					    rad,
+    		    					    botL.x, topR.x, topR.y, botL.y);
+    		    sharedBlock[I] =  test;
+    		    if(test)
+    		    {
+    			sharedrad[I] = rad;
+    			sharedp[I] = pa;
+    		    }
+    		}    
+	    __syncthreads();
+    	    for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
+    	    {
+    		if(sharedBlock[I])
+    		{
+    		    int indexofcircle = sharedidx[I];
+    		    float3 p = sharedp[I];
+    		    float  rad = sharedrad[I];
+    		    bool cont = circleInBox(p.x,p.y,rad,
+    							boxL, boxR, boxT, boxB);
+    		    if(cont && (startIdx == -1)) 
+    		    {
+    			countIterations++;
+    			startIdx=(countIterations >= limit)? indexofcircle:startIdx;
+    		    }
+
+    		}
+    	    }
+    	}    
+    }
+    if(startIdx == -1)
+	startIdx = 0;
+    for(int J = 0; J < numCirlesToRender; J += sharedmem)
+    {
+	__syncthreads();
+	    for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
+	    {
+		int indexofcircle = checkblock[I+J+megablock*cuConstRendererParams.numCircles];
+		sharedp[I] = *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
+		sharedrad[I] =  cuConstRendererParams.radius[indexofcircle];
+		sharedidx[I] = indexofcircle;
+		bool test = circleInBox(sharedp[I].x,
+						    sharedp[I].y,
+						    sharedrad[I],
+						    botL.x, topR.x, topR.y, botL.y);
+		sharedBlock[I] =  test ;
+	    }
+	__syncthreads();
+	for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
+	{
+	    int indexofcircle = sharedidx[I];
+	    if(sharedBlock[I]&& (indexofcircle >= startIdx))
+	    {
+		float3 p = sharedp[I];
+		float  rad = sharedrad[I];
+		bool cont = circleInBox(p.x,p.y,rad,
+					boxL, boxR, boxT, boxB);
+		if(cont) 
+		{
+		    countIterations--;			
+		    for(short K = 0; K < blocksize;K++)
+		    {
+			float4* imgPtr = (float4*)(&cuConstRendererParams.imageData[4 * ((K+pixelY) * imageWidth + pixelX)]);
+			for(short J = 0; J < blocksize;J++)
+			{
+			    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J+pixelX) + 0.5f),
+								 invHeight * (static_cast<float>(K+pixelY) + 0.5f));
+			    // shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
+			    shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad);
+			    imgPtr++;
+			}
+		    }      	
+		}
+	    }
+	}
+	// __syncthreads();
+    }//end of main shared parser        
 }
 
 
@@ -1101,39 +1215,6 @@ __global__ void circle_filter_find_circles(int* arrayin,int* arrayout,int* array
     else
 	return;
 }
-struct printf_functor
-{
-  __host__ __device__
-  void operator()(int x)
-  {
-    // note that using printf in a __device__ function requires
-    // code compiled for a GPU with compute capability 2.0 or
-    // higher (nvcc --arch=sm_20)
-    printf("Array Value %d\n", x);
-  }
-};
-struct printf_functor_0
-{
-  __host__ __device__
-  void operator()(int x)
-  {
-    // note that using printf in a __device__ function requires
-    // code compiled for a GPU with compute capability 2.0 or
-    // higher (nvcc --arch=sm_20)
-    printf("Value %d\n", x);
-  }
-};
-struct printf_functor_1
-{
-  __host__ __device__
-  void operator()(int x)
-  {
-    // note that using printf in a __device__ function requires
-    // code compiled for a GPU with compute capability 2.0 or
-    // higher (nvcc --arch=sm_20)
-    printf("Value %d\n", x);
-  }
-};
 
 
 void
@@ -1199,10 +1280,13 @@ CudaRenderer::render() {
 
 	    dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
 		
-	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
-	    					  thrust::raw_pointer_cast(d_output_reduction),
-	    					  numRoughBlocks,boxsize);
+	    // blockRender_alt_limit<<<gridDim_render, blockDim,1024*(sizeof(int)+sizeof(float3) + sizeof(float) + sizeof(bool))>>>(thrust::raw_pointer_cast(d_output),
+	    // 					  thrust::raw_pointer_cast(d_output_reduction),
+	    // 							numRoughBlocks,boxsize,1024);
 	    // thrust::device_free(d_fine_blocks);
+	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
+						      thrust::raw_pointer_cast(d_output_reduction),
+						      numRoughBlocks,boxsize);
 
 	}
 	else
@@ -1211,9 +1295,12 @@ CudaRenderer::render() {
 	    blockDim.x=256;//must be powers of 4
 	    dim3 gridDim_render(((numBlocks) + blockDim.x - 1) / blockDim.x);
 
-	    blockRender_alt_limit<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
-	    						  thrust::raw_pointer_cast(d_output_reduction),
-	    						  numRoughBlocks,boxsize);
+	    // blockRender_alt_limit<<<gridDim_render, blockDim,	512*sizeof(int)+512*sizeof(float3) + 512*sizeof(float) + 512*sizeof(bool)>>>(thrust::raw_pointer_cast(d_output),
+	    // 						  thrust::raw_pointer_cast(d_output_reduction),
+	    // 							numRoughBlocks,boxsize,512);
+	    blockRender_alt_limit_small<<<gridDim_render, blockDim>>>(thrust::raw_pointer_cast(d_output),
+								thrust::raw_pointer_cast(d_output_reduction),
+								numRoughBlocks,boxsize);
 
 
 	}

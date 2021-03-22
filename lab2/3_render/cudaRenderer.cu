@@ -1042,54 +1042,9 @@ __global__ void blockRender_alt_limit_small(int* checkblock,int* checkblock_size
 	topR.x = boxR;
 	topR.y = boxT;
     }    
-    const short limit = 64;
+    // const short limit = 64;
     short countIterations = 0;
-    int startIdx = -1;
-    if(numCirlesToRender > (limit<<1))
-    {
-    	for(int J = 0; J < numCirlesToRender; J += sharedmem)
-    	{
-	    __syncthreads();
-    		for(short I = threadIdx.x; I < sharedmem && I+J < numCirlesToRender; I+= blockDim.x)
-    		{
-    		    int indexofcircle = checkblock[(numCirlesToRender-1-I-J)+megablock*cuConstRendererParams.numCircles];
-		    // assert((numCirlesToRender-1-I-J)>=0);
-		    float3 pa= *(float3*)(&cuConstRendererParams.position[3*indexofcircle]);
-    		    float rad =  cuConstRendererParams.radius[indexofcircle];
-    		    sharedidx[I] = indexofcircle;
-    		    bool test = circleInBox(pa.x,
-    		    					    pa.y,
-    		    					    rad,
-    		    					    botL.x, topR.x, topR.y, botL.y);
-    		    sharedBlock[I] =  test;
-    		    if(test)
-    		    {
-    			sharedrad[I] = rad;
-    			sharedp[I] = pa;
-    		    }
-    		}    
-	    __syncthreads();
-    	    for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
-    	    {
-    		if(sharedBlock[I])
-    		{
-    		    int indexofcircle = sharedidx[I];
-    		    float3 p = sharedp[I];
-    		    float  rad = sharedrad[I];
-    		    bool cont = circleInBox(p.x,p.y,rad,
-    							boxL, boxR, boxT, boxB);
-    		    if(cont && (startIdx == -1)) 
-    		    {
-    			countIterations++;
-    			startIdx=(countIterations >= limit)? indexofcircle:startIdx;
-    		    }
-
-    		}
-    	    }
-    	}    
-    }
-    if(startIdx == -1)
-	startIdx = 0;
+    int startIdx = 0;
     for(int J = 0; J < numCirlesToRender; J += sharedmem)
     {
 	__syncthreads();

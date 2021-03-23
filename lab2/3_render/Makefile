@@ -40,7 +40,7 @@ GENCODE_FLAGS   := $(GENCODE_SM60) # For Pascal architecture
 ################################################################################
 NVCC_LDFLAGS=-L$(CUDA_PATH)/lib64/ -lcudart -Wl,-rpath=$(CUDA_PATH)/lib64 -lcudadevrt 
 NVCC=$(CUDA_PATH)/bin/nvcc -ccbin=$(CXX)  
-NVCC_FLAGS=-O3 -m64 $(GENCODE_FLAGS) $(INC_FLAGS) -Xptxas -dlcm=ca  #  -maxrregcount 42 
+NVCC_FLAGS=-O3 -m64 $(GENCODE_FLAGS) $(INC_FLAGS) -maxrregcount 40
 
 COMMON_OBJS=$(OBJDIR)/main.o \
 			$(OBJDIR)/benchmark.o \

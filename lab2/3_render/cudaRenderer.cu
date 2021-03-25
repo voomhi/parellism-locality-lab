@@ -323,7 +323,8 @@ __global__ void kernelAdvanceSnowflake() {
 // function.  Called by kernelRenderCircles()
 __device__ __inline__ void
 // shadePixel(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad, float maxDist) {
-shadePixel_alt(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad,float* currentAlpha) {
+shadePixel_alt(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, float rad,float* currentAlpha,
+	       float3* inputrgb) {
 
     float diffX = p.x - pixelCenter.x;
     float diffY = p.y - pixelCenter.y;
@@ -369,9 +370,9 @@ shadePixel_alt(int circleIndex, float2 pixelCenter, float3 p, float4* imagePtr, 
 
     } else {
         // simple: each circle has an assigned color
-        int index3 =  (circleIndex<<1) + (circleIndex);
-        rgb = *(float3*)&(cuConstRendererParams.color[index3]);
-	// rgb = inputrgb;
+        // int index3 =  (circleIndex<<1) + (circleIndex);
+        // rgb = *(float3*)&(cuConstRendererParams.color[index3]);
+	rgb = *inputrgb;
         alpha = .5f;
 
 
@@ -1311,12 +1312,12 @@ __global__ void blockRender_alt_limit_tb(int* checkblock,int* checkblock_size,sh
     // bool *sharedBlock = (bool*)(&sharedrad[1024]);
     // // assert((float*)(sharedp + sizeof(float3)*sharedmem) == sharedrad);
     // // assert((bool*)(sharedrad + sizeof(float)*sharedmem) == sharedBlock);
-    const int sharedmem=256;
+    const int sharedmem=512;
     __shared__ float3 sharedp[sharedmem];
     __shared__ float sharedrad[sharedmem];
     __shared__ int sharedidx[sharedmem];
     __shared__ bool sharedBlock[sharedmem];    
-    // __shared__ float3 sharedColor[sharedmem];    
+    __shared__ float3 sharedColor[sharedmem];    
 
     __shared__ float2 botL;
     __shared__ float2 topR;        
@@ -1383,12 +1384,14 @@ __global__ void blockRender_alt_limit_tb(int* checkblock,int* checkblock_size,sh
 	    {
 		sharedrad[I] = rad;
 		sharedp[I] = pa;
+		sharedColor[I] = *(float3*)&(cuConstRendererParams.color[3*indexofcircle]);
 	    }
 	}    
 	__syncthreads();
+	short stop = 0;
 	for(short I = 0; I+J < numCirlesToRender && I < sharedmem; I++)
 	{
-	    if(sharedBlock[I])
+	    if(sharedBlock[I] && (startIdx == -1))
 	    {
 		int indexofcircle = sharedidx[I];
 		float3 p = sharedp[I];
@@ -1398,7 +1401,9 @@ __global__ void blockRender_alt_limit_tb(int* checkblock,int* checkblock_size,sh
 		if(cont && (startIdx == -1)) 
 		{
 		    countIterations++;
-		    startIdx=(countIterations >= limit)? indexofcircle:startIdx;
+		    
+		    startIdx=(countIterations >= limit || stop == 4)? indexofcircle:startIdx;
+		    stop=0;
 #pragma unroll
 		    for(short K = 0; K < blocksize;K++)
 		    {
@@ -1409,7 +1414,8 @@ __global__ void blockRender_alt_limit_tb(int* checkblock,int* checkblock_size,sh
 			    float2 pixelCenterNorm = make_float2(invWidth * (static_cast<float>(J+pixelX) + 0.5f),
 								 invHeight * (static_cast<float>(K+pixelY) + 0.5f));
 			    // shadePixel(indexofcircle, pixelCenterNorm, p, imgPtr,rad,maxDist);
-			    shadePixel_alt(indexofcircle, pixelCenterNorm, p, imgPtr,rad,&(decay[J][K]));
+			    shadePixel_alt(indexofcircle, pixelCenterNorm, p, imgPtr,rad,&(decay[J][K]),&sharedColor[I]);
+			    stop += (decay[J][K] < 0.00001f);
 			    imgPtr++;
 			}
 		    }  			

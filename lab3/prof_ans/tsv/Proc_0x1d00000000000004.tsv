@@ -1,0 +1,9 @@
+level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
+2	2	5065871.205	5065871.205	5067165.557	#00ff75	1.0	main [primary] <1>						66
+2	2	5067165.557	5067165.557	5074531.632	#00ff75	0.15	main [primary] <1> (waiting)						66
+2	2	5074531.632	5074531.632	5074581.138	#00ff75	0.45	main [primary] <1> (ready)						66
+2	2	5074581.138	5074581.138	5074927.398	#00ff75	1.0	main [primary] <1>						66
+1	1	5069609.282	5069609.282	5069674.522	#FFC0CB	1.0	ProfTask <3>						125
+1	1	5071185.685	5071185.685	5071190.609	#FFC0CB	1.0	ProfTask <5>						127
+1	1	5071301.358	5071301.358	5071305.317	#FFC0CB	1.0	ProfTask <5>						129
+1	1	5073853.451	5073853.451	5073857.012	#FFC0CB	1.0	ProfTask <11>						131

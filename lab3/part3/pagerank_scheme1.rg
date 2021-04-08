@@ -127,6 +127,9 @@ do
   c.fclose(f)
 end
 
+
+
+
 task toplevel()
   var config : PageRankConfig
   config:initialize_from_command()
@@ -138,6 +141,8 @@ task toplevel()
   c.printf("* Damping Factor   : %11.4f *\n", config.damp)
   c.printf("* Error Bound      : %11g *\n",   config.error_bound)
   c.printf("* Max # Iterations : %11u *\n",   config.max_iterations)
+  c.printf("* # Parallel Tasks : %11u *\n",   config.parallelism)
+  
   c.printf("**********************************\n")
 
   -- Create a region of pages
@@ -148,26 +153,40 @@ task toplevel()
   --
   var r_links = region(ispace(ptr, config.num_links), Link(wild))
 
+  --   
+  -- TODO: Create partitions for links and pages.
+  --       You can use as many partitions as you want.
+  --
+  var c0 = ispace(int1d, 3)
+  var p0 = partition(equal, r_pages, c0)
+  
   -- Initialize the page graph from a file
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
 
   var num_iterations = 0
   var converged = false
+   __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
   var ts_start = c.legion_get_current_time_in_micros()
   while not converged do
     num_iterations += 1
 
-    update_ranks(r_pages, r_links, config.damp, config.num_pages)
+    --update_ranks(r_pages, r_links, config.damp, config.num_pages)
     
-    if num_iterations > config.max_iterations then
-      converged = true
+    --if num_iterations > config.max_iterations then
+    --  converged = true
+    --end
+    for c in c0 do
+    	for page in p0[c] do
+	    c.printf("Part %d Page %d \n",c,page)
+	done
     end
-
-    if l2_norm(r_pages) < config.error_bound then
-      converged = true
-    end
-    update_prev_rank(r_pages)
+    --if l2_norm(r_pages) < config.error_bound then
+    --  converged = true
+    --end
+    --update_prev_rank(r_pages)
+    break
   end
+   __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
   var ts_stop = c.legion_get_current_time_in_micros()
   c.printf("PageRank converged after %d iterations in %.4f sec\n",
     num_iterations, (ts_stop - ts_start) * 1e-6)

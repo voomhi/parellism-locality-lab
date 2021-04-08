@@ -4,10 +4,10 @@ import "regent"
 local PageRankConfig = require("pagerank_config")
 
 local c = regentlib.c
-
+sqrt = regentlib.sqrt(double)
 fspace Page {
   rank : double,
-  prevrank : double
+  prevrank : double,
   numlinks : int
 }
 
@@ -30,7 +30,7 @@ terra read_ids(f : &c.FILE, page_ids : &uint32)
 end
 
 task initialize_graph(r_pages   : region(Page),
-                      r_links   : region(Link(region(Page))),
+                      r_links   : region(Link(wild)),
                       damp      : double,
                       num_pages : uint64,
                       filename  : int8[512])
@@ -40,7 +40,8 @@ do
   var ts_start = c.legion_get_current_time_in_micros()
   for page in r_pages do
     page.rank = 1.0 / num_pages
-    page.prevrank = 0.0
+    page.prevrank = 1.0 / num_pages
+    page.numlinks = 0.0
   end
 
   var f = c.fopen(filename, "rb")
@@ -51,6 +52,7 @@ do
     var src_page = dynamic_cast(ptr(Page, r_pages), page_ids[0])
     var dst_page = dynamic_cast(ptr(Page, r_pages), page_ids[1])
     src_page.numlinks += 1
+    --c.printf("Numlinks = %d \n" , src_page.numlinks)
     link.srcptr = src_page
     link.destptr = dst_page
   end
@@ -67,35 +69,42 @@ task l2_norm(r_pages : region(Page)) : double
   where 
     reads (r_pages)
   do
-    var sum = 0
+    var sum = 0.0
     for page in r_pages do
+    	--c.printf("sum %f \n",sum)
         sum += (page.rank - page.prevrank) * (page.rank - page.prevrank)
     end
-    sum = regentlib.sqrt(sum)
-  end
-  return sum
+    
+    sum = sqrt(sum)
+  return sum	
 end
 
 
 task update_ranks(r_pages : region(Page),
-                r_links : region(Link(region(Page))),
+                r_links : region(Link(wild)),
                 damp : double,
                 numpages : int)
   where
     reads writes(r_pages, r_links)
   do
     for page in r_pages do
-      var new_rank = 0
+      var new_rank = 0.0
       for link in r_links do
-        if link.destptr == page then
-          new_rank += link.srcptr.prevrank / link.srcptr.numlinks
+        if link.destptr == &r_pages[page] then
+	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.srcptr)
+	   --new_rank += 1
+           new_rank += tmp_ptr.prevrank / tmp_ptr.numlinks
+	   --c.printf("%f  = %f  %d \n", new_rank , tmp_ptr.prevrank, tmp_ptr.numlinks);
+	   --c.printf("%d LINKS \n",tmp_ptr.numlinks)
         end
+	--c.printf("PPP %d %d\n" , link.destptr,page)
       end
       new_rank *= damp
       new_rank += (1-damp) / numpages
       page.rank = new_rank
+      --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)
     end
-  end
+    
 end
 
 task update_prev_rank(r_pages : region(Page))
@@ -105,7 +114,7 @@ task update_prev_rank(r_pages : region(Page))
     for page in r_pages do
       page.prevrank = page.rank
     end
-  end
+  
 end
 
 task dump_ranks(r_pages  : region(Page),
@@ -149,7 +158,6 @@ task toplevel()
     num_iterations += 1
 
     update_ranks(r_pages, r_links, config.damp, config.num_pages)
-    update_prev_rank(r_pages)
     
     if num_iterations > config.max_iterations then
       converged = true
@@ -158,6 +166,7 @@ task toplevel()
     if l2_norm(r_pages) < config.error_bound then
       converged = true
     end
+    update_prev_rank(r_pages)
   end
   var ts_stop = c.legion_get_current_time_in_micros()
   c.printf("PageRank converged after %d iterations in %.4f sec\n",
@@ -167,3 +176,4 @@ task toplevel()
 end
 
 regentlib.start(toplevel)
+

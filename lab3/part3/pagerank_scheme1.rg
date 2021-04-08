@@ -8,7 +8,8 @@ sqrt = regentlib.sqrt(double)
 fspace Page {
   rank : double,
   prevrank : double,
-  numlinks : int
+  numlinks : int,
+
 }
 
 --
@@ -162,7 +163,7 @@ task toplevel()
   
   -- Initialize the page graph from a file
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
-
+  var image0 = preimage(r_links,p0,r_links.destptr)
   var num_iterations = 0
   var converged = false
    __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
@@ -175,11 +176,16 @@ task toplevel()
     --if num_iterations > config.max_iterations then
     --  converged = true
     --end
-    for c in c0 do
-    	for page in p0[c] do
-	    c.printf("Part %d Page %d \n",c,page)
-	done
+    for count in c0 do
+    	for page in p0[count] do	    
+	    c.printf("Partition %d Page %d \n" , count,page)
+	end
+	for edge in image0[count] do
+	    c.printf("Partition %d Link %d \n" , count,edge)
+	end
+	num_iterations += 1
     end
+--    c.printf("t")
     --if l2_norm(r_pages) < config.error_bound then
     --  converged = true
     --end

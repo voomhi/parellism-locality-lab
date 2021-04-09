@@ -1,5 +1,5 @@
 level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
-3			5152993.754	5153242.284	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	24					353
-3			5169245.724	5169324.654	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	43					354
-3			5181502.694	5181636.248	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	62					355
-3			5193593.482	5193718.666	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	81					1419
+3			5168910.65	5169124.281	#ff00cb	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	36					663
+3			5192247.93	5192320.146	#ff00cb	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	67					664
+3			5213248.617	5213339.881	#ff00cb	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	98					665
+3			5235317.14	5235389.042	#ff00cb	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	129					666

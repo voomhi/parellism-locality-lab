@@ -1,0 +1,330 @@
+op_id	desc	proc	level
+0	Operation <0>		
+1	toplevel [primary] <1>	CPU Processor 0x1d00000000000001	2
+3	Pending Partition Operation <3>		
+4	Pending Partition Operation <4>		
+5	initialize_graph [primary] <5>	CPU Processor 0x1d00000000000001	3
+6	Dependent Partition Operation <6>		
+7	Dependent Partition Operation <7>		
+8	Fence Operation <8>		
+9	__unary_bool_not [primary] <9>	CPU Processor 0x1d00000000000001	3
+10	__binary_int32_int32_+ [primary] <10>	CPU Processor 0x1d00000000000001	3
+11	Pending Partition Operation <11>		
+12	Dependent Partition Operation <12>		
+13	update_ranks <13>		
+14	Pending Partition Operation <14>		
+15	Dependent Partition Operation <15>		
+16	update_ranks <16>		
+17	update_ranks <17>		
+18	update_ranks <18>		
+19	update_ranks <19>		
+20	update_ranks [primary] <20>	CPU Processor 0x1d00000000000001	3
+21	update_ranks <21>		
+22	Pending Partition Operation <22>		
+23	Dependent Partition Operation <23>		
+24	Merge Close Operation <24>		
+25	update_ranks [primary] <25>	CPU Processor 0x1d00000000000001	3
+26	update_ranks <26>		
+27	Pending Partition Operation <27>		
+28	Dependent Partition Operation <28>		
+29	Merge Close Operation <29>		
+30	update_ranks [primary] <30>	CPU Processor 0x1d00000000000001	3
+31	update_ranks <31>		
+32	final_ranks <32>		
+33	__binary_int32_uint32_>= [primary] <33>	CPU Processor 0x1d00000000000004	2
+34	Merge Close Operation <34>		
+35	Merge Close Operation <35>		
+36	update_ranks [primary] <36>	CPU Processor 0x1d00000000000001	3
+37	l2_norm [primary] <37>	CPU Processor 0x1d00000000000001	3
+38	__binary_double_double_< [primary] <38>	CPU Processor 0x1d00000000000001	3
+39	Merge Close Operation <39>		
+40	update_ranks <40>		
+41	update_ranks <41>		
+42	update_ranks <42>		
+43	update_ranks <43>		
+44	update_ranks [primary] <44>	CPU Processor 0x1d00000000000001	3
+45	update_ranks [primary] <45>	CPU Processor 0x1d00000000000002	2
+46	update_ranks [primary] <46>	CPU Processor 0x1d00000000000001	3
+47	update_ranks [primary] <47>	CPU Processor 0x1d00000000000004	2
+48	update_ranks <48>		
+49	update_ranks <49>		
+50	update_ranks <50>		
+51	update_ranks <51>		
+52	update_ranks [primary] <52>	CPU Processor 0x1d00000000000001	3
+53	update_ranks [primary] <53>	CPU Processor 0x1d00000000000001	3
+54	update_ranks [primary] <54>	CPU Processor 0x1d00000000000002	2
+55	update_ranks [primary] <55>	CPU Processor 0x1d00000000000001	3
+56	update_ranks <56>		
+57	update_ranks <57>		
+58	update_ranks <58>		
+59	update_ranks <59>		
+60	update_ranks [primary] <60>	CPU Processor 0x1d00000000000001	3
+61	update_ranks [primary] <61>	CPU Processor 0x1d00000000000004	2
+62	update_ranks [primary] <62>	CPU Processor 0x1d00000000000001	3
+63	update_ranks [primary] <63>	CPU Processor 0x1d00000000000001	3
+64	final_ranks <64>		
+65	final_ranks <65>		
+66	final_ranks <66>		
+67	final_ranks <67>		
+68	final_ranks [primary] <68>	CPU Processor 0x1d00000000000001	3
+69	final_ranks [primary] <69>	CPU Processor 0x1d00000000000001	3
+70	final_ranks [primary] <70>	CPU Processor 0x1d00000000000001	3
+71	final_ranks [primary] <71>	CPU Processor 0x1d00000000000001	3
+72	Fill Operation <72>		
+73	Merge Close Operation <73>		
+74	Copy Operation <74>		
+75	__unary_bool_not [primary] <75>	CPU Processor 0x1d00000000000001	3
+76	Merge Close Operation <76>		
+77	__binary_int32_int32_+ [primary] <77>	CPU Processor 0x1d00000000000001	3
+78	Pending Partition Operation <78>		
+79	Dependent Partition Operation <79>		
+80	Dependent Partition Operation <80>		
+81	Dependent Partition Operation <81>		
+82	Dependent Partition Operation <82>		
+83	Dependent Partition Operation <83>		
+84	update_ranks <84>		
+85	Pending Partition Operation <85>		
+86	Dependent Partition Operation <86>		
+87	Dependent Partition Operation <87>		
+88	Dependent Partition Operation <88>		
+89	Dependent Partition Operation <89>		
+90	Dependent Partition Operation <90>		
+91	update_ranks <91>		
+92	update_ranks <92>		
+93	update_ranks <93>		
+94	update_ranks <94>		
+95	update_ranks [primary] <95>	CPU Processor 0x1d00000000000002	2
+96	update_ranks [primary] <96>	CPU Processor 0x1d00000000000001	3
+97	update_ranks [primary] <97>	CPU Processor 0x1d00000000000001	3
+98	update_ranks <98>		
+99	Pending Partition Operation <99>		
+100	Dependent Partition Operation <100>		
+101	Merge Close Operation <101>		
+102	Dependent Partition Operation <102>		
+103	Dependent Partition Operation <103>		
+104	Dependent Partition Operation <104>		
+105	Dependent Partition Operation <105>		
+106	update_ranks [primary] <106>	CPU Processor 0x1d00000000000001	3
+107	update_ranks <107>		
+108	update_ranks <108>		
+109	update_ranks <109>		
+110	update_ranks <110>		
+111	update_ranks [primary] <111>	CPU Processor 0x1d00000000000001	3
+112	update_ranks [primary] <112>	CPU Processor 0x1d00000000000002	2
+113	update_ranks <113>		
+114	Pending Partition Operation <114>		
+115	Dependent Partition Operation <115>		
+116	Merge Close Operation <116>		
+117	Dependent Partition Operation <117>		
+118	Dependent Partition Operation <118>		
+119	Dependent Partition Operation <119>		
+120	Dependent Partition Operation <120>		
+121	update_ranks [primary] <121>	CPU Processor 0x1d00000000000004	2
+122	update_ranks [primary] <122>	CPU Processor 0x1d00000000000003	2
+123	update_ranks <123>		
+124	update_ranks <124>		
+125	update_ranks <125>		
+126	update_ranks <126>		
+127	update_ranks [primary] <127>	CPU Processor 0x1d00000000000001	3
+128	update_ranks [primary] <128>	CPU Processor 0x1d00000000000001	3
+129	update_ranks <129>		
+130	final_ranks <130>		
+131	__binary_int32_uint32_>= [primary] <131>	CPU Processor 0x1d00000000000002	2
+132	Merge Close Operation <132>		
+133	Merge Close Operation <133>		
+134	update_ranks [primary] <134>	CPU Processor 0x1d00000000000001	3
+135	update_ranks [primary] <135>	CPU Processor 0x1d00000000000001	3
+136	l2_norm [primary] <136>	CPU Processor 0x1d00000000000001	3
+137	__binary_double_double_< [primary] <137>	CPU Processor 0x1d00000000000001	3
+138	Merge Close Operation <138>		
+139	update_ranks <139>		
+140	update_ranks <140>		
+141	update_ranks <141>		
+142	update_ranks <142>		
+143	update_ranks [primary] <143>	CPU Processor 0x1d00000000000001	3
+144	update_ranks [primary] <144>	CPU Processor 0x1d00000000000002	2
+145	update_ranks [primary] <145>	CPU Processor 0x1d00000000000001	3
+146	update_ranks [primary] <146>	CPU Processor 0x1d00000000000003	2
+147	final_ranks <147>		
+148	final_ranks <148>		
+149	final_ranks <149>		
+150	final_ranks <150>		
+151	final_ranks [primary] <151>	CPU Processor 0x1d00000000000001	3
+152	final_ranks [primary] <152>	CPU Processor 0x1d00000000000001	3
+153	final_ranks [primary] <153>	CPU Processor 0x1d00000000000002	2
+154	final_ranks [primary] <154>	CPU Processor 0x1d00000000000001	3
+155	Fill Operation <155>		
+156	Copy Operation <156>		
+157	__unary_bool_not [primary] <157>	CPU Processor 0x1d00000000000001	3
+158	Merge Close Operation <158>		
+159	Merge Close Operation <159>		
+160	__binary_int32_int32_+ [primary] <160>	CPU Processor 0x1d00000000000001	3
+161	Pending Partition Operation <161>		
+162	Dependent Partition Operation <162>		
+163	Dependent Partition Operation <163>		
+164	Dependent Partition Operation <164>		
+165	Dependent Partition Operation <165>		
+166	Dependent Partition Operation <166>		
+167	update_ranks <167>		
+168	Pending Partition Operation <168>		
+169	Dependent Partition Operation <169>		
+170	Dependent Partition Operation <170>		
+171	Dependent Partition Operation <171>		
+172	Dependent Partition Operation <172>		
+173	Dependent Partition Operation <173>		
+174	update_ranks <174>		
+175	update_ranks <175>		
+176	update_ranks <176>		
+177	update_ranks <177>		
+178	update_ranks [primary] <178>	CPU Processor 0x1d00000000000001	3
+179	update_ranks <179>		
+180	Pending Partition Operation <180>		
+181	Dependent Partition Operation <181>		
+182	Merge Close Operation <182>		
+183	Dependent Partition Operation <183>		
+184	Dependent Partition Operation <184>		
+185	Dependent Partition Operation <185>		
+186	Dependent Partition Operation <186>		
+187	update_ranks [primary] <187>	CPU Processor 0x1d00000000000001	3
+188	update_ranks [primary] <188>	CPU Processor 0x1d00000000000001	3
+189	update_ranks [primary] <189>	CPU Processor 0x1d00000000000001	3
+190	update_ranks <190>		
+191	update_ranks <191>		
+192	update_ranks <192>		
+193	update_ranks <193>		
+194	update_ranks [primary] <194>	CPU Processor 0x1d00000000000001	3
+195	update_ranks <195>		
+196	Pending Partition Operation <196>		
+197	Dependent Partition Operation <197>		
+198	Merge Close Operation <198>		
+199	Dependent Partition Operation <199>		
+200	Dependent Partition Operation <200>		
+201	Dependent Partition Operation <201>		
+202	Dependent Partition Operation <202>		
+203	update_ranks [primary] <203>	CPU Processor 0x1d00000000000001	3
+204	update_ranks [primary] <204>	CPU Processor 0x1d00000000000001	3
+205	update_ranks [primary] <205>	CPU Processor 0x1d00000000000001	3
+206	update_ranks <206>		
+207	update_ranks <207>		
+208	update_ranks <208>		
+209	update_ranks <209>		
+210	update_ranks [primary] <210>	CPU Processor 0x1d00000000000001	3
+211	update_ranks <211>		
+212	final_ranks <212>		
+213	__binary_int32_uint32_>= [primary] <213>	CPU Processor 0x1d00000000000002	2
+214	Merge Close Operation <214>		
+215	Merge Close Operation <215>		
+216	update_ranks [primary] <216>	CPU Processor 0x1d00000000000001	3
+217	update_ranks [primary] <217>	CPU Processor 0x1d00000000000001	3
+218	update_ranks [primary] <218>	CPU Processor 0x1d00000000000001	3
+219	l2_norm [primary] <219>	CPU Processor 0x1d00000000000001	3
+220	__binary_double_double_< [primary] <220>	CPU Processor 0x1d00000000000001	3
+221	Merge Close Operation <221>		
+222	update_ranks <222>		
+223	update_ranks <223>		
+224	update_ranks <224>		
+225	update_ranks <225>		
+226	update_ranks [primary] <226>	CPU Processor 0x1d00000000000001	3
+227	update_ranks [primary] <227>	CPU Processor 0x1d00000000000001	3
+228	update_ranks [primary] <228>	CPU Processor 0x1d00000000000001	3
+229	update_ranks [primary] <229>	CPU Processor 0x1d00000000000001	3
+230	final_ranks <230>		
+231	final_ranks <231>		
+232	final_ranks <232>		
+233	final_ranks <233>		
+234	final_ranks [primary] <234>	CPU Processor 0x1d00000000000001	3
+235	final_ranks [primary] <235>	CPU Processor 0x1d00000000000001	3
+236	final_ranks [primary] <236>	CPU Processor 0x1d00000000000001	3
+237	final_ranks [primary] <237>	CPU Processor 0x1d00000000000001	3
+238	Fill Operation <238>		
+239	Copy Operation <239>		
+240	__unary_bool_not [primary] <240>	CPU Processor 0x1d00000000000001	3
+241	Merge Close Operation <241>		
+242	Merge Close Operation <242>		
+243	__binary_int32_int32_+ [primary] <243>	CPU Processor 0x1d00000000000001	3
+244	Pending Partition Operation <244>		
+245	Dependent Partition Operation <245>		
+246	Dependent Partition Operation <246>		
+247	Dependent Partition Operation <247>		
+248	Dependent Partition Operation <248>		
+249	Dependent Partition Operation <249>		
+250	update_ranks <250>		
+251	Pending Partition Operation <251>		
+252	Dependent Partition Operation <252>		
+253	Dependent Partition Operation <253>		
+254	Dependent Partition Operation <254>		
+255	Dependent Partition Operation <255>		
+256	Dependent Partition Operation <256>		
+257	update_ranks <257>		
+258	update_ranks <258>		
+259	update_ranks <259>		
+260	update_ranks <260>		
+261	update_ranks [primary] <261>	CPU Processor 0x1d00000000000001	3
+262	update_ranks <262>		
+263	Pending Partition Operation <263>		
+264	Dependent Partition Operation <264>		
+265	Merge Close Operation <265>		
+266	Dependent Partition Operation <266>		
+267	Dependent Partition Operation <267>		
+268	Dependent Partition Operation <268>		
+269	Dependent Partition Operation <269>		
+270	update_ranks [primary] <270>	CPU Processor 0x1d00000000000001	3
+271	update_ranks [primary] <271>	CPU Processor 0x1d00000000000001	3
+272	update_ranks [primary] <272>	CPU Processor 0x1d00000000000001	3
+273	update_ranks <273>		
+274	update_ranks <274>		
+275	update_ranks <275>		
+276	update_ranks <276>		
+277	update_ranks [primary] <277>	CPU Processor 0x1d00000000000001	3
+278	update_ranks <278>		
+279	Pending Partition Operation <279>		
+280	Dependent Partition Operation <280>		
+281	Merge Close Operation <281>		
+282	Dependent Partition Operation <282>		
+283	Dependent Partition Operation <283>		
+284	Dependent Partition Operation <284>		
+285	Dependent Partition Operation <285>		
+286	update_ranks [primary] <286>	CPU Processor 0x1d00000000000001	3
+287	update_ranks [primary] <287>	CPU Processor 0x1d00000000000001	3
+288	update_ranks [primary] <288>	CPU Processor 0x1d00000000000001	3
+289	update_ranks <289>		
+290	update_ranks <290>		
+291	update_ranks <291>		
+292	update_ranks <292>		
+293	update_ranks [primary] <293>	CPU Processor 0x1d00000000000001	3
+294	update_ranks <294>		
+295	final_ranks <295>		
+296	__binary_int32_uint32_>= [primary] <296>	CPU Processor 0x1d00000000000002	2
+297	Merge Close Operation <297>		
+298	Merge Close Operation <298>		
+299	update_ranks [primary] <299>	CPU Processor 0x1d00000000000001	3
+300	update_ranks [primary] <300>	CPU Processor 0x1d00000000000001	3
+301	update_ranks [primary] <301>	CPU Processor 0x1d00000000000001	3
+302	l2_norm [primary] <302>	CPU Processor 0x1d00000000000001	3
+303	__binary_double_double_< [primary] <303>	CPU Processor 0x1d00000000000001	3
+304	Merge Close Operation <304>		
+305	update_ranks <305>		
+306	update_ranks <306>		
+307	update_ranks <307>		
+308	update_ranks <308>		
+309	update_ranks [primary] <309>	CPU Processor 0x1d00000000000001	3
+310	update_ranks [primary] <310>	CPU Processor 0x1d00000000000001	3
+311	update_ranks [primary] <311>	CPU Processor 0x1d00000000000001	3
+312	update_ranks [primary] <312>	CPU Processor 0x1d00000000000001	3
+313	final_ranks <313>		
+314	final_ranks <314>		
+315	final_ranks <315>		
+316	final_ranks <316>		
+317	final_ranks [primary] <317>	CPU Processor 0x1d00000000000001	3
+318	final_ranks [primary] <318>	CPU Processor 0x1d00000000000001	3
+319	final_ranks [primary] <319>	CPU Processor 0x1d00000000000001	3
+320	final_ranks [primary] <320>	CPU Processor 0x1d00000000000001	3
+321	Fill Operation <321>		
+322	Copy Operation <322>		
+323	__unary_bool_not [primary] <323>	CPU Processor 0x1d00000000000001	3
+324	Merge Close Operation <324>		
+325	Merge Close Operation <325>		
+326	Fence Operation <326>		
+327	Deletion Operation <327>		
+328	Deletion Operation <328>		
+329	Deletion Operation <329>		

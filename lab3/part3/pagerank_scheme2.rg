@@ -8,7 +8,9 @@ sqrt = regentlib.sqrt(double)
 fspace Page {
   rank : double,
   prevrank : double,
-  numlinks : int
+  numlinks : int,
+  summation : double
+
 }
 
 --
@@ -17,7 +19,8 @@ fspace Page {
 --
 fspace Link(r : region(Page)) {
   srcptr : ptr(Page, r),
-  destptr : ptr(Page, r)
+  destptr : ptr(Page, r),
+  cont : double
 }
 
 terra skip_header(f : &c.FILE)
@@ -42,6 +45,7 @@ do
     page.rank = 1.0 / num_pages
     page.prevrank = 1.0 / num_pages
     page.numlinks = 0.0
+    page.summation = 0.0
   end
 
   var f = c.fopen(filename, "rb")
@@ -79,32 +83,48 @@ task l2_norm(r_pages : region(Page)) : double
   return sum	
 end
 
+--__demand(__parallel)
+task update_cont(r_source: region(Page),
+     		r_links : region(Link(wild))
+     			   )
+	where
+	    reads (r_source) ,
+	    reads writes(r_links)
+	do
+	    for link in r_links do
+	    var tmp_ptr = dynamic_cast(ptr(Page,r_source),link.srcptr)
+	    link.cont = tmp_ptr.prevrank / tmp_ptr.numlinks	
+	    end
+end
 
+--__demand(__parallel)
+task update_sum(r_pages : region(Page),
+     		damp : double,
+                numpages : int
+		)
+where
+	reads writes(r_pages)
+do
+      for page in r_pages do
+      page.summation *= damp
+      page.summation += (1-damp) / numpages
+      page.rank = page.summation
+      end
+
+end
+
+--__demand(__parallel)
 task update_ranks(r_pages : region(Page),
-                r_links : region(Link(wild)),
-                damp : double,
-                numpages : int)
+                r_links : region(Link(wild))                
+	)
   where
     reads writes(r_pages, r_links)
   do
-    for page in r_pages do
-      var new_rank = 0.0
       for link in r_links do
-        if link.destptr == &r_pages[page] then
-	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.srcptr)
-	   --new_rank += 1
-           new_rank += tmp_ptr.prevrank / tmp_ptr.numlinks
-	   --c.printf("%f  = %f  %d \n", new_rank , tmp_ptr.prevrank, tmp_ptr.numlinks);
-	   --c.printf("%d LINKS \n",tmp_ptr.numlinks)
-        end
-	--c.printf("PPP %d %d\n" , link.destptr,page)
+     	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
+           tmp_ptr.summation += link.cont	  
       end
-      new_rank *= damp
-      new_rank += (1-damp) / numpages
-      page.rank = new_rank
-      --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)
-    end
-    
+      --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    
 end
 
 task update_prev_rank(r_pages : region(Page))
@@ -113,6 +133,7 @@ task update_prev_rank(r_pages : region(Page))
   do
     for page in r_pages do
       page.prevrank = page.rank
+      page.summation = 0.0
     end
   
 end
@@ -127,6 +148,9 @@ do
   c.fclose(f)
 end
 
+
+
+
 task toplevel()
   var config : PageRankConfig
   config:initialize_from_command()
@@ -138,6 +162,8 @@ task toplevel()
   c.printf("* Damping Factor   : %11.4f *\n", config.damp)
   c.printf("* Error Bound      : %11g *\n",   config.error_bound)
   c.printf("* Max # Iterations : %11u *\n",   config.max_iterations)
+  c.printf("* # Parallel Tasks : %11u *\n",   config.parallelism)
+  
   c.printf("**********************************\n")
 
   -- Create a region of pages
@@ -148,26 +174,65 @@ task toplevel()
   --
   var r_links = region(ispace(ptr, config.num_links), Link(wild))
 
+  --   
+  -- TODO: Create partitions for links and pages.
+  --       You can use as many partitions as you want.
+  --
+  var c0 = ispace(int1d, config.parallelism)
+  var p0 = partition(equal, r_pages, c0)
+--  var image0 = preimage(r_links,p0,r_links.destptr)
+--  var srcimage = image(r_pages,image0,r_links.srcptr)  
   -- Initialize the page graph from a file
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
-
+  var image0 = preimage(r_links,p0,r_links.destptr)
+  var srcimage = image(r_pages,image0,r_links.srcptr)
   var num_iterations = 0
   var converged = false
-  var ts_start = c.legion_get_current_time_in_micros()
+  c.printf("Start \n")
+   __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
+ c.printf("Start \n")
+  var ts_start = c.legion_get_current_time_in_micros()  
   while not converged do
     num_iterations += 1
 
-    update_ranks(r_pages, r_links, config.damp, config.num_pages)
-    
-    if num_iterations > config.max_iterations then
-      converged = true
+    --update_ranks(r_pages, r_links, config.damp, config.num_pages)
+    __demand(__index_launch)
+    for count in c0 do    
+    	update_cont(srcimage[count],image0[count])
     end
+    __demand(__index_launch)
+     for count in c0 do
+	update_ranks(p0[count],image0[count])
+     end
+    __demand(__index_launch)
+     for count in c0 do
+        update_sum(p0[count],config.damp,config.num_pages)
+      end	
 
-    if l2_norm(r_pages) < config.error_bound then
+--	for page in p0[count] do
+--	    c.printf("Page:%d \n",page)
+--	end
+--	for link in image0[count] do
+--	c.printf("Link %d, dest %d source %d\n",link,link.destptr,link.srcptr)
+--	end
+--	for page in srcimage[count] do
+--	c.printf("Partition %d source %d \n" , count,page)
+--	end
+--    end
+    if num_iterations >= config.max_iterations then
       converged = true
     end
-    update_prev_rank(r_pages)
+--    c.printf("n")
+    if l2_norm(r_pages) < config.error_bound then
+      	 converged = true
+   end
+__demand(__index_launch)
+ for count in c0 do
+    update_prev_rank(p0[count])
+end
+--    break
   end
+   __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
   var ts_stop = c.legion_get_current_time_in_micros()
   c.printf("PageRank converged after %d iterations in %.4f sec\n",
     num_iterations, (ts_stop - ts_start) * 1e-6)
@@ -176,4 +241,3 @@ task toplevel()
 end
 
 regentlib.start(toplevel)
-

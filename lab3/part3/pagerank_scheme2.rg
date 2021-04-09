@@ -179,13 +179,14 @@ task toplevel()
   --       You can use as many partitions as you want.
   --
   var c0 = ispace(int1d, config.parallelism)
-  var p0 = partition(equal, r_pages, c0)
+  var p0 = partition(equal, r_links, c0)
 --  var image0 = preimage(r_links,p0,r_links.destptr)
 --  var srcimage = image(r_pages,image0,r_links.srcptr)  
   -- Initialize the page graph from a file
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
-  var image0 = preimage(r_links,p0,r_links.destptr)
-  var srcimage = image(r_pages,image0,r_links.srcptr)
+  var srcimage = image(r_pages,p0,r_links.srcptr)
+  var image0 = preimage(r_links,srcimage,r_links.destptr)
+  
   var num_iterations = 0
   var converged = false
   c.printf("Start \n")

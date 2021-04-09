@@ -1,3 +1,0 @@
-level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
-3			5079544.304	5187964.106	#ff000e	1.0	Region: ispace:1[0:531] x Page()[rank,prevrank$,numlinks,summation]$Layout Order: [Struct-of-arrays (SOA)] $Inst: 0x4000000000000000 $Size: 14.547 KiB	4					398
-2			5080969.692	5189237.952	#ff000e	1.0	Region: ispace:2[0:8588] x Link($wild)[srcptr.__ptr$,destptr.__ptr]$Layout Order: [Struct-of-arrays (SOA)] $Inst: 0x4000000000000001 $Size: 134.203 KiB	4					399

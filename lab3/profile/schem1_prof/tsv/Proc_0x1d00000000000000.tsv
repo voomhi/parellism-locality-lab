@@ -1,807 +1,824 @@
 level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
-3	6	24844.971	24908.181	25114.085	#ff0023	1.0	Deferred Enqueue Task	1	[[0, 1, 1782]]				51
-3	5	25112.282	25148.014	25216.839	#0a00ff	1.0	Scheduler	0					53
-3	6	25213.814	25227.044	25554.471	#ca00ff	1.0	Task Physical Dependence Analysis	1	[[0, 1, 1782]]				989
-3	6	25563.777	25563.777	25566.735	#FFC0CB	1.0	ProfTask <1>						1056
-3	6	26739.175	26750.059	26790.665	#00ff5d	1.0	Logical Dependence Analysis	3					1215
-3	5	26788.649	26801.4	26825.282	#333399	1.0	Deferred Ready Trigger	3					1416
-3	6	26824.809	26830.453	27157.722	#0069ff	1.0	Operation Physical Dependence Analysis	3					1216
-3	6	27133.974	27169.08	27174.651	#00ff72	1.0	Tighten Index Space	3					1417
-3	6	27134.435	27189.617	27190.437	#00ff72	1.0	Tighten Index Space	3					1418
-3	6	27134.555	27199.638	27200.167	#00ff72	1.0	Tighten Index Space	3					1419
-3	6	27134.674	27207.61	27208.199	#00ff72	1.0	Tighten Index Space	3					1783
-3	5	27035.776	27218.264	27439.598	#00ff5d	1.0	Logical Dependence Analysis	4	[[0, 1, 975]]				54
-3	6	27378.615	27457.347	27469.287	#333399	1.0	Deferred Ready Trigger	4	[[0, 1, 975]]				55
-3	4	27468.89	27481.385	27491.796	#0a00ff	1.0	Scheduler	0					56
-3	5	27456.58	27505.643	27533.442	#00ff5d	1.0	Logical Dependence Analysis	7					57
-3	5	27139.292	27547.591	27552.848	#be00ff	1.0	Prepipeline Stage	5					58
-3	6	27567.352	27567.352	28155.739	#ca00ff	1.0	Task Physical Dependence Analysis	4	[[0, 1, 975]]				1217
-3	6	28155.739	28155.739	28173.415	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	4					1217
-3	6	28173.415	28173.415	28180.238	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	4					1217
-3	6	28180.238	28180.238	28334.285	#ca00ff	1.0	Task Physical Dependence Analysis	4					1217
-3	6	28334.285	28334.285	28337.836	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	4					1217
-3	6	28337.836	28337.836	28340.682	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	4					1217
-3	6	28340.682	28340.682	28738.695	#ca00ff	1.0	Task Physical Dependence Analysis	4					1217
-2	5	27715.169	27715.169	28359.027	#fff500	1.0	Mapper Call map_task for 4	4	[[0, 1, 975]]				1054
-3	6	28679.27	28747.701	28755.488	#333399	1.0	Deferred Ready Trigger	5					1218
-3	5	28755.142	28763.599	29012.0	#0069ff	1.0	Operation Physical Dependence Analysis	5					1420
-3	6	29005.402	29022.506	29025.954	#333399	1.0	Deferred Ready Trigger	6					1784
-3	5	29025.688	29032.525	29116.066	#0069ff	1.0	Operation Physical Dependence Analysis	6					1421
-3	6	29109.962	29124.723	29126.732	#333399	1.0	Deferred Ready Trigger	7					1785
-3	6	29126.498	29136.384	29141.844	#0069ff	1.0	Operation Physical Dependence Analysis	7					1422
-3	6	31080.042	31080.042	31086.847	#FFC0CB	1.0	ProfTask <4>						1058
-3	5	31080.469	31091.676	31211.606	#006600	1.0	Post-Task Execution	4		[[0, 1, 975]]			59
-3	6	31746.09	31746.09	31746.849	#FFC0CB	1.0	ProfTask <5>						1060
-3	6	31760.163	31766.288	31777.6	#009900	1.0	Deferred Commit	5					1423
-3	5	31765.364	31789.418	31875.051	#00ff72	1.0	Tighten Index Space	5					60
-3	4	31765.807	31886.012	31955.08	#00ff72	1.0	Tighten Index Space	5					61
-3	3	31766.001	31966.944	32000.788	#00ff72	1.0	Tighten Index Space	5					62
-3	2	31766.236	32010.914	32044.744	#00ff72	1.0	Tighten Index Space	5					63
-3	6	32292.158	32292.158	32292.597	#FFC0CB	1.0	ProfTask <6>						1062
-3	6	32307.863	32307.863	32331.701	#00ff51	1.0	Disjointness Test	1	[[0, 1, 1782]]				70
-3	6	32331.701	32331.701	32560.228	#00ff51	0.15	Disjointness Test (waiting)	1					70
-3	6	32560.228	32560.228	32565.699	#00ff51	0.45	Disjointness Test (ready)	1					70
-3	6	32565.699	32565.699	32566.906	#00ff51	1.0	Disjointness Test	1					70
-2	2	32305.308	32344.731	32354.655	#00ff72	1.0	Tighten Index Space	6					1786
-2	5	32305.515	32362.713	32375.799	#00ff72	1.0	Tighten Index Space	6					64
-2	5	32305.678	32392.433	32397.078	#00ff72	1.0	Tighten Index Space	6					65
-2	5	32305.886	32407.744	32415.629	#00ff72	1.0	Tighten Index Space	6					66
-2	3	32431.278	32431.278	32478.445	#37ff00	1.0	Index Space Independence Test	1	[[0, 1, 1782]]				69
-2	3	32478.445	32478.445	32533.908	#37ff00	0.15	Index Space Independence Test (waiting)	1					69
-2	3	32533.908	32533.908	32536.141	#37ff00	0.45	Index Space Independence Test (ready)	1					69
-2	3	32536.141	32536.141	32548.043	#37ff00	1.0	Index Space Independence Test	1					69
-1	5	32304.762	32489.145	32493.815	#009900	1.0	Deferred Commit	6					67
-1	5	32504.454	32506.753	32507.744	#00ff72	1.0	Tighten Index Space	1	[[0, 1, 1782]]				68
-3	4	32313.361	32584.483	32596.825	#009900	1.0	Deferred Commit	7					71
-3	2	32366.787	32607.698	32636.383	#00ff5d	1.0	Logical Dependence Analysis	8	[[0, 1, 976]]				72
-3	6	32635.035	32647.874	32656.253	#333399	1.0	Deferred Ready Trigger	8	[[0, 1, 976]]				73
-3	6	32655.86	32665.657	32674.299	#0a00ff	1.0	Scheduler	0					74
-3	5	32673.677	32687.714	32712.287	#ca00ff	1.0	Task Physical Dependence Analysis	8	[[0, 1, 976]]				1219
-3	6	32748.497	32748.497	32751.337	#FFC0CB	1.0	ProfTask <8>						1064
-3	6	32755.196	32762.113	32788.285	#006600	1.0	Post-Task Execution	8		[[0, 1, 976]]			990
-3	6	32797.97	32797.97	32799.518	#FFC0CB	1.0	ProfTask <8>						1066
-3	6	32812.275	32818.917	32835.181	#00ff5d	1.0	Logical Dependence Analysis	9	[[0, 4, 1405]]				1787
-3	6	32834.191	32846.934	32850.642	#333399	1.0	Deferred Ready Trigger	9	[[0, 4, 1405]]				1220
-3	5	32850.36	32855.353	32870.405	#0a00ff	1.0	Scheduler	0					1788
-3	6	32869.659	32877.264	32895.651	#ca00ff	1.0	Task Physical Dependence Analysis	9	[[0, 4, 1405]]				991
-3	6	32902.018	32902.018	32902.878	#FFC0CB	1.0	ProfTask <9>						1068
-3	6	32931.106	32938.482	33017.657	#00ff5d	1.0	Logical Dependence Analysis	10					75
-3	6	32941.223	33035.066	33043.767	#006600	1.0	Post-Task Execution	9		[[0, 4, 1405]]			76
-3	6	33016.653	33054.633	33060.074	#333399	1.0	Deferred Ready Trigger	10					77
-3	6	33032.513	33070.459	33078.582	#00ff5d	1.0	Logical Dependence Analysis	11	[[0, 1, 1777]]				78
-3	6	33077.938	33090.355	33094.121	#333399	1.0	Deferred Ready Trigger	11	[[0, 1, 1777]]				79
-3	6	33093.812	33104.471	33110.779	#0a00ff	1.0	Scheduler	0					80
-3	5	33059.821	33122.502	33254.207	#0069ff	1.0	Operation Physical Dependence Analysis	10					81
-3	6	33246.353	33265.588	33271.402	#0a00ff	1.0	Scheduler	0					82
-3	6	33248.206	33281.785	33287.575	#0a00ff	1.0	Scheduler	0					83
-3	6	33249.821	33298.455	33302.832	#0a00ff	1.0	Scheduler	0					84
-3	6	33253.636	33313.097	33315.795	#0a00ff	1.0	Scheduler	0					85
-3	4	33110.341	33325.483	33347.742	#ca00ff	1.0	Task Physical Dependence Analysis	11	[[0, 1, 1777]]				1221
-3	5	33271.007	33354.226	33406.333	#ca00ff	1.0	Task Physical Dependence Analysis	12					87
-3	6	33375.106	33415.925	33427.873	#006600	1.0	Post-Task Execution	11		[[0, 1, 1777]]			1424
-3	4	33400.148	33441.776	33594.138	#7c00ff	1.0	Defer Task Perform Mapping	16	[[0, 1, 1406]]				1789
-3	6	33447.703	33600.606	33699.486	#00ff5d	1.0	Logical Dependence Analysis	17	[[0, 1, 1779]]				88
-3	6	33604.986	33714.794	33715.863	#00ff72	1.0	Tighten Index Space	16	[[0, 1, 1406]]				90
-3	5	33483.583	33742.336	33766.821	#00ffa8	1.0	Refinement	16	[[0, 1, 1406]]				91
-3	6	33766.39	33777.745	33784.907	#1300ff	1.0	Defer Ray Trace Finish	16	[[0, 1, 1406]]				92
-3	6	33766.616	33796.881	33800.597	#1300ff	1.0	Defer Ray Trace Finish	16	[[0, 1, 1406]]				1425
-3	6	33784.366	33810.849	33814.001	#0063ff	1.0	Finalize Equivalence Sets	16	[[0, 1, 1406]]				93
-3	6	33799.985	33823.456	33824.077	#0063ff	1.0	Finalize Equivalence Sets	16	[[0, 1, 1406]]				1790
-3	6	33585.268	33830.78	33832.279	#00ffa8	1.0	Refinement	16	[[0, 1, 1406]]				94
-3	6	33832.013	33844.605	33846.338	#1300ff	1.0	Defer Ray Trace Finish	16	[[0, 1, 1406]]				95
-3	6	33845.592	33861.255	33862.133	#0063ff	1.0	Finalize Equivalence Sets	16	[[0, 1, 1406]]				1791
-3	5	33862.024	33868.306	34025.852	#7c00ff	1.0	Defer Task Perform Mapping	16	[[0, 1, 1406]]				1426
-3	6	34025.634	34039.867	34056.886	#00ff3c	1.0	Defer Task Launch	16	[[0, 1, 1406]]				1222
-3	3	33287.254	34063.45	34079.984	#ca00ff	1.0	Task Physical Dependence Analysis	13					1427
-3	6	34088.633	34088.633	34134.474	#7c00ff	1.0	Defer Task Perform Mapping	20	[[0, 2, 1778]]				1793
-3	6	34134.474	34134.474	34198.322	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	20					1793
-3	6	34198.322	34198.322	34200.612	#7c00ff	0.45	Defer Task Perform Mapping (ready)	20					1793
-3	6	34200.612	34200.612	34217.37	#7c00ff	1.0	Defer Task Perform Mapping	20					1793
-3	6	34217.37	34217.37	34292.622	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	20					1793
-3	6	34292.622	34292.622	34295.836	#7c00ff	0.45	Defer Task Perform Mapping (ready)	20					1793
-3	6	34295.836	34295.836	34349.211	#7c00ff	1.0	Defer Task Perform Mapping	20					1793
-2	5	34139.003	34139.003	34139.696	#00ffa8	1.0	Refinement	20	[[0, 2, 1778]]				1794
-2	5	34139.696	34139.696	34202.337	#00ffa8	0.15	Refinement (waiting)	20					1794
-2	5	34202.337	34202.337	34218.666	#00ffa8	0.45	Refinement (ready)	20					1794
-2	5	34218.666	34218.666	34218.987	#00ffa8	1.0	Refinement	20					1794
-2	5	34218.987	34218.987	34296.092	#00ffa8	0.15	Refinement (waiting)	20					1794
-2	5	34296.092	34296.092	34363.071	#00ffa8	0.45	Refinement (ready)	20					1794
-2	5	34363.071	34363.071	34365.54	#00ffa8	1.0	Refinement	20					1794
-1	2	33302.529	34147.743	34169.724	#ca00ff	1.0	Task Physical Dependence Analysis	14					1428
-1	3	34163.562	34188.519	34189.551	#00ff72	1.0	Tighten Index Space	20	[[0, 2, 1778]]				1429
-1	4	34167.669	34220.425	34270.316	#7c00ff	1.0	Defer Task Perform Mapping	21	[[0, 2, 45]]				1792
-1	4	34240.499	34278.766	34279.62	#00ff72	1.0	Tighten Index Space	20	[[0, 2, 1778]]				1430
-3	6	34365.135	34378.36	34380.542	#1300ff	1.0	Defer Ray Trace Finish	20	[[0, 2, 1778]]				1431
-3	6	34365.338	34388.607	34389.509	#1300ff	1.0	Defer Ray Trace Finish	20	[[0, 2, 1778]]				1432
-3	6	34380.064	34398.427	34399.348	#0063ff	1.0	Finalize Equivalence Sets	20	[[0, 2, 1778]]				1433
-3	6	34370.278	34405.769	34406.617	#00ff72	1.0	Tighten Index Space	20	[[0, 2, 1778]]				1434
-3	3	34235.487	34415.392	34425.747	#00ff27	1.0	Defer Ray Trace	21	[[0, 2, 45]]				1435
-3	5	34261.521	34432.268	34434.158	#00ffa8	1.0	Refinement	21	[[0, 2, 45]]				1436
-3	5	34433.924	34438.705	34440.595	#1300ff	1.0	Defer Ray Trace Finish	21	[[0, 2, 45]]				1795
-3	5	34434.052	34447.161	34448.297	#1300ff	1.0	Defer Ray Trace Finish	20	[[0, 2, 1778]]				1437
-3	5	34440.236	34450.953	34451.702	#0063ff	1.0	Finalize Equivalence Sets	21	[[0, 2, 45]]				1438
-3	5	34448.099	34465.813	34466.415	#0063ff	1.0	Finalize Equivalence Sets	20	[[0, 2, 1778]]				1439
-3	5	34306.222	34475.717	34476.577	#00ffa8	1.0	Refinement	20	[[0, 2, 1778]]				1440
-3	5	34476.459	34483.267	34487.956	#1300ff	1.0	Defer Ray Trace Finish	20	[[0, 2, 1778]]				1796
-3	5	34487.572	34494.155	34495.26	#0063ff	1.0	Finalize Equivalence Sets	20	[[0, 2, 1778]]				1441
-3	5	34422.9	34497.611	34498.813	#00ffa8	1.0	Refinement	21	[[0, 2, 45]]				1442
-3	5	34498.694	34509.963	34511.125	#1300ff	1.0	Defer Ray Trace Finish	21	[[0, 2, 45]]				1443
-3	5	34510.887	34516.971	34517.684	#0063ff	1.0	Finalize Equivalence Sets	21	[[0, 2, 45]]				1444
-3	6	34524.602	34524.602	34535.171	#00ff27	1.0	Defer Ray Trace	21	[[0, 2, 45]]				113
-3	6	34535.171	34535.171	34653.301	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	34653.301	34653.301	34655.025	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	34655.025	34655.025	34683.242	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	34683.242	34683.242	34750.525	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	34750.525	34750.525	34754.756	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	34754.756	34754.756	34809.679	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	34809.679	34809.679	34928.273	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	34928.273	34928.273	34930.086	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	34930.086	34930.086	34943.109	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	34943.109	34943.109	35060.82	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	35060.82	35060.82	35062.843	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	35062.843	35062.843	35079.791	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	35079.791	35079.791	35132.793	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	35132.793	35132.793	35134.458	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	35134.458	35134.458	35156.033	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	35156.033	35156.033	35212.694	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	35212.694	35212.694	35214.704	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	35214.704	35214.704	35226.718	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	35226.718	35226.718	35275.288	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	35275.288	35275.288	35277.409	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	35277.409	35277.409	35296.611	#00ff27	1.0	Defer Ray Trace	21					113
-3	6	35296.611	35296.611	35345.312	#00ff27	0.15	Defer Ray Trace (waiting)	21					113
-3	6	35345.312	35345.312	35347.213	#00ff27	0.45	Defer Ray Trace (ready)	21					113
-3	6	35347.213	35347.213	35403.485	#00ff27	1.0	Defer Ray Trace	21					113
-2	4	34536.754	34536.754	34643.325	#7c00ff	1.0	Defer Task Perform Mapping	20	[[0, 2, 1778]]				1798
-2	4	34643.325	34643.325	34822.443	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	20					1798
-2	4	34822.443	34822.443	34824.649	#7c00ff	0.45	Defer Task Perform Mapping (ready)	20					1798
-2	4	34824.649	34824.649	34833.215	#7c00ff	1.0	Defer Task Perform Mapping	20					1798
-1	5	34560.33	34645.0	34646.17	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				1445
-1	1	33315.444	34684.883	34720.351	#ca00ff	1.0	Task Physical Dependence Analysis	15					97
-1	2	34704.862	34731.992	34732.636	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				1797
-1	2	34715.248	34810.998	34811.542	#00ff72	1.0	Tighten Index Space	20	[[0, 2, 1778]]				99
-2	5	34716.623	34842.881	34902.933	#006600	1.0	Post-Task Execution	16		[[0, 1, 1406]]			1446
-2	5	34851.209	34915.337	34916.226	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				100
-2	3	34717.211	34944.423	35030.221	#7c00ff	1.0	Defer Task Perform Mapping	22	[[0, 1, 1407]]				102
-2	5	35010.321	35041.953	35042.577	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				103
-2	2	34833.05	35081.27	35096.107	#00ff3c	1.0	Defer Task Launch	20	[[0, 2, 1778]]				104
-2	5	35100.103	35122.713	35123.495	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				105
-2	4	35007.411	35157.56	35163.649	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				1799
-2	4	35163.471	35186.564	35188.434	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				1800
-2	4	35188.016	35196.86	35197.77	#0063ff	1.0	Finalize Equivalence Sets	22	[[0, 1, 1407]]				106
-2	4	35183.034	35207.109	35208.009	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				1223
-2	4	35067.908	35227.946	35228.898	#00ffa8	1.0	Refinement	21	[[0, 2, 45]]				107
-2	5	35143.71	35237.635	35254.842	#00ff27	1.0	Defer Ray Trace	22	[[0, 1, 1407]]				108
-2	5	35250.039	35264.164	35265.284	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				109
-2	5	35246.36	35298.07	35300.639	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				110
-2	5	35300.481	35311.878	35314.348	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				1224
-2	5	35313.972	35326.743	35327.707	#0063ff	1.0	Finalize Equivalence Sets	22	[[0, 1, 1407]]				111
-2	5	35319.627	35336.985	35337.793	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				112
-3	6	35394.155	35420.264	35420.976	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				114
-3	6	35407.85	35434.585	35435.236	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				115
-3	4	35445.303	35445.303	35459.175	#00ff27	1.0	Defer Ray Trace	22	[[0, 1, 1407]]				1451
-3	4	35459.175	35459.175	35517.811	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	35517.811	35517.811	35519.267	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	35519.267	35519.267	35534.545	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	35534.545	35534.545	35590.32	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	35590.32	35590.32	35596.328	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	35596.328	35596.328	35606.693	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	35606.693	35606.693	35810.899	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	35810.899	35810.899	35815.332	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	35815.332	35815.332	35830.451	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	35830.451	35830.451	35911.627	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	35911.627	35911.627	35913.334	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	35913.334	35913.334	35951.225	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	35951.225	35951.225	35987.849	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	35987.849	35987.849	35989.137	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	35989.137	35989.137	36001.083	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36001.083	36001.083	36041.542	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36041.542	36041.542	36044.471	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36044.471	36044.471	36057.453	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36057.453	36057.453	36094.224	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36094.224	36094.224	36095.932	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36095.932	36095.932	36108.177	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36108.177	36108.177	36139.808	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36139.808	36139.808	36141.498	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36141.498	36141.498	36166.774	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36166.774	36166.774	36202.408	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36202.408	36202.408	36205.316	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36205.316	36205.316	36221.347	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36221.347	36221.347	36258.08	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36258.08	36258.08	36259.464	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36259.464	36259.464	36272.906	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36272.906	36272.906	36303.293	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36303.293	36303.293	36304.907	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36304.907	36304.907	36326.921	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36326.921	36326.921	36362.923	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36362.923	36362.923	36364.459	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36364.459	36364.459	36434.009	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36434.009	36434.009	36488.332	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36488.332	36488.332	36489.833	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36489.833	36489.833	36528.031	#00ff27	1.0	Defer Ray Trace	22					1451
-3	4	36528.031	36528.031	36565.898	#00ff27	0.15	Defer Ray Trace (waiting)	22					1451
-3	4	36565.898	36565.898	36567.968	#00ff27	0.45	Defer Ray Trace (ready)	22					1451
-3	4	36567.968	36567.968	36622.836	#00ff27	1.0	Defer Ray Trace	22					1451
-2	6	35285.396	35460.667	35462.006	#00ffa8	1.0	Refinement	21	[[0, 2, 45]]				116
-2	6	35461.862	35470.784	35472.563	#1300ff	1.0	Defer Ray Trace Finish	21	[[0, 2, 45]]				1801
-2	6	35356.839	35478.775	35481.452	#00ffa8	1.0	Refinement	21	[[0, 2, 45]]				1802
-2	6	35481.317	35494.186	35496.368	#1300ff	1.0	Defer Ray Trace Finish	21	[[0, 2, 45]]				1803
-2	6	35491.302	35508.117	35508.979	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				117
-2	6	35385.073	35535.981	35536.957	#00ffa8	1.0	Refinement	21	[[0, 2, 45]]				118
-2	6	35536.751	35547.828	35557.282	#1300ff	1.0	Defer Ray Trace Finish	21	[[0, 2, 45]]				119
-2	6	35556.823	35567.437	35570.209	#0063ff	1.0	Finalize Equivalence Sets	21	[[0, 2, 45]]				1804
-2	6	35550.36	35581.998	35582.463	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				1805
-2	5	35608.125	35608.125	35794.08	#7c00ff	1.0	Defer Task Perform Mapping	21	[[0, 2, 45]]				124
-2	5	35794.08	35794.08	35847.529	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	21					124
-2	5	35847.529	35847.529	35849.201	#7c00ff	0.45	Defer Task Perform Mapping (ready)	21					124
-2	5	35849.201	35849.201	35899.721	#7c00ff	1.0	Defer Task Perform Mapping	21					124
-2	5	35899.721	35899.721	35961.924	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	21					124
-2	5	35961.924	35961.924	35963.583	#7c00ff	0.45	Defer Task Perform Mapping (ready)	21					124
-2	5	35963.583	35963.583	35981.273	#7c00ff	1.0	Defer Task Perform Mapping	21					124
-2	5	35981.273	35981.273	36013.626	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	21					124
-2	5	36013.626	36013.626	36016.145	#7c00ff	0.45	Defer Task Perform Mapping (ready)	21					124
-2	5	36016.145	36016.145	36022.29	#7c00ff	1.0	Defer Task Perform Mapping	21					124
-1	3	35626.034	35795.9	35796.684	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				120
-1	3	35811.301	35831.835	35832.717	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				121
-1	3	35886.627	35901.189	35902.125	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				122
-1	3	35912.014	35952.629	35953.033	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				123
-1	3	35976.221	35982.61	35983.513	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				1447
-1	3	35996.806	36004.745	36005.198	#00ff72	1.0	Tighten Index Space	21	[[0, 2, 45]]				1448
-2	5	36014.723	36033.304	36033.941	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				125
-2	6	35592.967	36058.941	36076.04	#006600	1.0	Post-Task Execution	20		[[0, 2, 1778]]			1806
-2	6	36080.316	36082.409	36083.383	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				1807
-2	6	36022.068	36109.485	36118.643	#00ff3c	1.0	Defer Task Launch	21	[[0, 2, 45]]				126
-2	6	36127.345	36131.152	36131.714	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				127
-2	6	36168.06	36168.06	36168.626	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				129
-2	6	36168.626	36168.626	36205.599	#00ffa8	0.15	Refinement (waiting)	22					129
-2	6	36205.599	36205.599	36223.459	#00ffa8	0.45	Refinement (ready)	22					129
-2	6	36223.459	36223.459	36225.043	#00ffa8	1.0	Refinement	22					129
-1	5	36183.309	36183.309	36183.772	#FFC0CB	1.0	ProfTask <22>						1070
-1	5	36187.88	36193.34	36194.072	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				128
-2	6	36235.495	36242.811	36243.738	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				130
-2	6	36283.734	36283.734	36283.958	#FFC0CB	1.0	ProfTask <22>						1072
-2	6	36289.189	36294.255	36294.791	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				131
-2	6	36328.253	36328.253	36328.731	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				1449
-2	6	36328.731	36328.731	36364.734	#00ffa8	0.15	Refinement (waiting)	22					1449
-2	6	36364.734	36364.734	36435.383	#00ffa8	0.45	Refinement (ready)	22					1449
-2	6	36435.383	36435.383	36440.014	#00ffa8	1.0	Refinement	22					1449
-1	5	36341.558	36341.558	36341.688	#FFC0CB	1.0	ProfTask <22>						1074
-1	5	36347.017	36352.12	36352.822	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				132
-2	6	36439.6	36445.39	36448.218	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				1450
-2	6	36423.042	36457.062	36457.862	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				133
-2	6	36426.025	36467.128	36467.814	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				134
-2	6	36447.087	36478.494	36478.939	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				135
-2	6	36374.475	36529.304	36530.412	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				136
-2	3	36530.225	36539.947	36550.18	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				137
-2	6	36535.866	36559.613	36560.175	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				1808
-3	6	36621.297	36646.043	36646.618	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				138
-3	6	36627.7	36664.962	36665.888	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				1452
-3	6	36398.303	36674.419	36675.834	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				139
-3	6	36675.685	36684.685	36690.1	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				140
-3	5	36439.186	36704.539	36721.423	#006600	1.0	Post-Task Execution	21		[[0, 2, 45]]			141
-3	6	36517.293	36730.045	36731.37	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				142
-3	6	36731.221	36742.415	36745.317	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				143
-3	6	36574.908	36754.585	36755.329	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				1225
-3	6	36755.215	36768.013	36770.041	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				144
-3	6	36593.662	36779.409	36780.253	#00ffa8	1.0	Refinement	22	[[0, 1, 1407]]				145
-3	6	36780.11	36787.822	36790.058	#1300ff	1.0	Defer Ray Trace Finish	22	[[0, 1, 1407]]				1453
-3	6	36789.808	36799.993	36804.044	#0063ff	1.0	Finalize Equivalence Sets	22	[[0, 1, 1407]]				1454
-3	5	36813.63	36813.63	37009.046	#7c00ff	1.0	Defer Task Perform Mapping	22	[[0, 1, 1407]]				1226
-3	5	37009.046	37009.046	37049.244	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1226
-3	5	37049.244	37049.244	37051.214	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1226
-3	5	37051.214	37051.214	37062.588	#7c00ff	1.0	Defer Task Perform Mapping	22					1226
-3	5	37062.588	37062.588	37109.713	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1226
-3	5	37109.713	37109.713	37111.134	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1226
-3	5	37111.134	37111.134	37194.758	#7c00ff	1.0	Defer Task Perform Mapping	22					1226
-3	5	37194.758	37194.758	37227.874	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1226
-3	5	37227.874	37227.874	37230.105	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1226
-3	5	37230.105	37230.105	37240.312	#7c00ff	1.0	Defer Task Perform Mapping	22					1226
-3	5	37240.312	37240.312	37274.478	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1226
-3	5	37274.478	37274.478	37277.638	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1226
-3	5	37277.638	37277.638	37296.199	#7c00ff	1.0	Defer Task Perform Mapping	22					1226
-3	5	37296.199	37296.199	37333.847	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1226
-3	5	37333.847	37333.847	37335.873	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1226
-3	5	37335.873	37335.873	37345.226	#7c00ff	1.0	Defer Task Perform Mapping	22					1226
-2	6	37028.137	37028.137	37028.47	#FFC0CB	1.0	ProfTask <22>						1076
-2	6	37032.602	37037.674	37038.695	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				146
-2	6	37088.252	37088.252	37088.468	#FFC0CB	1.0	ProfTask <22>						1078
-2	6	37095.777	37100.887	37101.544	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				147
-2	6	37204.942	37204.942	37205.151	#FFC0CB	1.0	ProfTask <22>						1080
-2	6	37211.834	37216.966	37217.612	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				148
-2	6	37252.102	37252.102	37252.213	#FFC0CB	1.0	ProfTask <22>						1082
-2	6	37260.869	37265.759	37266.169	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				149
-2	6	37308.43	37308.43	37308.721	#FFC0CB	1.0	ProfTask <22>						1084
-2	6	37315.692	37320.798	37321.216	#00ff72	1.0	Tighten Index Space	22	[[0, 1, 1407]]				150
-3	5	37341.447	37358.628	37361.453	#333399	1.0	Deferred Ready Trigger	19					152
-3	6	37344.908	37371.83	37398.641	#00ff3c	1.0	Defer Task Launch	22	[[0, 1, 1407]]				1227
-3	4	37361.193	37408.943	37421.334	#0069ff	1.0	Operation Physical Dependence Analysis	19					1455
-3	6	37409.797	37436.74	37441.502	#333399	1.0	Deferred Ready Trigger	17	[[0, 1, 1779]]				1809
-3	6	37441.184	37449.277	37458.14	#0a00ff	1.0	Scheduler	0					1456
-3	5	37469.907	37469.907	37480.962	#ca00ff	1.0	Task Physical Dependence Analysis	17	[[0, 1, 1779]]				1811
-3	5	37480.962	37480.962	37485.599	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37485.599	37485.599	37497.188	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37497.188	37497.188	37519.367	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37519.367	37519.367	37525.219	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37525.219	37525.219	37553.962	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37553.962	37553.962	37559.666	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37559.666	37559.666	37615.317	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37615.317	37615.317	37627.668	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37627.668	37627.668	37636.148	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37636.148	37636.148	37641.726	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37641.726	37641.726	37651.449	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37651.449	37651.449	37668.704	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37668.704	37668.704	37671.839	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37671.839	37671.839	37683.417	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37683.417	37683.417	37696.15	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37696.15	37696.15	37699.079	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37699.079	37699.079	37710.685	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37710.685	37710.685	37720.183	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37720.183	37720.183	37722.948	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37722.948	37722.948	37734.263	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37734.263	37734.263	37745.218	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37745.218	37745.218	37748.05	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	37748.05	37748.05	37759.19	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	37759.19	37759.19	37998.358	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	37998.358	37998.358	38043.463	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38043.463	38043.463	38047.25	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38047.25	38047.25	38070.847	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38070.847	38070.847	38101.784	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38101.784	38101.784	38105.848	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38105.848	38105.848	38119.494	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38119.494	38119.494	38177.509	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38177.509	38177.509	38181.299	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38181.299	38181.299	38191.222	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38191.222	38191.222	38230.841	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38230.841	38230.841	38233.977	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38233.977	38233.977	38244.747	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38244.747	38244.747	38283.914	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38283.914	38283.914	38285.819	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38285.819	38285.819	38300.853	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38300.853	38300.853	38338.388	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38338.388	38338.388	38340.61	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38340.61	38340.61	38378.54	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38378.54	38378.54	38423.546	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38423.546	38423.546	38427.419	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38427.419	38427.419	38448.216	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38448.216	38448.216	38533.184	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38533.184	38533.184	38544.881	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38544.881	38544.881	38572.103	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38572.103	38572.103	38604.046	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38604.046	38604.046	38618.846	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38618.846	38618.846	38639.64	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38639.64	38639.64	38678.221	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38678.221	38678.221	38683.989	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38683.989	38683.989	38724.923	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38724.923	38724.923	38773.827	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38773.827	38773.827	38776.376	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38776.376	38776.376	38805.052	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38805.052	38805.052	38888.847	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38888.847	38888.847	38897.332	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38897.332	38897.332	38920.81	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	38920.81	38920.81	38976.215	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	38976.215	38976.215	38978.835	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	38978.835	38978.835	39011.166	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39011.166	39011.166	39091.234	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39091.234	39091.234	39097.257	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39097.257	39097.257	39134.066	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39134.066	39134.066	39166.781	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39166.781	39166.781	39170.193	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39170.193	39170.193	39182.735	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39182.735	39182.735	39219.786	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39219.786	39219.786	39222.864	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39222.864	39222.864	39240.589	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39240.589	39240.589	39279.475	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39279.475	39279.475	39281.968	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39281.968	39281.968	39312.083	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39312.083	39312.083	39361.907	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39361.907	39361.907	39365.486	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39365.486	39365.486	39411.443	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39411.443	39411.443	39442.919	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39442.919	39442.919	39445.564	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39445.564	39445.564	39466.109	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39466.109	39466.109	39500.578	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39500.578	39500.578	39503.851	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39503.851	39503.851	39536.17	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39536.17	39536.17	39561.973	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39561.973	39561.973	39564.244	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39564.244	39564.244	39581.739	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39581.739	39581.739	39609.492	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39609.492	39609.492	39620.52	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39620.52	39620.52	39650.452	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39650.452	39650.452	39680.164	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39680.164	39680.164	39682.692	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39682.692	39682.692	39701.703	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-3	5	39701.703	39701.703	39734.575	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					1811
-3	5	39734.575	39734.575	39737.336	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					1811
-3	5	39737.336	39737.336	39791.391	#ca00ff	1.0	Task Physical Dependence Analysis	17					1811
-2	6	37480.41	37482.553	37486.011	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				1457
-2	6	37518.01	37521.123	37529.569	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				1458
-2	6	37530.316	37561.425	37600.864	#006600	1.0	Post-Task Execution	22		[[0, 1, 1407]]			153
-2	6	37559.12	37613.493	37616.284	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				154
-2	6	37635.787	37640.083	37642.089	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				155
-2	6	37664.564	37670.311	37672.106	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				156
-2	6	37695.795	37697.559	37699.311	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				157
-2	6	37719.911	37721.512	37723.165	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				158
-2	6	37744.837	37746.672	37748.27	#00ffa8	1.0	Refinement	17	[[0, 1, 1779]]				159
-2	6	38008.72	38008.72	38009.094	#FFC0CB	1.0	ProfTask <17>						1086
-2	6	38027.653	38032.684	38033.296	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				160
-2	6	38079.193	38079.193	38079.457	#FFC0CB	1.0	ProfTask <17>						1088
-2	6	38086.288	38091.323	38091.784	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				161
-2	6	38155.194	38155.194	38155.319	#FFC0CB	1.0	ProfTask <17>						1090
-2	6	38161.966	38167.178	38167.924	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				162
-2	6	38208.276	38208.276	38208.398	#FFC0CB	1.0	ProfTask <17>						1092
-2	6	38215.578	38220.512	38221.22	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				163
-2	6	38255.012	38255.012	38255.139	#FFC0CB	1.0	ProfTask <17>						1094
-2	6	38262.557	38267.706	38271.725	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				1810
-2	6	38315.726	38315.726	38315.849	#FFC0CB	1.0	ProfTask <17>						1096
-2	6	38322.932	38327.905	38328.467	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				164
-2	6	38400.782	38400.782	38400.917	#FFC0CB	1.0	ProfTask <17>						1098
-2	6	38407.927	38413.074	38413.994	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				165
-2	6	38491.64	38491.64	38491.774	#FFC0CB	1.0	ProfTask <17>						1100
-2	6	38499.001	38511.834	38515.683	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				166
-2	6	38574.525	38574.525	38575.026	#FFC0CB	1.0	ProfTask <17>						1102
-2	6	38586.005	38591.684	38592.419	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				167
-2	6	38652.956	38652.956	38653.265	#FFC0CB	1.0	ProfTask <17>						1104
-2	6	38660.748	38665.471	38666.082	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				168
-2	6	38746.659	38746.659	38746.833	#FFC0CB	1.0	ProfTask <17>						1106
-2	6	38760.574	38765.542	38766.5	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				169
-2	6	38855.801	38868.918	38872.501	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				170
-2	6	38936.294	38936.294	38936.89	#FFC0CB	1.0	ProfTask <17>						1108
-2	6	38941.695	38947.574	38948.931	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				171
-2	6	39062.956	39062.956	39063.191	#FFC0CB	1.0	ProfTask <17>						1110
-2	6	39072.784	39078.644	39079.732	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				172
-2	6	39145.352	39145.352	39145.613	#FFC0CB	1.0	ProfTask <17>						1112
-2	6	39150.426	39156.104	39157.035	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				173
-2	6	39195.952	39195.952	39196.131	#FFC0CB	1.0	ProfTask <17>						1114
-2	6	39204.107	39209.076	39209.773	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				174
-2	6	39258.78	39258.78	39258.948	#FFC0CB	1.0	ProfTask <17>						1116
-2	6	39264.34	39269.702	39270.443	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				175
-2	6	39328.73	39328.73	39328.853	#FFC0CB	1.0	ProfTask <17>						1118
-2	6	39347.216	39352.36	39353.011	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				176
-2	6	39422.545	39422.545	39422.725	#FFC0CB	1.0	ProfTask <17>						1120
-2	6	39428.276	39433.577	39434.281	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				177
-2	6	39479.506	39479.506	39479.685	#FFC0CB	1.0	ProfTask <17>						1122
-2	6	39486.014	39491.12	39491.821	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				178
-2	6	39545.605	39545.605	39545.95	#FFC0CB	1.0	ProfTask <17>						1124
-2	6	39549.44	39554.611	39555.175	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				179
-2	6	39595.227	39600.305	39600.925	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				1459
-2	6	39659.962	39659.962	39660.115	#FFC0CB	1.0	ProfTask <17>						1126
-2	6	39665.792	39671.11	39671.801	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				180
-2	6	39718.85	39723.753	39724.335	#00ff72	1.0	Tighten Index Space	17	[[0, 1, 1779]]				181
-3	6	39772.807	39833.591	39847.924	#333399	1.0	Deferred Ready Trigger	18	[[0, 1, 977]]				182
-3	6	39847.2	39861.048	39870.553	#0a00ff	1.0	Scheduler	0					1812
-3	5	39832.807	39881.879	39897.236	#006600	1.0	Post-Task Execution	17		[[0, 1, 1779]]			183
-3	4	39869.904	39907.355	39936.09	#ca00ff	1.0	Task Physical Dependence Analysis	18	[[0, 1, 977]]				1228
-3	6	39962.612	39962.612	39967.12	#FFC0CB	1.0	ProfTask <18>						1128
-3	6	39968.315	39972.432	39986.852	#006600	1.0	Post-Task Execution	18		[[0, 1, 977]]			992
-3	6	39997.855	39997.855	39998.821	#FFC0CB	1.0	ProfTask <18>						1130
-3	6	40039.471	40046.747	40099.592	#00ff5d	1.0	Logical Dependence Analysis	23					1813
-3	5	40090.35	40113.404	40117.181	#333399	1.0	Deferred Ready Trigger	25					1814
-3	6	40109.408	40124.495	40163.043	#00ff5d	1.0	Logical Dependence Analysis	24					1229
-3	6	40147.97	40173.544	40175.905	#333399	1.0	Deferred Ready Trigger	27					185
-3	6	40162.108	40183.007	40188.127	#333399	1.0	Deferred Ready Trigger	26	[[0, 1, 1780]]				186
-3	6	40187.676	40197.386	40203.539	#0a00ff	1.0	Scheduler	0					1815
-3	6	40116.914	40213.991	40216.419	#0069ff	1.0	Operation Physical Dependence Analysis	25					1816
-3	6	40214.65	40224.461	40228.997	#333399	1.0	Deferred Ready Trigger	23					187
-3	6	40175.666	40239.008	40240.8	#0069ff	1.0	Operation Physical Dependence Analysis	27					188
-3	6	40239.871	40251.431	40260.361	#333399	1.0	Deferred Ready Trigger	24					1817
-3	5	40203.06	40270.563	40313.627	#ca00ff	1.0	Task Physical Dependence Analysis	26	[[0, 1, 1780]]				1818
-3	4	40228.702	40321.774	40379.076	#0069ff	1.0	Operation Physical Dependence Analysis	23					189
-3	6	40342.001	40415.318	40438.913	#006600	1.0	Post-Task Execution	26		[[0, 1, 1780]]			1460
-3	3	40260.121	40452.64	40689.341	#0069ff	1.0	Operation Physical Dependence Analysis	24					190
-3	6	40461.036	40702.018	40772.727	#00ff5d	1.0	Logical Dependence Analysis	28	[[0, 1, 1408]]				191
-3	6	40730.145	40788.686	40793.913	#333399	1.0	Deferred Ready Trigger	28	[[0, 1, 1408]]				192
-3	6	40793.561	40804.96	40813.695	#0a00ff	1.0	Scheduler	0					193
-3	5	40755.477	40824.939	40836.225	#009900	1.0	Deferred Commit	24					194
-3	6	40765.569	40851.559	40856.612	#333399	1.0	Deferred Ready Trigger	29					195
-3	4	40813.108	40866.432	40892.481	#ca00ff	1.0	Task Physical Dependence Analysis	28	[[0, 1, 1408]]				1230
-3	6	40874.909	40909.669	40913.925	#333399	1.0	Deferred Ready Trigger	30	[[0, 1, 1409]]				1819
-3	4	40913.388	40917.112	40928.206	#0a00ff	1.0	Scheduler	0					1461
-3	6	40924.451	40940.886	40954.003	#006600	1.0	Post-Task Execution	28		[[0, 1, 1408]]			196
-3	5	40856.27	40966.0	40993.548	#0069ff	1.0	Operation Physical Dependence Analysis	29					197
-3	6	40985.426	41004.351	41011.187	#0a00ff	1.0	Scheduler	0					198
-3	6	40988.517	41021.718	41028.829	#0a00ff	1.0	Scheduler	0					199
-3	6	40990.955	41037.696	41040.718	#0a00ff	1.0	Scheduler	0					1462
-3	6	40992.998	41049.902	41053.392	#0a00ff	1.0	Scheduler	0					200
-3	3	40927.36	41064.302	41085.631	#ca00ff	1.0	Task Physical Dependence Analysis	30	[[0, 1, 1409]]				1231
-3	5	41010.799	41097.753	41115.209	#ca00ff	1.0	Task Physical Dependence Analysis	31					202
-3	6	41127.131	41127.131	41139.151	#7c00ff	1.0	Defer Task Perform Mapping	35	[[0, 1, 980]]				208
-3	6	41139.151	41139.151	41175.904	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					208
-3	6	41175.904	41175.904	41187.604	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					208
-3	6	41187.604	41187.604	41191.602	#7c00ff	1.0	Defer Task Perform Mapping	35					208
-3	6	41191.602	41191.602	41253.852	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					208
-3	6	41253.852	41253.852	41266.333	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					208
-3	6	41266.333	41266.333	41273.79	#7c00ff	1.0	Defer Task Perform Mapping	35					208
-3	6	41273.79	41273.79	41277.008	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					208
-3	6	41277.008	41277.008	41287.506	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					208
-3	6	41287.506	41287.506	41296.176	#7c00ff	1.0	Defer Task Perform Mapping	35					208
-3	6	41296.176	41296.176	41299.372	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					208
-3	6	41299.372	41299.372	41308.147	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					208
-3	6	41308.147	41308.147	41452.153	#7c00ff	1.0	Defer Task Perform Mapping	35					208
-2	3	41115.058	41146.127	41156.238	#006600	1.0	Post-Task Execution	30		[[0, 1, 1409]]			1463
-2	5	41138.051	41171.727	41176.647	#00ffa8	1.0	Refinement	35	[[0, 1, 980]]				1464
-2	5	41177.521	41193.5	41223.211	#00ff5d	1.0	Logical Dependence Analysis	36	[[0, 1, 981]]				203
-2	5	41191.011	41251.637	41254.3	#00ffa8	1.0	Refinement	35	[[0, 1, 980]]				205
-2	5	41273.233	41275.447	41277.234	#00ffa8	1.0	Refinement	35	[[0, 1, 980]]				206
-2	5	41295.741	41298.109	41299.763	#00ffa8	1.0	Refinement	35	[[0, 1, 980]]				207
-3	5	41381.963	41462.534	41553.113	#00ff78	1.0	Copy Fill Aggregation	35	[[0, 1, 980]]				1820
-3	6	41552.898	41557.996	41572.57	#c4ff00	1.0	Copy Fill Deletion	35	[[0, 1, 980]]				209
-3	6	41552.619	41581.775	41589.408	#d6ff00	1.0	Defer Physical Registration	35	[[0, 1, 980]]				1465
-3	6	41597.398	41598.13	41601.651	#7c00ff	1.0	Defer Task Perform Mapping	35	[[0, 1, 980]]				210
-3	5	41601.535	41612.116	41637.826	#00ff3c	1.0	Defer Task Launch	35	[[0, 1, 980]]				1232
-3	4	41028.383	41643.38	41656.204	#ca00ff	1.0	Task Physical Dependence Analysis	32					1821
-3	6	41664.746	41664.746	41675.601	#7c00ff	1.0	Defer Task Perform Mapping	39	[[0, 4, 978]]				1822
-3	6	41675.601	41675.601	41679.913	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	39					1822
-3	6	41679.913	41679.913	41689.945	#7c00ff	0.45	Defer Task Perform Mapping (ready)	39					1822
-3	6	41689.945	41689.945	41693.208	#7c00ff	1.0	Defer Task Perform Mapping	39					1822
-3	6	41693.208	41693.208	41695.538	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	39					1822
-3	6	41695.538	41695.538	41707.969	#7c00ff	0.45	Defer Task Perform Mapping (ready)	39					1822
-3	6	41707.969	41707.969	41777.265	#7c00ff	1.0	Defer Task Perform Mapping	39					1822
-2	5	41674.882	41677.543	41680.62	#00ffa8	1.0	Refinement	39	[[0, 4, 978]]				1466
-2	5	41692.71	41694.454	41696.237	#00ffa8	1.0	Refinement	39	[[0, 4, 978]]				1467
-3	5	41729.189	41786.905	41808.111	#00ff78	1.0	Copy Fill Aggregation	39	[[0, 4, 978]]				1823
-3	6	41807.871	41820.957	41822.926	#c4ff00	1.0	Copy Fill Deletion	39	[[0, 4, 978]]				1233
-3	6	41807.586	41826.179	41835.192	#d6ff00	1.0	Defer Physical Registration	39	[[0, 4, 978]]				1468
-3	6	41847.287	41847.696	41850.182	#7c00ff	1.0	Defer Task Perform Mapping	39	[[0, 4, 978]]				1469
-3	5	41850.025	41856.75	41873.427	#00ff3c	1.0	Defer Task Launch	39	[[0, 4, 978]]				1824
-3	2	41040.387	41878.188	41891.742	#ca00ff	1.0	Task Physical Dependence Analysis	33					1470
-3	6	41898.441	41898.441	41907.742	#7c00ff	1.0	Defer Task Perform Mapping	40	[[0, 2, 979]]				1472
-3	6	41907.742	41907.742	41911.428	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	40					1472
-3	6	41911.428	41911.428	41919.258	#7c00ff	0.45	Defer Task Perform Mapping (ready)	40					1472
-3	6	41919.258	41919.258	41984.555	#7c00ff	1.0	Defer Task Perform Mapping	40					1472
-2	5	41907.147	41909.41	41912.003	#00ffa8	1.0	Refinement	40	[[0, 2, 979]]				1471
-3	5	41939.829	41991.703	42012.418	#00ff78	1.0	Copy Fill Aggregation	40	[[0, 2, 979]]				1473
-3	6	42012.182	42022.892	42027.95	#c4ff00	1.0	Copy Fill Deletion	40	[[0, 2, 979]]				1474
-3	6	42011.923	42036.018	42041.474	#d6ff00	1.0	Defer Physical Registration	40	[[0, 2, 979]]				1475
-3	6	42047.732	42048.274	42051.011	#7c00ff	1.0	Defer Task Perform Mapping	40	[[0, 2, 979]]				1476
-3	5	42050.894	42058.236	42075.878	#00ff3c	1.0	Defer Task Launch	40	[[0, 2, 979]]				1825
-3	1	41053.056	42078.347	42091.276	#ca00ff	1.0	Task Physical Dependence Analysis	34					1826
-3	6	42087.875	42096.506	42139.903	#7c00ff	1.0	Defer Task Perform Mapping	41	[[0, 3, 1781]]				1827
-3	5	42122.634	42145.486	42168.319	#00ff78	1.0	Copy Fill Aggregation	41	[[0, 3, 1781]]				1828
-3	6	42168.109	42177.866	42180.065	#c4ff00	1.0	Copy Fill Deletion	41	[[0, 3, 1781]]				1829
-3	6	42167.755	42197.862	42202.449	#d6ff00	1.0	Defer Physical Registration	41	[[0, 3, 1781]]				1830
-3	6	42209.967	42210.426	42215.943	#7c00ff	1.0	Defer Task Perform Mapping	41	[[0, 3, 1781]]				1831
-3	6	42212.186	42221.189	42224.188	#333399	1.0	Deferred Ready Trigger	38					1832
-3	5	42215.766	42230.66	42249.986	#00ff3c	1.0	Defer Task Launch	41	[[0, 3, 1781]]				993
-3	6	42223.937	42252.825	42255.054	#0069ff	1.0	Operation Physical Dependence Analysis	38					994
-3	6	42253.35	42257.717	42260.976	#333399	1.0	Deferred Ready Trigger	36	[[0, 1, 981]]				995
-3	6	42260.618	42263.687	42269.263	#0a00ff	1.0	Scheduler	0					996
-3	5	42268.708	42271.475	42314.693	#ca00ff	1.0	Task Physical Dependence Analysis	36	[[0, 1, 981]]				997
-3	6	42308.643	42317.407	42319.953	#333399	1.0	Deferred Ready Trigger	37	[[0, 1, 982]]				998
-3	6	42319.575	42322.187	42325.755	#0a00ff	1.0	Scheduler	0					999
-3	5	42325.336	42328.141	42340.879	#ca00ff	1.0	Task Physical Dependence Analysis	37	[[0, 1, 982]]				1000
-3	6	42343.343	42343.343	42344.893	#FFC0CB	1.0	ProfTask <41>						1132
-3	6	42345.821	42345.821	42346.687	#FFC0CB	1.0	ProfTask <38>						1134
-3	6	42347.214	42347.214	42347.665	#FFC0CB	1.0	ProfTask <36>						1136
-3	6	42348.17	42348.17	42348.514	#FFC0CB	1.0	ProfTask						1138
-3	6	42349.056	42349.056	42349.636	#FFC0CB	1.0	ProfTask <36>						1140
-3	6	42350.156	42350.156	42350.602	#FFC0CB	1.0	ProfTask <37>						1142
-3	6	42351.111	42351.111	42351.456	#FFC0CB	1.0	ProfTask						1144
-3	6	42352.007	42352.007	42352.544	#FFC0CB	1.0	ProfTask <37>						1146
-3	6	42431.214	42434.782	42464.529	#006600	1.0	Post-Task Execution	41		[[0, 3, 1781]]			1001
-3	6	42470.222	42470.222	42471.003	#FFC0CB	1.0	ProfTask <41>						1148
-3	6	42490.24	42490.24	42491.578	#FFC0CB	1.0	ProfTask <39>						1150
-3	6	42493.053	42496.232	42505.984	#006600	1.0	Post-Task Execution	39		[[0, 4, 978]]			1002
-3	6	42512.425	42512.425	42512.84	#FFC0CB	1.0	ProfTask <39>						1152
-3	6	42564.172	42564.172	42564.829	#FFC0CB	1.0	ProfTask <40>						1154
-3	6	42569.373	42575.12	42584.032	#006600	1.0	Post-Task Execution	40		[[0, 2, 979]]			1477
-3	6	42663.529	42663.529	42664.942	#FFC0CB	1.0	ProfTask <35>						1156
-3	6	42670.037	42677.598	42706.532	#006600	1.0	Post-Task Execution	35		[[0, 1, 980]]			1833
-3	6	42712.393	42712.393	42713.065	#FFC0CB	1.0	ProfTask <36>						1158
-3	6	42719.289	42726.512	42748.177	#006600	1.0	Post-Task Execution	36		[[0, 1, 981]]			1003
-3	6	42756.044	42756.044	42757.021	#FFC0CB	1.0	ProfTask <36>						1160
-3	6	42771.835	42771.835	42772.544	#FFC0CB	1.0	ProfTask <37>						1162
-3	6	42773.866	42775.326	42787.293	#006600	1.0	Post-Task Execution	37		[[0, 1, 982]]			1478
-3	6	42804.364	42811.357	42833.793	#00ff5d	1.0	Logical Dependence Analysis	42					1479
-3	5	42826.555	42852.475	42855.161	#333399	1.0	Deferred Ready Trigger	44					212
-3	6	42851.277	42865.82	42891.37	#00ff5d	1.0	Logical Dependence Analysis	43					213
-3	6	42880.245	42905.25	42910.033	#333399	1.0	Deferred Ready Trigger	46					215
-3	6	42890.416	42918.473	42921.506	#333399	1.0	Deferred Ready Trigger	45	[[0, 1, 1410]]				216
-3	6	42921.167	42932.0	42937.91	#0a00ff	1.0	Scheduler	0					217
-3	6	42854.902	42946.849	42948.248	#0069ff	1.0	Operation Physical Dependence Analysis	44					218
-3	6	42947.254	42956.702	42961.469	#333399	1.0	Deferred Ready Trigger	42					219
-3	6	42909.79	42970.815	42972.049	#0069ff	1.0	Operation Physical Dependence Analysis	46					220
-3	6	42971.239	42979.091	42986.284	#333399	1.0	Deferred Ready Trigger	43					221
-3	5	42937.456	42994.922	43014.364	#ca00ff	1.0	Task Physical Dependence Analysis	45	[[0, 1, 1410]]				1234
-3	4	42961.223	43020.571	43041.604	#0069ff	1.0	Operation Physical Dependence Analysis	42					222
-3	6	43040.654	43054.389	43073.358	#006600	1.0	Post-Task Execution	45		[[0, 1, 1410]]			1480
-3	3	42985.997	43082.779	43160.014	#0069ff	1.0	Operation Physical Dependence Analysis	43					1834
-3	6	43085.909	43166.154	43209.514	#00ff5d	1.0	Logical Dependence Analysis	47	[[0, 2, 46]]				223
-3	6	43173.651	43220.508	43225.429	#333399	1.0	Deferred Ready Trigger	47	[[0, 2, 46]]				224
-3	6	43223.485	43236.219	43245.736	#0a00ff	1.0	Scheduler	0					225
-3	6	43177.522	43255.035	43263.41	#009900	1.0	Deferred Commit	43					226
-3	6	43203.312	43271.138	43272.959	#333399	1.0	Deferred Ready Trigger	48					1835
-3	5	43245.228	43279.8	43304.768	#ca00ff	1.0	Task Physical Dependence Analysis	47	[[0, 2, 46]]				227
-3	6	43287.567	43315.284	43318.246	#333399	1.0	Deferred Ready Trigger	49	[[0, 2, 47]]				228
-3	6	43317.437	43334.889	43342.409	#0a00ff	1.0	Scheduler	0					1481
-3	5	43338.386	43354.45	43371.011	#006600	1.0	Post-Task Execution	47		[[0, 2, 46]]			229
-3	4	43272.715	43381.107	43411.263	#0069ff	1.0	Operation Physical Dependence Analysis	48					230
-3	6	43403.303	43422.0	43428.317	#0a00ff	1.0	Scheduler	0					231
-3	6	43405.859	43438.378	43444.238	#0a00ff	1.0	Scheduler	0					232
-3	6	43408.353	43455.1	43457.48	#0a00ff	1.0	Scheduler	0					233
-3	6	43410.744	43466.871	43470.853	#0a00ff	1.0	Scheduler	0					234
-3	3	43341.867	43481.253	43499.593	#ca00ff	1.0	Task Physical Dependence Analysis	49	[[0, 2, 47]]				1235
-3	5	43427.957	43509.989	43520.006	#ca00ff	1.0	Task Physical Dependence Analysis	50					1836
-3	6	43517.806	43523.357	43574.676	#7c00ff	1.0	Defer Task Perform Mapping	54	[[0, 1, 984]]				236
-3	6	43534.049	43584.219	43593.962	#006600	1.0	Post-Task Execution	49		[[0, 2, 47]]			1482
-3	5	43553.497	43602.3	43633.559	#00ff78	1.0	Copy Fill Aggregation	54	[[0, 1, 984]]				237
-3	5	43633.259	43649.835	43658.237	#c4ff00	1.0	Copy Fill Deletion	54	[[0, 1, 984]]				238
-3	5	43632.582	43669.492	43676.626	#d6ff00	1.0	Defer Physical Registration	54	[[0, 1, 984]]				239
-3	6	43612.674	43690.794	43715.923	#00ff5d	1.0	Logical Dependence Analysis	55	[[0, 3, 48]]				240
-3	6	43687.222	43742.621	43746.492	#7c00ff	1.0	Defer Task Perform Mapping	54	[[0, 1, 984]]				241
-3	5	43746.216	43757.475	43782.881	#00ff3c	1.0	Defer Task Launch	54	[[0, 1, 984]]				1236
-3	4	43443.89	43787.606	43803.898	#ca00ff	1.0	Task Physical Dependence Analysis	51					1837
-3	6	43801.566	43811.212	43861.972	#7c00ff	1.0	Defer Task Perform Mapping	58	[[0, 2, 983]]				1838
-3	5	43842.853	43869.783	43889.98	#00ff78	1.0	Copy Fill Aggregation	58	[[0, 2, 983]]				1839
-3	6	43889.785	43907.642	43909.129	#c4ff00	1.0	Copy Fill Deletion	58	[[0, 2, 983]]				1483
-3	6	43889.572	43917.32	43921.401	#d6ff00	1.0	Defer Physical Registration	58	[[0, 2, 983]]				1484
-3	6	43929.392	43929.831	43932.756	#7c00ff	1.0	Defer Task Perform Mapping	58	[[0, 2, 983]]				1485
-3	5	43932.527	43940.45	43957.304	#00ff3c	1.0	Defer Task Launch	58	[[0, 2, 983]]				1237
-3	6	43457.146	43964.471	43973.669	#ca00ff	1.0	Task Physical Dependence Analysis	52					1840
-3	5	43970.995	43979.791	44020.074	#7c00ff	1.0	Defer Task Perform Mapping	59	[[0, 3, 1411]]				1841
-3	6	44002.671	44026.54	44045.598	#00ff78	1.0	Copy Fill Aggregation	59	[[0, 3, 1411]]				1842
-3	6	44045.113	44053.625	44056.777	#c4ff00	1.0	Copy Fill Deletion	59	[[0, 3, 1411]]				1843
-3	6	44044.886	44067.361	44073.582	#d6ff00	1.0	Defer Physical Registration	59	[[0, 3, 1411]]				1844
-3	6	44080.527	44081.103	44083.125	#7c00ff	1.0	Defer Task Perform Mapping	59	[[0, 3, 1411]]				1845
-3	5	44083.015	44089.808	44109.262	#00ff3c	1.0	Defer Task Launch	59	[[0, 3, 1411]]				1238
-3	2	43470.525	44114.823	44127.287	#ca00ff	1.0	Task Physical Dependence Analysis	53					1239
-3	6	44124.565	44131.522	44169.065	#7c00ff	1.0	Defer Task Perform Mapping	60	[[0, 4, 1213]]				1240
-3	5	44153.048	44173.66	44192.404	#00ff78	1.0	Copy Fill Aggregation	60	[[0, 4, 1213]]				1241
-3	6	44192.195	44200.163	44201.372	#c4ff00	1.0	Copy Fill Deletion	60	[[0, 4, 1213]]				1242
-3	6	44191.974	44208.322	44211.986	#d6ff00	1.0	Defer Physical Registration	60	[[0, 4, 1213]]				1243
-3	6	44215.85	44216.246	44220.621	#7c00ff	1.0	Defer Task Perform Mapping	60	[[0, 4, 1213]]				1244
-3	6	44217.686	44224.483	44226.369	#333399	1.0	Deferred Ready Trigger	57					1245
-3	5	44220.474	44229.089	44243.62	#00ff3c	1.0	Defer Task Launch	60	[[0, 4, 1213]]				1004
-3	6	44226.076	44246.564	44248.65	#0069ff	1.0	Operation Physical Dependence Analysis	57					1005
-3	6	44247.315	44250.901	44254.105	#333399	1.0	Deferred Ready Trigger	55	[[0, 3, 48]]				1006
-3	6	44253.769	44256.244	44261.144	#0a00ff	1.0	Scheduler	0					1007
-3	5	44260.6	44263.111	44302.608	#ca00ff	1.0	Task Physical Dependence Analysis	55	[[0, 3, 48]]				1008
-3	6	44295.559	44305.013	44307.325	#333399	1.0	Deferred Ready Trigger	56	[[0, 1, 985]]				1009
-3	6	44307.047	44309.35	44312.715	#0a00ff	1.0	Scheduler	0					1010
-3	5	44312.327	44314.691	44326.962	#ca00ff	1.0	Task Physical Dependence Analysis	56	[[0, 1, 985]]				1011
-3	6	44329.374	44329.374	44330.32	#FFC0CB	1.0	ProfTask <60>						1164
-3	6	44331.166	44331.166	44331.59	#FFC0CB	1.0	ProfTask <57>						1166
-3	6	44332.104	44332.104	44333.249	#FFC0CB	1.0	ProfTask <55>						1168
-3	6	44333.848	44333.848	44334.466	#FFC0CB	1.0	ProfTask						1170
-3	6	44335.073	44335.073	44335.502	#FFC0CB	1.0	ProfTask <55>						1172
-2	5	44335.999	44335.999	44336.474	#FFC0CB	1.0	ProfTask <56>						1174
-3	6	44337.002	44337.002	44337.451	#FFC0CB	1.0	ProfTask						1176
-3	6	44337.965	44337.965	44338.461	#FFC0CB	1.0	ProfTask <56>						1178
-3	6	44411.234	44413.018	44429.057	#006600	1.0	Post-Task Execution	60		[[0, 4, 1213]]			1012
-3	6	44433.457	44433.457	44434.039	#FFC0CB	1.0	ProfTask <60>						1180
-3	6	44579.497	44579.497	44587.419	#FFC0CB	1.0	ProfTask <58>						1182
-3	6	44597.652	44603.455	44631.046	#006600	1.0	Post-Task Execution	58		[[0, 2, 983]]			1486
-3	6	44767.423	44767.423	44768.959	#FFC0CB	1.0	ProfTask <54>						1184
-3	6	44772.574	44779.81	44805.629	#006600	1.0	Post-Task Execution	54		[[0, 1, 984]]			1487
-3	6	44812.677	44820.257	44844.738	#006600	1.0	Post-Task Execution	55		[[0, 3, 48]]			1488
-3	6	44862.496	44862.496	44863.77	#FFC0CB	1.0	ProfTask <56>						1186
-3	6	44865.877	44869.044	44881.061	#006600	1.0	Post-Task Execution	56		[[0, 1, 985]]			1489
-3	6	44897.639	44904.646	44926.284	#00ff5d	1.0	Logical Dependence Analysis	61					242
-3	5	44919.927	44941.919	44946.523	#333399	1.0	Deferred Ready Trigger	64					244
-3	6	44941.118	44955.574	44979.919	#00ff5d	1.0	Logical Dependence Analysis	62					245
-3	6	44969.512	44990.309	44992.246	#333399	1.0	Deferred Ready Trigger	65					247
-3	6	44978.977	45001.701	45005.303	#333399	1.0	Deferred Ready Trigger	63	[[0, 1, 1412]]				248
-3	6	45004.971	45014.393	45021.842	#0a00ff	1.0	Scheduler	0					1490
-3	6	44946.269	45032.397	45034.261	#0069ff	1.0	Operation Physical Dependence Analysis	64					249
-3	6	45032.921	45042.905	45046.001	#333399	1.0	Deferred Ready Trigger	61					1491
-3	6	44992.0	45056.97	45058.205	#0069ff	1.0	Operation Physical Dependence Analysis	65					250
-3	3	45057.385	45067.407	45079.141	#333399	1.0	Deferred Ready Trigger	62					251
-3	5	45021.105	45089.283	45111.431	#ca00ff	1.0	Task Physical Dependence Analysis	63	[[0, 1, 1412]]				1246
-3	4	45045.752	45122.92	45140.197	#0069ff	1.0	Operation Physical Dependence Analysis	61					252
-3	5	45139.665	45153.064	45171.269	#006600	1.0	Post-Task Execution	63		[[0, 1, 1412]]			1846
-3	6	45078.902	45181.18	45268.75	#0069ff	1.0	Operation Physical Dependence Analysis	62					1847
-3	5	45188.331	45274.09	45310.653	#00ff5d	1.0	Logical Dependence Analysis	66	[[0, 2, 49]]				1492
-3	6	45282.766	45323.944	45327.608	#009900	1.0	Deferred Commit	62					1493
-3	6	45285.113	45345.108	45347.826	#333399	1.0	Deferred Ready Trigger	66	[[0, 2, 49]]				1494
-3	6	45347.471	45356.889	45361.152	#0a00ff	1.0	Scheduler	0					253
-3	6	45305.559	45371.041	45372.597	#333399	1.0	Deferred Ready Trigger	67					254
-3	5	45360.693	45381.284	45404.679	#ca00ff	1.0	Task Physical Dependence Analysis	66	[[0, 2, 49]]				1247
-3	6	45387.544	45414.602	45422.567	#333399	1.0	Deferred Ready Trigger	68	[[0, 1, 1413]]				255
-3	6	45422.278	45431.887	45440.09	#0a00ff	1.0	Scheduler	0					1248
-3	3	45439.595	45456.083	45466.361	#006600	1.0	Post-Task Execution	66		[[0, 2, 49]]			256
-3	4	45372.373	45476.432	45499.673	#0069ff	1.0	Operation Physical Dependence Analysis	67					257
-3	6	45492.785	45510.183	45515.769	#0a00ff	1.0	Scheduler	0					258
-3	6	45495.231	45526.276	45531.623	#0a00ff	1.0	Scheduler	0					259
-3	6	45497.279	45542.61	45548.851	#0a00ff	1.0	Scheduler	0					1495
-3	6	45499.108	45559.174	45561.966	#0a00ff	1.0	Scheduler	0					260
-3	5	45439.551	45570.872	45588.597	#ca00ff	1.0	Task Physical Dependence Analysis	68	[[0, 1, 1413]]				1848
-3	4	45515.43	45593.771	45610.668	#ca00ff	1.0	Task Physical Dependence Analysis	69					1849
-3	6	45606.734	45613.944	45666.629	#7c00ff	1.0	Defer Task Perform Mapping	73	[[0, 1, 988]]				262
-3	5	45620.656	45682.886	45693.709	#006600	1.0	Post-Task Execution	68		[[0, 1, 1413]]			1496
-3	4	45644.066	45702.802	45725.669	#00ff78	1.0	Copy Fill Aggregation	73	[[0, 1, 988]]				263
-3	5	45725.336	45740.364	45741.999	#c4ff00	1.0	Copy Fill Deletion	73	[[0, 1, 988]]				264
-3	5	45724.928	45752.722	45758.676	#d6ff00	1.0	Defer Physical Registration	73	[[0, 1, 988]]				265
-3	6	45710.815	45770.342	45797.302	#00ff5d	1.0	Logical Dependence Analysis	74	[[0, 4, 50]]				266
-3	6	45769.203	45811.687	45814.608	#7c00ff	1.0	Defer Task Perform Mapping	73	[[0, 1, 988]]				267
-3	5	45814.353	45824.242	45852.749	#00ff3c	1.0	Defer Task Launch	73	[[0, 1, 988]]				1249
-3	6	45531.285	45857.376	45867.345	#ca00ff	1.0	Task Physical Dependence Analysis	70					1850
-3	5	45864.712	45874.148	45921.747	#7c00ff	1.0	Defer Task Perform Mapping	77	[[0, 2, 986]]				1497
-3	6	45902.946	45930.536	45948.57	#00ff78	1.0	Copy Fill Aggregation	77	[[0, 2, 986]]				1851
-3	6	45948.347	45959.656	45961.77	#c4ff00	1.0	Copy Fill Deletion	77	[[0, 2, 986]]				1498
-3	6	45948.156	45974.757	45978.133	#d6ff00	1.0	Defer Physical Registration	77	[[0, 2, 986]]				1499
-3	6	45984.738	45986.277	45988.975	#7c00ff	1.0	Defer Task Perform Mapping	77	[[0, 2, 986]]				1500
-3	5	45988.862	45998.308	46013.464	#00ff3c	1.0	Defer Task Launch	77	[[0, 2, 986]]				1250
-3	6	45548.534	46021.118	46029.923	#ca00ff	1.0	Task Physical Dependence Analysis	71					1852
-3	5	46027.017	46036.157	46075.651	#7c00ff	1.0	Defer Task Perform Mapping	78	[[0, 3, 987]]				1853
-3	6	46059.247	46082.278	46099.359	#00ff78	1.0	Copy Fill Aggregation	78	[[0, 3, 987]]				1854
-3	6	46099.13	46120.401	46121.644	#c4ff00	1.0	Copy Fill Deletion	78	[[0, 3, 987]]				1855
-3	6	46098.93	46128.586	46132.022	#d6ff00	1.0	Defer Physical Registration	78	[[0, 3, 987]]				1856
-3	6	46141.483	46141.848	46143.969	#7c00ff	1.0	Defer Task Perform Mapping	78	[[0, 3, 987]]				1251
-3	5	46143.848	46151.879	46166.292	#00ff3c	1.0	Defer Task Launch	78	[[0, 3, 987]]				1252
-3	6	45561.643	46170.324	46179.831	#ca00ff	1.0	Task Physical Dependence Analysis	72					1253
-3	5	46177.293	46183.91	46224.428	#7c00ff	1.0	Defer Task Perform Mapping	79	[[0, 4, 1214]]				1254
-3	6	46204.663	46229.031	46246.471	#00ff78	1.0	Copy Fill Aggregation	79	[[0, 4, 1214]]				1255
-3	6	46246.257	46252.928	46254.092	#c4ff00	1.0	Copy Fill Deletion	79	[[0, 4, 1214]]				1256
-3	6	46246.053	46274.695	46281.632	#d6ff00	1.0	Defer Physical Registration	79	[[0, 4, 1214]]				1257
-3	6	46285.929	46286.513	46291.55	#7c00ff	1.0	Defer Task Perform Mapping	79	[[0, 4, 1214]]				1258
-3	6	46287.901	46295.979	46298.334	#333399	1.0	Deferred Ready Trigger	76					1259
-3	5	46291.424	46303.137	46315.785	#00ff3c	1.0	Defer Task Launch	79	[[0, 4, 1214]]				1013
-3	6	46297.965	46318.288	46320.339	#0069ff	1.0	Operation Physical Dependence Analysis	76					1014
-3	6	46318.769	46322.444	46325.465	#333399	1.0	Deferred Ready Trigger	74	[[0, 4, 50]]				1015
-3	6	46325.076	46327.696	46332.389	#0a00ff	1.0	Scheduler	0					1016
-3	5	46331.878	46334.506	46373.304	#ca00ff	1.0	Task Physical Dependence Analysis	74	[[0, 4, 50]]				1017
-3	6	46366.47	46375.7	46378.092	#333399	1.0	Deferred Ready Trigger	75	[[0, 1, 1414]]				1018
-3	6	46377.78	46380.215	46383.609	#0a00ff	1.0	Scheduler	0					1019
-3	6	46383.248	46385.932	46395.707	#ca00ff	1.0	Task Physical Dependence Analysis	75	[[0, 1, 1414]]				1020
-3	6	46398.104	46398.104	46398.941	#FFC0CB	1.0	ProfTask <79>						1188
-3	6	46399.807	46399.807	46400.174	#FFC0CB	1.0	ProfTask <76>						1190
-3	6	46400.704	46400.704	46401.213	#FFC0CB	1.0	ProfTask <74>						1192
-3	6	46401.739	46401.739	46402.08	#FFC0CB	1.0	ProfTask						1194
-2	5	46402.566	46402.566	46402.844	#FFC0CB	1.0	ProfTask <74>						1196
-3	6	46403.337	46403.337	46403.723	#FFC0CB	1.0	ProfTask <75>						1198
-3	6	46404.28	46404.28	46404.589	#FFC0CB	1.0	ProfTask						1200
-3	6	46405.089	46405.089	46405.344	#FFC0CB	1.0	ProfTask <75>						1202
-3	6	46480.937	46482.546	46499.196	#006600	1.0	Post-Task Execution	79		[[0, 4, 1214]]			1021
-3	6	46503.607	46503.607	46504.209	#FFC0CB	1.0	ProfTask <79>						1204
-3	6	46641.841	46641.841	46642.86	#FFC0CB	1.0	ProfTask <77>						1206
-3	6	46644.233	46649.551	46660.385	#006600	1.0	Post-Task Execution	77		[[0, 2, 986]]			1501
-3	6	46665.423	46665.423	46666.001	#FFC0CB	1.0	ProfTask <78>						1208
-3	6	46688.261	46694.052	46706.128	#006600	1.0	Post-Task Execution	78		[[0, 3, 987]]			1502
-3	6	46825.412	46825.412	46826.422	#FFC0CB	1.0	ProfTask <73>						1210
-3	6	46830.738	46841.754	46865.352	#006600	1.0	Post-Task Execution	73		[[0, 1, 988]]			1857
-3	6	46869.584	46885.733	46903.768	#006600	1.0	Post-Task Execution	74		[[0, 4, 50]]			1503
-3	6	46923.661	46930.29	46941.571	#006600	1.0	Post-Task Execution	75		[[0, 1, 1414]]			1022
-3	6	46954.28	46954.28	46955.541	#FFC0CB	1.0	ProfTask <75>						1212
-3	6	46959.76	46968.355	46988.323	#00ff5d	1.0	Logical Dependence Analysis	80					268
-3	5	46982.059	47010.913	47014.897	#333399	1.0	Deferred Ready Trigger	82					270
-3	6	47010.331	47027.789	47049.46	#00ff5d	1.0	Logical Dependence Analysis	81					271
-3	6	47040.244	47059.928	47061.599	#333399	1.0	Deferred Ready Trigger	84					273
-3	6	47048.911	47073.922	47077.426	#333399	1.0	Deferred Ready Trigger	83	[[0, 1, 1415]]				274
-3	6	47077.127	47086.866	47093.814	#0a00ff	1.0	Scheduler	0					275
-3	6	47014.399	47104.337	47107.71	#0069ff	1.0	Operation Physical Dependence Analysis	82					276
-3	6	47104.799	47118.71	47123.362	#333399	1.0	Deferred Ready Trigger	80					277
-3	6	47061.335	47134.274	47135.476	#0069ff	1.0	Operation Physical Dependence Analysis	84					278
-3	3	47134.69	47146.356	47156.905	#333399	1.0	Deferred Ready Trigger	81					279
-3	5	47093.315	47167.074	47187.497	#ca00ff	1.0	Task Physical Dependence Analysis	83	[[0, 1, 1415]]				1260
-3	4	47123.144	47193.498	47210.991	#0069ff	1.0	Operation Physical Dependence Analysis	80					1858
-3	6	47156.652	47214.747	47290.682	#0069ff	1.0	Operation Physical Dependence Analysis	81					280
-3	5	47221.189	47308.504	47326.541	#006600	1.0	Post-Task Execution	83		[[0, 1, 1415]]			1504
-3	6	47330.269	47344.213	47347.841	#009900	1.0	Deferred Commit	81					281
-3	6	47341.929	47364.995	47370.204	#00ff5d	1.0	Logical Dependence Analysis	85					282
-3	6	47369.33	47382.316	47385.896	#333399	1.0	Deferred Ready Trigger	85					283
-3	6	47385.135	47400.717	47407.858	#0069ff	1.0	Operation Physical Dependence Analysis	85					1505
-3	6	47471.895	47479.595	47576.543	#00ff5d	1.0	Logical Dependence Analysis	86					284
-3	6	47535.209	47594.515	47599.518	#006600	1.0	Post-Task Execution	1		[[0, 1, 1782]]			285
-3	6	47559.863	47615.882	47619.233	#333399	1.0	Deferred Ready Trigger	86					286
-3	6	47590.959	47629.809	47638.657	#00ff5d	1.0	Logical Dependence Analysis	88					287
-3	5	47618.984	47660.559	48802.363	#0069ff	1.0	Operation Physical Dependence Analysis	86					288
-3	6	47677.966	48817.069	48823.898	#333399	1.0	Deferred Ready Trigger	87					1859
-3	5	48822.384	48838.461	49127.949	#0069ff	1.0	Operation Physical Dependence Analysis	87					289
-3	6	48846.496	49141.239	49148.42	#333399	1.0	Deferred Ready Trigger	88					290
-3	5	49148.182	49159.43	49201.163	#0069ff	1.0	Operation Physical Dependence Analysis	88					291
-3	6	49161.741	49214.619	49390.307	#d0ff00	1.0	Trigger Complete	1		[[0, 1, 1782]]			292
-3	5	49271.565	49405.876	49422.652	#00b7ff	1.0	Top Finish	0					293
-3	6	49317.408	49434.445	49436.965	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			294
-3	6	49319.454	49450.09	49450.514	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			295
-3	6	49320.906	49460.115	49460.514	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			1506
-3	6	49322.813	49471.532	49472.004	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			1507
-3	6	49324.474	49481.088	49481.574	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			296
-3	6	49326.623	49493.434	49494.659	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			297
-3	6	49328.451	49506.404	49507.44	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			1261
-3	6	49329.988	49520.276	49520.793	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			298
-3	4	49331.681	49531.712	49726.416	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			299
-3	6	49347.04	49737.982	49739.725	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			300
-3	6	49348.509	49755.201	49755.826	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			1508
-3	6	49350.238	49766.042	49766.532	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			301
-3	6	49351.946	49775.24	49776.063	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			1860
-3	3	49353.549	49782.971	49815.614	#009900	1.0	Garbage Collection	1		[[0, 1, 1782]]			302
+4	8	24892.037	24928.695	25128.047	#ff0023	1.0	Deferred Enqueue Task	1					40
+4	7	25126.19	25156.228	25221.694	#0a00ff	1.0	Scheduler	0					42
+4	8	25218.863	25237.983	25468.698	#ca00ff	1.0	Task Physical Dependence Analysis	1					916
+4	8	26689.46	26746.975	26786.721	#00ff5d	1.0	Logical Dependence Analysis	3					917
+4	8	26783.745	26811.553	26821.327	#333399	1.0	Deferred Ready Trigger	3					918
+4	7	26820.951	26842.702	26999.16	#0069ff	1.0	Operation Physical Dependence Analysis	3					919
+4	7	26975.518	27010.047	27015.514	#00ff72	1.0	Tighten Index Space	3					920
+4	7	26975.858	27023.827	27024.627	#00ff72	1.0	Tighten Index Space	3					1314
+4	7	26976.11	27027.957	27028.562	#00ff72	1.0	Tighten Index Space	3					921
+4	7	26976.228	27036.489	27037.189	#00ff72	1.0	Tighten Index Space	3					922
+4	8	26838.078	27041.782	27299.907	#00ff5d	1.0	Logical Dependence Analysis	4					43
+4	8	27202.092	27317.126	27325.546	#333399	1.0	Deferred Ready Trigger	4					923
+4	8	27325.122	27336.56	27344.204	#0a00ff	1.0	Scheduler	0					44
+4	8	26922.986	27355.076	27361.041	#be00ff	1.0	Prepipeline Stage	5					924
+4	7	27377.079	27377.079	27963.762	#ca00ff	1.0	Task Physical Dependence Analysis	4					925
+4	7	27963.762	27963.762	27979.048	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	4					925
+4	7	27979.048	27979.048	27987.685	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	4					925
+4	7	27987.685	27987.685	28140.159	#ca00ff	1.0	Task Physical Dependence Analysis	4					925
+4	7	28140.159	28140.159	28142.33	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	4					925
+4	7	28142.33	28142.33	28145.134	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	4					925
+4	7	28145.134	28145.134	28489.119	#ca00ff	1.0	Task Physical Dependence Analysis	4					925
+3	8	27514.529	27514.529	28162.763	#fff500	1.0	Mapper Call map_task for 4	4					651
+4	8	28442.327	28501.594	28520.08	#333399	1.0	Deferred Ready Trigger	5					926
+4	7	28519.608	28527.789	28795.709	#0069ff	1.0	Operation Physical Dependence Analysis	5					927
+4	8	28788.994	28807.203	28811.162	#333399	1.0	Deferred Ready Trigger	6					928
+4	7	28810.824	28820.224	28916.291	#0069ff	1.0	Operation Physical Dependence Analysis	6					929
+4	8	28912.953	28930.424	28932.834	#333399	1.0	Deferred Ready Trigger	7					930
+4	8	28932.533	28942.825	28947.565	#0069ff	1.0	Operation Physical Dependence Analysis	7					931
+4	8	222067.228	222124.937	222312.305	#006600	1.0	Post-Task Execution	4					45
+4	7	262069.75	262090.963	269854.505	#00ff72	1.0	Tighten Index Space	5					1599
+4	6	262070.105	269878.373	276981.862	#00ff72	1.0	Tighten Index Space	5					1600
+4	5	262070.333	276999.603	279693.586	#00ff72	1.0	Tighten Index Space	5					1601
+4	4	262070.522	279707.167	282021.283	#00ff72	1.0	Tighten Index Space	5					1602
+4	8	262068.555	282036.202	282067.182	#009900	1.0	Deferred Commit	5					534
+4	8	282073.506	282073.506	282077.029	#FFC0CB	1.0	ProfTask <5>						653
+4	8	340336.209	340336.209	340337.492	#FFC0CB	1.0	ProfTask <6>						655
+4	8	340350.178	340350.178	340386.9	#00ff51	1.0	Disjointness Test	1					56
+4	8	340386.9	340386.9	343168.939	#00ff51	0.15	Disjointness Test (waiting)	1					56
+4	8	343168.939	343168.939	343172.094	#00ff51	0.45	Disjointness Test (ready)	1					56
+4	8	343172.094	343172.094	343174.718	#00ff51	1.0	Disjointness Test	1					56
+3	7	340351.092	340407.78	340964.814	#00ff72	1.0	Tighten Index Space	6					46
+3	6	340351.358	340980.38	341549.522	#00ff72	1.0	Tighten Index Space	6					47
+3	5	340351.636	341561.525	342021.099	#00ff72	1.0	Tighten Index Space	6					48
+3	4	340352.516	342033.08	342394.902	#00ff72	1.0	Tighten Index Space	6					49
+3	2	342405.918	342405.918	342500.349	#37ff00	1.0	Index Space Independence Test	1					55
+3	2	342500.349	342500.349	343129.889	#37ff00	0.15	Index Space Independence Test (waiting)	1					55
+3	2	343129.889	343129.889	343132.501	#37ff00	0.45	Index Space Independence Test (ready)	1					55
+3	2	343132.501	343132.501	343156.945	#37ff00	1.0	Index Space Independence Test	1					55
+2	7	340350.196	342531.548	342537.104	#009900	1.0	Deferred Commit	6					932
+2	3	340356.697	342550.544	342579.917	#009900	1.0	Deferred Commit	7					50
+2	1	340552.72	342592.686	342634.445	#00ff5d	1.0	Logical Dependence Analysis	8					51
+2	7	342633.192	342650.481	342658.926	#333399	1.0	Deferred Ready Trigger	8					52
+2	6	342658.207	342669.863	342680.613	#0a00ff	1.0	Scheduler	0					53
+2	7	342679.732	342696.164	342728.978	#ca00ff	1.0	Task Physical Dependence Analysis	8					933
+2	7	342772.731	342772.731	342774.738	#FFC0CB	1.0	ProfTask <8>						657
+2	7	342777.578	342789.808	342819.755	#006600	1.0	Post-Task Execution	8					934
+2	7	342835.556	342842.681	342852.966	#00ff5d	1.0	Logical Dependence Analysis	9					935
+2	7	342852.055	342862.774	342866.483	#333399	1.0	Deferred Ready Trigger	9					1603
+2	7	342866.197	342873.389	342881.004	#0a00ff	1.0	Scheduler	0					936
+2	6	342880.288	342890.065	342913.217	#ca00ff	1.0	Task Physical Dependence Analysis	9					1604
+2	7	342948.683	342948.683	342949.651	#FFC0CB	1.0	ProfTask <9>						659
+2	7	342953.009	342958.559	342965.137	#006600	1.0	Post-Task Execution	9					937
+2	7	343001.803	343001.803	343087.415	#00ff5d	1.0	Logical Dependence Analysis	10					57
+2	7	343087.415	343087.415	343173.286	#00ff5d	0.15	Logical Dependence Analysis (waiting)	10					57
+2	7	343173.286	343173.286	343188.601	#00ff5d	0.45	Logical Dependence Analysis (ready)	10					57
+2	7	343188.601	343188.601	343204.959	#00ff5d	1.0	Logical Dependence Analysis	10					57
+1	6	343046.798	343097.327	343118.017	#00ff72	1.0	Tighten Index Space	1					54
+4	8	343203.746	343220.458	343224.123	#333399	1.0	Deferred Ready Trigger	10					58
+4	8	343219.104	343237.667	343246.356	#00ff5d	1.0	Logical Dependence Analysis	11					59
+4	8	343245.765	343258.527	343262.401	#333399	1.0	Deferred Ready Trigger	11					60
+4	8	343261.998	343271.407	343277.65	#0a00ff	1.0	Scheduler	0					61
+4	7	343223.868	343289.982	343441.187	#0069ff	1.0	Operation Physical Dependence Analysis	10					62
+4	8	343431.042	343454.674	343458.723	#0a00ff	1.0	Scheduler	0					63
+4	8	343433.621	343471.152	343473.824	#0a00ff	1.0	Scheduler	0					64
+4	8	343438.593	343487.973	343490.679	#0a00ff	1.0	Scheduler	0					65
+4	8	343440.658	343501.741	343504.856	#0a00ff	1.0	Scheduler	0					66
+4	6	343277.039	343520.578	343541.85	#ca00ff	1.0	Task Physical Dependence Analysis	11					938
+4	7	343458.298	343556.393	343612.306	#ca00ff	1.0	Task Physical Dependence Analysis	12					939
+4	8	343567.304	343624.424	343646.518	#006600	1.0	Post-Task Execution	11					940
+4	6	343607.48	343662.916	344570.121	#7c00ff	1.0	Defer Task Perform Mapping	16					68
+4	2	344513.296	344591.365	344635.321	#00ff72	1.0	Tighten Index Space	16					69
+4	8	343665.771	344648.673	344770.157	#00ff5d	1.0	Logical Dependence Analysis	17					70
+4	7	343711.971	344784.664	344811.31	#00ffa8	1.0	Refinement	16					71
+4	8	344810.792	344822.389	344830.211	#1300ff	1.0	Defer Ray Trace Finish	16					72
+4	8	344811.079	344844.562	344846.231	#1300ff	1.0	Defer Ray Trace Finish	16					73
+4	8	344829.637	344858.197	344862.016	#0063ff	1.0	Finalize Equivalence Sets	16					74
+4	8	344846.036	344873.819	344874.576	#0063ff	1.0	Finalize Equivalence Sets	16					75
+4	8	344550.437	344888.03	344889.437	#00ffa8	1.0	Refinement	16					76
+4	8	344889.137	344902.868	344904.381	#1300ff	1.0	Defer Ray Trace Finish	16					77
+4	8	344904.16	344916.223	344917.307	#0063ff	1.0	Finalize Equivalence Sets	16					78
+4	7	344917.191	344928.438	345155.539	#7c00ff	1.0	Defer Task Perform Mapping	16					79
+4	8	345155.272	345168.348	345187.996	#00ff3c	1.0	Defer Task Launch	16					1315
+4	5	343473.443	345195.954	345227.273	#ca00ff	1.0	Task Physical Dependence Analysis	13					941
+4	8	345237.802	345237.802	345291.389	#7c00ff	1.0	Defer Task Perform Mapping	20					952
+4	8	345291.389	345291.389	345571.256	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	20					952
+4	8	345571.256	345571.256	345573.68	#7c00ff	0.45	Defer Task Perform Mapping (ready)	20					952
+4	8	345573.68	345573.68	345652.685	#7c00ff	1.0	Defer Task Perform Mapping	20					952
+4	8	345652.685	345652.685	346226.332	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	20					952
+4	8	346226.332	346226.332	346228.104	#7c00ff	0.45	Defer Task Perform Mapping (ready)	20					952
+4	8	346228.104	346228.104	346297.021	#7c00ff	1.0	Defer Task Perform Mapping	20					952
+3	7	345294.646	345294.646	345297.236	#00ffa8	1.0	Refinement	20					953
+3	7	345297.236	345297.236	345576.313	#00ffa8	0.15	Refinement (waiting)	20					953
+3	7	345576.313	345576.313	345654.465	#00ffa8	0.45	Refinement (ready)	20					953
+3	7	345654.465	345654.465	345654.83	#00ffa8	1.0	Refinement	20					953
+3	7	345654.83	345654.83	346228.511	#00ffa8	0.15	Refinement (waiting)	20					953
+3	7	346228.511	346228.511	346315.022	#00ffa8	0.45	Refinement (ready)	20					953
+3	7	346315.022	346315.022	346317.557	#00ffa8	1.0	Refinement	20					953
+2	4	343490.361	345299.143	345316.268	#ca00ff	1.0	Task Physical Dependence Analysis	14					942
+2	6	345310.745	345326.256	345403.206	#7c00ff	1.0	Defer Task Perform Mapping	21					943
+2	6	345342.651	345412.244	345417.329	#00ff27	1.0	Defer Ray Trace	21					944
+2	6	345393.581	345429.552	345431.794	#00ffa8	1.0	Refinement	21					945
+2	6	345431.635	345440.138	345441.606	#1300ff	1.0	Defer Ray Trace Finish	21					1316
+2	6	345441.335	345445.994	345447.226	#0063ff	1.0	Finalize Equivalence Sets	21					1317
+2	3	343504.512	345459.385	345470.701	#ca00ff	1.0	Task Physical Dependence Analysis	15					946
+2	6	345468.385	345481.942	345544.353	#7c00ff	1.0	Defer Task Perform Mapping	22					947
+2	6	345536.54	345553.223	345559.782	#00ff72	1.0	Tighten Index Space	20					948
+2	6	345529.796	345656.472	345658.15	#00ffa8	1.0	Refinement	22					949
+2	6	345657.937	345667.309	345668.819	#1300ff	1.0	Defer Ray Trace Finish	22					1318
+2	6	345668.553	345675.089	345676.103	#0063ff	1.0	Finalize Equivalence Sets	22					950
+2	6	345576.768	345681.668	345684.949	#00ff27	1.0	Defer Ray Trace	21					1319
+2	6	346151.582	346151.582	346152.34	#FFC0CB	1.0	ProfTask <20>						661
+2	6	346157.188	346164.977	346216.892	#00ff72	1.0	Tighten Index Space	20					951
+4	8	346317.168	346327.755	346329.376	#1300ff	1.0	Defer Ray Trace Finish	20					954
+4	8	346317.286	346338.791	346339.76	#1300ff	1.0	Defer Ray Trace Finish	20					955
+4	8	346329.118	346348.684	346349.396	#0063ff	1.0	Finalize Equivalence Sets	20					1320
+4	6	346228.814	346357.159	346369.056	#00ff27	1.0	Defer Ray Trace	21					956
+4	7	346247.296	346377.239	346378.051	#00ffa8	1.0	Refinement	20					957
+4	7	346377.902	346385.029	346387.143	#1300ff	1.0	Defer Ray Trace Finish	20					958
+4	7	346386.915	346395.886	346397.104	#0063ff	1.0	Finalize Equivalence Sets	20					1321
+4	7	346277.671	346407.157	346410.129	#00ffa8	1.0	Refinement	20					959
+4	7	346409.977	346420.408	346422.128	#1300ff	1.0	Defer Ray Trace Finish	20					960
+4	7	346421.751	346431.516	346432.44	#0063ff	1.0	Finalize Equivalence Sets	20					961
+4	7	346365.873	346440.708	346441.669	#00ffa8	1.0	Refinement	21					1322
+4	7	346441.543	346446.463	346447.416	#1300ff	1.0	Defer Ray Trace Finish	21					1323
+4	7	346447.213	346453.787	346454.49	#0063ff	1.0	Finalize Equivalence Sets	21					962
+4	8	346463.93	346463.93	346476.58	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	346476.58	346476.58	347197.177	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	347197.177	347197.177	347201.314	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	347201.314	347201.314	347231.468	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	347231.468	347231.468	347394.83	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	347394.83	347394.83	347404.454	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	347404.454	347404.454	347468.095	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	347468.095	347468.095	348050.272	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	348050.272	348050.272	348052.89	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	348052.89	348052.89	348075.195	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	348075.195	348075.195	348265.842	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	348265.842	348265.842	348268.671	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	348268.671	348268.671	348292.3	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	348292.3	348292.3	348867.842	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	348867.842	348867.842	348869.54	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	348869.54	348869.54	348910.281	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	348910.281	348910.281	349334.866	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	349334.866	349334.866	349337.396	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	349337.396	349337.396	349355.217	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	349355.217	349355.217	349669.488	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	349669.488	349669.488	349671.215	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	349671.215	349671.215	349712.962	#00ff27	1.0	Defer Ray Trace	21					1617
+4	8	349712.962	349712.962	350157.727	#00ff27	0.15	Defer Ray Trace (waiting)	21					1617
+4	8	350157.727	350157.727	350159.627	#00ff27	0.45	Defer Ray Trace (ready)	21					1617
+4	8	350159.627	350159.627	350228.645	#00ff27	1.0	Defer Ray Trace	21					1617
+3	6	346478.15	346478.15	346717.654	#7c00ff	1.0	Defer Task Perform Mapping	20					967
+3	6	346717.654	346717.654	347909.212	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	20					967
+3	6	347909.212	347909.212	347910.83	#7c00ff	0.45	Defer Task Perform Mapping (ready)	20					967
+3	6	347910.83	347910.83	347921.018	#7c00ff	1.0	Defer Task Perform Mapping	20					967
+2	7	346759.943	346759.943	346760.472	#FFC0CB	1.0	ProfTask <20>						663
+2	7	346764.817	346770.433	346792.075	#00ff72	1.0	Tighten Index Space	20					963
+2	7	347136.351	347136.351	347136.527	#FFC0CB	1.0	ProfTask <21>						665
+2	7	347144.317	347151.625	347185.833	#00ff72	1.0	Tighten Index Space	21					964
+2	7	347365.004	347365.004	347365.135	#FFC0CB	1.0	ProfTask <21>						667
+2	7	347371.36	347379.597	347384.176	#00ff72	1.0	Tighten Index Space	21					965
+2	7	347877.149	347877.149	347877.42	#FFC0CB	1.0	ProfTask <20>						669
+2	7	347882.578	347898.947	347899.664	#00ff72	1.0	Tighten Index Space	20					966
+3	7	347920.745	347931.545	347952.637	#00ff3c	1.0	Defer Task Launch	20					1324
+3	7	347994.07	347994.07	347994.319	#FFC0CB	1.0	ProfTask <21>						671
+3	7	347997.173	348007.257	348042.516	#00ff72	1.0	Tighten Index Space	21					1325
+3	7	348244.37	348244.37	348244.609	#FFC0CB	1.0	ProfTask <21>						673
+3	7	348247.782	348253.345	348258.737	#00ff72	1.0	Tighten Index Space	21					1326
+3	7	348293.613	348293.613	348294.398	#00ffa8	1.0	Refinement	21					1606
+3	7	348294.398	348294.398	348869.809	#00ffa8	0.15	Refinement (waiting)	21					1606
+3	7	348869.809	348869.809	348911.77	#00ffa8	0.45	Refinement (ready)	21					1606
+3	7	348911.77	348911.77	348913.703	#00ffa8	1.0	Refinement	21					1606
+2	6	348807.309	348807.309	348807.487	#FFC0CB	1.0	ProfTask <21>						675
+2	6	348812.272	348822.294	348860.676	#00ff72	1.0	Tighten Index Space	21					1605
+3	6	348896.23	348921.17	348934.351	#00ff27	1.0	Defer Ray Trace	22					1607
+3	6	348929.05	348941.212	348943.686	#00ffa8	1.0	Refinement	22					1608
+3	6	348943.527	348950.939	348952.71	#1300ff	1.0	Defer Ray Trace Finish	22					1609
+3	6	348952.233	348966.38	348967.971	#0063ff	1.0	Finalize Equivalence Sets	22					1610
+3	7	348976.613	348976.613	348988.308	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	348988.308	348988.308	349101.025	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	349101.025	349101.025	349103.087	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	349103.087	349103.087	349114.399	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	349114.399	349114.399	349623.977	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	349623.977	349623.977	349625.599	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	349625.599	349625.599	349651.494	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	349651.494	349651.494	349772.415	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	349772.415	349772.415	349775.049	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	349775.049	349775.049	349802.312	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	349802.312	349802.312	350295.03	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	350295.03	350295.03	350296.631	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	350296.631	350296.631	350316.186	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	350316.186	350316.186	350586.259	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	350586.259	350586.259	350588.066	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	350588.066	350588.066	350609.536	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	350609.536	350609.536	351031.563	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	351031.563	351031.563	351033.437	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	351033.437	351033.437	351075.324	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	351075.324	351075.324	351561.287	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	351561.287	351561.287	351566.782	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	351566.782	351566.782	351584.378	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	351584.378	351584.378	351750.655	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	351750.655	351750.655	351752.683	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	351752.683	351752.683	351775.756	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	351775.756	351775.756	352113.251	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	352113.251	352113.251	352114.914	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	352114.914	352114.914	352136.296	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	352136.296	352136.296	352247.369	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	352247.369	352247.369	352248.928	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	352248.928	352248.928	352272.484	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	352272.484	352272.484	352740.775	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	352740.775	352740.775	352743.634	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	352743.634	352743.634	352768.561	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	352768.561	352768.561	353072.853	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	353072.853	353072.853	353074.527	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	353074.527	353074.527	353093.03	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	353093.03	353093.03	353210.239	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	353210.239	353210.239	353211.915	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	353211.915	353211.915	353245.247	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	353245.247	353245.247	353408.251	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	353408.251	353408.251	353409.649	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	353409.649	353409.649	353482.096	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	353482.096	353482.096	353683.496	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	353683.496	353683.496	353684.868	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	353684.868	353684.868	353698.287	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	353698.287	353698.287	353725.085	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	353725.085	353725.085	353726.439	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	353726.439	353726.439	353753.158	#00ff27	1.0	Defer Ray Trace	22					1345
+3	7	353753.158	353753.158	353839.245	#00ff27	0.15	Defer Ray Trace (waiting)	22					1345
+3	7	353839.245	353839.245	353841.633	#00ff27	0.45	Defer Ray Trace (ready)	22					1345
+3	7	353841.633	353841.633	353875.435	#00ff27	1.0	Defer Ray Trace	22					1345
+2	6	349078.978	349078.978	349079.5	#FFC0CB	1.0	ProfTask <22>						677
+2	6	349082.155	349091.692	349093.254	#00ff72	1.0	Tighten Index Space	22					1611
+2	6	349303.219	349303.219	349303.392	#FFC0CB	1.0	ProfTask <21>						679
+2	6	349306.629	349312.365	349327.398	#00ff72	1.0	Tighten Index Space	21					1612
+2	6	349561.36	349561.36	349561.522	#FFC0CB	1.0	ProfTask <22>						681
+2	6	349568.639	349577.699	349607.428	#00ff72	1.0	Tighten Index Space	22					1613
+2	6	349596.886	349652.831	349662.748	#00ff72	1.0	Tighten Index Space	21					1614
+2	6	349716.588	349716.588	349717.196	#00ffa8	1.0	Refinement	21					1327
+2	6	349717.196	349717.196	350160.049	#00ffa8	0.15	Refinement (waiting)	21					1327
+2	6	350160.049	350160.049	350244.709	#00ffa8	0.45	Refinement (ready)	21					1327
+2	6	350244.709	350244.709	350246.755	#00ffa8	1.0	Refinement	21					1327
+1	5	349754.789	349754.789	349755.087	#FFC0CB	1.0	ProfTask <22>						683
+1	5	349757.522	349761.168	349763.296	#00ff72	1.0	Tighten Index Space	22					1615
+1	5	350122.09	350122.09	350122.263	#FFC0CB	1.0	ProfTask <21>						685
+1	5	350125.84	350131.547	350149.641	#00ff72	1.0	Tighten Index Space	21					1616
+4	8	350246.493	350252.023	350253.716	#1300ff	1.0	Defer Ray Trace Finish	21					1618
+4	5	350201.448	350256.206	350285.766	#00ff72	1.0	Tighten Index Space	22					1619
+4	8	350177.06	350317.847	350318.83	#00ffa8	1.0	Refinement	21					1328
+4	8	350318.677	350325.79	350330.689	#1300ff	1.0	Defer Ray Trace Finish	21					1620
+4	6	350326.233	350338.913	350349.084	#00ff72	1.0	Tighten Index Space	21					1621
+4	8	350213.451	350356.894	350358.175	#00ffa8	1.0	Refinement	21					1622
+4	8	350357.996	350366.368	350370.391	#1300ff	1.0	Defer Ray Trace Finish	21					1623
+4	8	350369.917	350377.186	350380.101	#0063ff	1.0	Finalize Equivalence Sets	21					1624
+4	6	350385.929	350385.929	350569.99	#7c00ff	1.0	Defer Task Perform Mapping	21					1635
+4	6	350569.99	350569.99	351146.703	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	21					1635
+4	6	351146.703	351146.703	351148.552	#7c00ff	0.45	Defer Task Perform Mapping (ready)	21					1635
+4	6	351148.552	351148.552	351283.831	#7c00ff	1.0	Defer Task Perform Mapping	21					1635
+4	6	351283.831	351283.831	351637.491	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	21					1635
+4	6	351637.491	351637.491	351639.317	#7c00ff	0.45	Defer Task Perform Mapping (ready)	21					1635
+4	6	351639.317	351639.317	351649.453	#7c00ff	1.0	Defer Task Perform Mapping	21					1635
+4	6	351649.453	351649.453	351996.57	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	21					1635
+4	6	351996.57	351996.57	351998.129	#7c00ff	0.45	Defer Task Perform Mapping (ready)	21					1635
+4	6	351998.129	351998.129	352016.611	#7c00ff	1.0	Defer Task Perform Mapping	21					1635
+2	5	350428.905	350574.915	350578.927	#00ff72	1.0	Tighten Index Space	22					1625
+2	8	350442.125	350611.112	350621.134	#00ff72	1.0	Tighten Index Space	21					1626
+2	5	350628.692	350628.692	350636.328	#00ffa8	1.0	Refinement	22					1628
+2	5	350636.328	350636.328	351033.897	#00ffa8	0.15	Refinement (waiting)	22					1628
+2	5	351033.897	351033.897	351076.597	#00ffa8	0.45	Refinement (ready)	22					1628
+2	5	351076.597	351076.597	351078.247	#00ffa8	1.0	Refinement	22					1628
+1	8	350999.336	350999.336	350999.794	#FFC0CB	1.0	ProfTask <22>						687
+1	8	351002.541	351005.656	351025.108	#00ff72	1.0	Tighten Index Space	22					1627
+2	8	351054.719	351087.556	351088.494	#00ffa8	1.0	Refinement	22					1329
+2	8	351088.294	351091.136	351094.319	#1300ff	1.0	Defer Ray Trace Finish	22					1330
+2	5	351103.302	351103.302	351103.599	#FFC0CB	1.0	ProfTask <21>						689
+2	8	351102.41	351108.374	351139.135	#00ff72	1.0	Tighten Index Space	21					1629
+2	8	351144.773	351285.45	351290.795	#00ff72	1.0	Tighten Index Space	22					1630
+2	8	351520.777	351520.777	351521.002	#FFC0CB	1.0	ProfTask <22>						691
+2	8	351522.794	351524.404	351550.435	#00ff72	1.0	Tighten Index Space	22					1631
+2	8	351611.379	351611.379	351611.578	#FFC0CB	1.0	ProfTask <21>						693
+2	8	351621.704	351627.483	351628.196	#00ff72	1.0	Tighten Index Space	21					1632
+2	8	351731.208	351731.208	351731.353	#FFC0CB	1.0	ProfTask <22>						695
+2	8	351733.256	351736.694	351742.21	#00ff72	1.0	Tighten Index Space	22					1633
+2	8	351981.3	351981.3	351981.766	#FFC0CB	1.0	ProfTask <21>						697
+2	8	351983.738	351989.333	351989.951	#00ff72	1.0	Tighten Index Space	21					1634
+4	8	352016.346	352026.036	352045.122	#00ff3c	1.0	Defer Task Launch	21					535
+4	8	352048.011	352048.011	352049.0	#FFC0CB	1.0	ProfTask <21>						699
+4	8	352076.296	352076.296	352076.672	#FFC0CB	1.0	ProfTask <22>						701
+4	6	352076.411	352079.565	352107.641	#00ff72	1.0	Tighten Index Space	22					1331
+4	8	352236.273	352236.273	352236.486	#FFC0CB	1.0	ProfTask <22>						703
+4	8	352237.589	352239.544	352242.404	#00ff72	1.0	Tighten Index Space	22					1332
+4	8	352273.838	352273.838	352274.475	#00ffa8	1.0	Refinement	22					536
+4	8	352274.475	352274.475	352743.902	#00ffa8	0.15	Refinement (waiting)	22					536
+4	8	352743.902	352743.902	352769.797	#00ffa8	0.45	Refinement (ready)	22					536
+4	8	352769.797	352769.797	352771.572	#00ffa8	1.0	Refinement	22					536
+2	5	352699.753	352699.753	352699.923	#FFC0CB	1.0	ProfTask <22>						705
+2	6	352698.633	352702.293	352735.653	#00ff72	1.0	Tighten Index Space	22					1333
+4	8	352777.206	352777.206	352779.159	#FFC0CB	1.0	ProfTask <22>						707
+4	8	353053.69	353053.69	353053.889	#FFC0CB	1.0	ProfTask <22>						709
+4	8	353054.739	353055.787	353067.785	#00ff72	1.0	Tighten Index Space	22					1334
+4	8	353197.368	353197.368	353197.486	#FFC0CB	1.0	ProfTask <22>						711
+4	8	353197.404	353199.84	353205.179	#00ff72	1.0	Tighten Index Space	22					1335
+4	8	353246.772	353246.772	353247.258	#00ffa8	1.0	Refinement	22					1337
+4	8	353247.258	353247.258	353409.882	#00ffa8	0.15	Refinement (waiting)	22					1337
+4	8	353409.882	353409.882	353483.658	#00ffa8	0.45	Refinement (ready)	22					1337
+4	8	353483.658	353483.658	353485.476	#00ffa8	1.0	Refinement	22					1337
+2	6	353390.903	353390.903	353391.02	#FFC0CB	1.0	ProfTask <22>						713
+2	6	353392.294	353395.671	353403.408	#00ff72	1.0	Tighten Index Space	22					1336
+4	8	353485.155	353493.232	353494.788	#1300ff	1.0	Defer Ray Trace Finish	22					1338
+4	8	353423.145	353498.457	353499.166	#00ffa8	1.0	Refinement	22					1339
+4	8	353499.033	353521.902	353525.557	#1300ff	1.0	Defer Ray Trace Finish	22					1340
+4	8	353457.302	353528.631	353529.37	#00ffa8	1.0	Refinement	22					1341
+4	8	353529.223	353541.422	353544.182	#1300ff	1.0	Defer Ray Trace Finish	22					537
+4	8	353551.81	353551.81	353552.934	#FFC0CB	1.0	ProfTask <22>						715
+4	8	353644.529	353644.529	353644.722	#FFC0CB	1.0	ProfTask <22>						717
+4	8	353645.968	353649.358	353657.91	#00ff72	1.0	Tighten Index Space	22					538
+4	8	353664.348	353664.348	353664.794	#FFC0CB	1.0	ProfTask <22>						719
+4	8	353672.338	353672.338	353672.45	#FFC0CB	1.0	ProfTask <22>						721
+4	8	353673.672	353678.014	353678.795	#00ff72	1.0	Tighten Index Space	22					1342
+4	8	353712.33	353712.33	353712.445	#FFC0CB	1.0	ProfTask <22>						723
+4	8	353714.796	353719.578	353720.651	#00ff72	1.0	Tighten Index Space	22					1343
+4	8	353755.665	353755.665	353756.337	#00ffa8	1.0	Refinement	22					1346
+4	8	353756.337	353756.337	353841.846	#00ffa8	0.15	Refinement (waiting)	22					1346
+4	8	353841.846	353841.846	353884.99	#00ffa8	0.45	Refinement (ready)	22					1346
+4	8	353884.99	353884.99	353886.389	#00ffa8	1.0	Refinement	22					1346
+2	6	353755.906	353760.948	353784.994	#00ff72	1.0	Tighten Index Space	22					539
+2	6	353791.576	353791.576	353792.413	#FFC0CB	1.0	ProfTask <22>						725
+2	6	353825.912	353825.912	353826.369	#FFC0CB	1.0	ProfTask <22>						727
+2	6	353827.583	353830.299	353835.187	#00ff72	1.0	Tighten Index Space	22					1344
+4	8	353886.185	353889.472	353891.214	#1300ff	1.0	Defer Ray Trace Finish	22					1347
+4	8	353903.769	353920.85	353924.762	#00ff72	1.0	Tighten Index Space	22					1348
+4	8	353854.99	353931.484	353932.45	#00ffa8	1.0	Refinement	22					1349
+4	8	353932.31	353935.186	353941.447	#1300ff	1.0	Defer Ray Trace Finish	22					1350
+4	8	353939.126	353945.088	353949.331	#0063ff	1.0	Finalize Equivalence Sets	22					1351
+4	7	353956.263	353956.263	354189.969	#7c00ff	1.0	Defer Task Perform Mapping	22					1357
+4	7	354189.969	354189.969	354572.458	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1357
+4	7	354572.458	354572.458	354574.417	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1357
+4	7	354574.417	354574.417	354593.672	#7c00ff	1.0	Defer Task Perform Mapping	22					1357
+4	7	354593.672	354593.672	355089.363	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1357
+4	7	355089.363	355089.363	355092.283	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1357
+4	7	355092.283	355092.283	355235.13	#7c00ff	1.0	Defer Task Perform Mapping	22					1357
+4	7	355235.13	355235.13	355559.906	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1357
+4	7	355559.906	355559.906	355561.38	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1357
+4	7	355561.38	355561.38	355580.331	#7c00ff	1.0	Defer Task Perform Mapping	22					1357
+4	7	355580.331	355580.331	355999.342	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1357
+4	7	355999.342	355999.342	356000.931	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1357
+4	7	356000.931	356000.931	356012.805	#7c00ff	1.0	Defer Task Perform Mapping	22					1357
+4	7	356012.805	356012.805	356391.946	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	22					1357
+4	7	356391.946	356391.946	356394.346	#7c00ff	0.45	Defer Task Perform Mapping (ready)	22					1357
+4	7	356394.346	356394.346	356406.664	#7c00ff	1.0	Defer Task Perform Mapping	22					1357
+3	8	354543.108	354543.108	354543.433	#FFC0CB	1.0	ProfTask <22>						729
+3	8	354545.212	354548.105	354562.027	#00ff72	1.0	Tighten Index Space	22					1352
+3	8	355054.725	355054.725	355054.846	#FFC0CB	1.0	ProfTask <22>						731
+3	6	355054.82	355057.461	355083.996	#00ff72	1.0	Tighten Index Space	22					1353
+3	8	355550.155	355550.155	355550.298	#FFC0CB	1.0	ProfTask <22>						733
+3	8	355551.69	355554.595	355555.072	#00ff72	1.0	Tighten Index Space	22					1354
+3	8	355990.247	355990.247	355990.457	#FFC0CB	1.0	ProfTask <22>						735
+3	8	355989.862	355993.205	355993.787	#00ff72	1.0	Tighten Index Space	22					1355
+3	8	356380.159	356380.159	356380.277	#FFC0CB	1.0	ProfTask <22>						737
+3	8	356381.921	356387.015	356387.437	#00ff72	1.0	Tighten Index Space	22					1356
+4	7	356402.275	356414.388	356417.53	#333399	1.0	Deferred Ready Trigger	19					1358
+4	8	356406.41	356422.604	356440.43	#00ff3c	1.0	Defer Task Launch	22					540
+4	6	356417.274	356446.473	356459.418	#0069ff	1.0	Operation Physical Dependence Analysis	19					541
+4	8	356446.914	356461.998	356466.349	#333399	1.0	Deferred Ready Trigger	17					542
+4	8	356466.044	356469.564	356477.056	#0a00ff	1.0	Scheduler	0					543
+4	7	356479.14	356479.14	356494.822	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356494.822	356494.822	356499.635	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356499.635	356499.635	356502.992	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356502.992	356502.992	356517.102	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356517.102	356517.102	356519.564	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356519.564	356519.564	356525.852	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356525.852	356525.852	356531.133	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356531.133	356531.133	356533.991	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356533.991	356533.991	356539.196	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356539.196	356539.196	356543.044	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356543.044	356543.044	356548.102	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356548.102	356548.102	356551.557	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356551.557	356551.557	356557.166	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356557.166	356557.166	356559.671	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356559.671	356559.671	356565.699	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356565.699	356565.699	356572.05	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356572.05	356572.05	356574.369	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356574.369	356574.369	356577.313	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356577.313	356577.313	356581.083	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356581.083	356581.083	356583.428	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356583.428	356583.428	356586.343	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356586.343	356586.343	356592.015	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356592.015	356592.015	356594.203	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356594.203	356594.203	356599.151	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356599.151	356599.151	356853.202	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356853.202	356853.202	356877.741	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	356877.741	356877.741	356879.299	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	356879.299	356879.299	356893.194	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	356893.194	356893.194	357250.218	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	357250.218	357250.218	357251.53	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	357251.53	357251.53	357264.042	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	357264.042	357264.042	357302.958	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	357302.958	357302.958	357304.406	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	357304.406	357304.406	357314.512	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	357314.512	357314.512	357408.993	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	357408.993	357408.993	357410.439	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	357410.439	357410.439	358558.277	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	358558.277	358558.277	358684.428	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	358684.428	358684.428	358685.996	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	358685.996	358685.996	359898.622	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	359898.622	359898.622	360378.252	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	360378.252	360378.252	360379.583	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	360379.583	360379.583	360398.472	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	360398.472	360398.472	360741.948	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	360741.948	360741.948	360744.886	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	360744.886	360744.886	360759.605	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	360759.605	360759.605	360856.968	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	360856.968	360856.968	360858.986	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	360858.986	360858.986	360869.924	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	360869.924	360869.924	361417.958	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	361417.958	361417.958	361420.352	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	361420.352	361420.352	401047.845	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	401047.845	401047.845	401927.661	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	401927.661	401927.661	401929.604	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	401929.604	401929.604	428847.137	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	428847.137	428847.137	429460.857	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	429460.857	429460.857	429462.6	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	429462.6	429462.6	429488.607	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	429488.607	429488.607	429628.938	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	429628.938	429628.938	429630.424	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	429630.424	429630.424	429642.984	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	429642.984	429642.984	429906.174	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	429906.174	429906.174	429910.663	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	429910.663	429910.663	446101.348	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	446101.348	446101.348	446723.194	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	446723.194	446723.194	446724.996	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	446724.996	446724.996	465151.018	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	465151.018	465151.018	465720.056	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	465720.056	465720.056	465725.248	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	465725.248	465725.248	465775.79	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	465775.79	465775.79	466320.123	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	466320.123	466320.123	466321.582	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	466321.582	466321.582	481060.77	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	481060.77	481060.77	481690.83	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	481690.83	481690.83	481695.555	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	481695.555	481695.555	494500.317	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	494500.317	494500.317	494692.595	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	494692.595	494692.595	494694.162	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	494694.162	494694.162	494712.062	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	494712.062	494712.062	495001.485	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	495001.485	495001.485	495003.127	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	495003.127	495003.127	498733.026	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	498733.026	498733.026	499016.665	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	499016.665	499016.665	499018.078	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	499018.078	499018.078	504225.495	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	504225.495	504225.495	504428.366	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	504428.366	504428.366	504431.583	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	504431.583	504431.583	504445.831	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	504445.831	504445.831	504528.311	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	504528.311	504528.311	504529.764	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	504529.764	504529.764	504545.001	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	504545.001	504545.001	504720.573	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	504720.573	504720.573	504726.804	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	504726.804	504726.804	505957.507	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	505957.507	505957.507	506240.448	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	506240.448	506240.448	506242.964	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	506242.964	506242.964	508238.782	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	508238.782	508238.782	508386.224	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	508386.224	508386.224	508388.531	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	508388.531	508388.531	508400.245	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	508400.245	508400.245	508500.143	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	508500.143	508500.143	508502.826	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	508502.826	508502.826	508644.975	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+4	7	508644.975	508644.975	508729.665	#ca00ff	0.15	Task Physical Dependence Analysis (waiting)	17					974
+4	7	508729.665	508729.665	508731.659	#ca00ff	0.45	Task Physical Dependence Analysis (ready)	17					974
+4	7	508731.659	508731.659	508930.119	#ca00ff	1.0	Task Physical Dependence Analysis	17					974
+3	8	356494.288	356496.121	356500.257	#00ffa8	1.0	Refinement	17					544
+3	8	356516.708	356518.229	356523.117	#00ffa8	1.0	Refinement	17					545
+3	8	356530.756	356532.267	356536.403	#00ffa8	1.0	Refinement	17					546
+3	8	356542.759	356544.31	356548.444	#00ffa8	1.0	Refinement	17					547
+3	8	356556.737	356558.274	356560.035	#00ffa8	1.0	Refinement	17					548
+3	8	356571.75	356573.173	356574.625	#00ffa8	1.0	Refinement	17					549
+3	8	356580.819	356582.203	356583.687	#00ffa8	1.0	Refinement	17					550
+3	8	356591.715	356593.089	356594.536	#00ffa8	1.0	Refinement	17					551
+3	8	356855.815	356855.815	356859.728	#FFC0CB	1.0	ProfTask <22>						739
+3	8	356864.065	356864.065	356865.233	#FFC0CB	1.0	ProfTask <19>						741
+3	8	356865.077	356867.182	356875.104	#00ff72	1.0	Tighten Index Space	17					552
+3	8	356894.419	356894.419	356895.216	#FFC0CB	1.0	ProfTask <17>						743
+3	8	356896.019	356896.019	356896.327	#FFC0CB	1.0	ProfTask						745
+3	8	356897.005	356897.005	356897.287	#FFC0CB	1.0	ProfTask <17>						747
+3	8	356898.299	356898.299	356899.283	#FFC0CB	1.0	ProfTask <17>						749
+3	8	356899.99	356899.99	356900.507	#FFC0CB	1.0	ProfTask <17>						751
+3	8	356901.387	356901.387	356901.708	#FFC0CB	1.0	ProfTask <17>						753
+3	8	356902.428	356902.428	356903.034	#FFC0CB	1.0	ProfTask <17>						755
+3	8	356903.732	356903.732	356904.008	#FFC0CB	1.0	ProfTask <17>						757
+3	8	356904.662	356904.662	356904.91	#FFC0CB	1.0	ProfTask <17>						759
+3	8	356905.616	356905.616	356906.017	#FFC0CB	1.0	ProfTask <17>						761
+3	8	356906.599	356906.599	356906.804	#FFC0CB	1.0	ProfTask <17>						763
+3	8	356907.444	356907.444	356907.508	#FFC0CB	1.0	ProfTask <17>						765
+3	8	356908.147	356908.147	356908.279	#FFC0CB	1.0	ProfTask <17>						767
+3	8	356908.857	356908.857	356908.905	#FFC0CB	1.0	ProfTask <17>						769
+2	6	356909.393	356909.393	356909.666	#FFC0CB	1.0	ProfTask <17>						771
+3	8	356910.234	356910.234	356910.278	#FFC0CB	1.0	ProfTask <17>						773
+2	6	356910.752	356910.752	356910.796	#FFC0CB	1.0	ProfTask <17>						775
+3	8	356911.502	356911.502	356911.546	#FFC0CB	1.0	ProfTask <17>						777
+2	6	356912.007	356912.007	356912.051	#FFC0CB	1.0	ProfTask <17>						779
+3	8	356912.884	356912.884	356912.929	#FFC0CB	1.0	ProfTask <17>						781
+3	8	356914.055	356914.055	356914.449	#FFC0CB	1.0	ProfTask <17>						783
+3	8	357246.295	357247.365	357247.955	#00ff72	1.0	Tighten Index Space	17					553
+3	8	357265.179	357265.179	357265.276	#FFC0CB	1.0	ProfTask <17>						785
+3	8	357266.228	357266.228	357266.572	#FFC0CB	1.0	ProfTask <17>						787
+3	8	357297.155	357298.351	357299.876	#00ff72	1.0	Tighten Index Space	17					554
+3	8	357315.799	357315.799	357315.892	#FFC0CB	1.0	ProfTask <17>						789
+3	8	357317.047	357317.047	357317.517	#FFC0CB	1.0	ProfTask <17>						791
+3	8	357401.057	357401.945	357406.762	#00ff72	1.0	Tighten Index Space	17					555
+3	8	358559.614	358559.614	358559.707	#FFC0CB	1.0	ProfTask <17>						793
+3	8	358560.887	358560.887	358561.453	#FFC0CB	1.0	ProfTask <17>						795
+3	8	358669.729	358671.448	358681.409	#00ff72	1.0	Tighten Index Space	17					556
+3	8	359900.244	359900.244	359900.406	#FFC0CB	1.0	ProfTask <17>						797
+3	8	359901.842	359901.842	359902.291	#FFC0CB	1.0	ProfTask <17>						799
+3	8	360356.846	360356.846	360357.215	#FFC0CB	1.0	ProfTask <17>						801
+3	6	360357.452	360358.733	360375.947	#00ff72	1.0	Tighten Index Space	17					557
+3	8	360399.544	360399.544	360400.543	#FFC0CB	1.0	ProfTask <17>						803
+3	8	360716.572	360718.849	360738.522	#00ff72	1.0	Tighten Index Space	17					558
+3	8	360760.843	360760.843	360760.919	#FFC0CB	1.0	ProfTask <17>						805
+3	8	360762.403	360762.403	360763.603	#FFC0CB	1.0	ProfTask <17>						807
+3	8	360850.765	360851.987	360854.781	#00ff72	1.0	Tighten Index Space	17					559
+3	8	360871.112	360871.112	360871.279	#FFC0CB	1.0	ProfTask <17>						809
+3	8	360872.425	360872.425	360872.873	#FFC0CB	1.0	ProfTask <17>						811
+3	8	361382.764	361384.088	361414.986	#00ff72	1.0	Tighten Index Space	17					1359
+3	8	375149.807	401050.415	401164.233	#006600	1.0	Post-Task Execution	22					968
+3	8	401889.242	401889.242	401889.673	#FFC0CB	1.0	ProfTask <17>						813
+3	8	401894.622	401899.844	401919.969	#00ff72	1.0	Tighten Index Space	17					969
+3	8	429391.622	429391.622	429391.845	#FFC0CB	1.0	ProfTask <17>						815
+3	8	429400.523	429407.814	429437.947	#00ff72	1.0	Tighten Index Space	17					970
+3	8	429606.865	429606.865	429607.078	#FFC0CB	1.0	ProfTask <17>						817
+3	8	429613.246	429618.45	429621.304	#00ff72	1.0	Tighten Index Space	17					971
+3	8	429859.18	429859.18	429859.662	#FFC0CB	1.0	ProfTask <17>						819
+3	8	429860.305	429864.371	429887.018	#00ff72	1.0	Tighten Index Space	17					972
+3	8	445437.148	446103.577	446154.476	#006600	1.0	Post-Task Execution	16					80
+3	8	446682.338	446682.338	446682.729	#FFC0CB	1.0	ProfTask <17>						821
+3	8	446690.554	446695.791	446713.191	#00ff72	1.0	Tighten Index Space	17					81
+3	6	465630.668	465630.668	465631.621	#FFC0CB	1.0	ProfTask <17>						823
+3	8	465630.093	465649.543	465685.402	#00ff72	1.0	Tighten Index Space	17					82
+3	8	466284.297	466284.297	466284.63	#FFC0CB	1.0	ProfTask <17>						825
+3	8	466292.034	466297.621	466309.662	#00ff72	1.0	Tighten Index Space	17					973
+3	6	481600.388	481600.388	481601.377	#FFC0CB	1.0	ProfTask <17>						827
+3	8	481598.348	481619.206	481665.44	#00ff72	1.0	Tighten Index Space	17					83
+3	8	494672.129	494672.129	494672.503	#FFC0CB	1.0	ProfTask <17>						829
+3	8	494678.463	494684.566	494687.736	#00ff72	1.0	Tighten Index Space	17					1636
+3	8	494956.251	494956.251	494956.421	#FFC0CB	1.0	ProfTask <17>						831
+3	8	494965.804	494973.73	494990.537	#00ff72	1.0	Tighten Index Space	17					84
+3	8	498973.001	498973.001	498973.349	#FFC0CB	1.0	ProfTask <17>						833
+3	8	498980.103	498985.907	499011.946	#00ff72	1.0	Tighten Index Space	17					85
+3	8	504366.873	504366.873	504367.125	#FFC0CB	1.0	ProfTask <17>						835
+3	8	504375.05	504411.647	504422.914	#00ff72	1.0	Tighten Index Space	17					86
+3	8	504502.935	504502.935	504503.122	#FFC0CB	1.0	ProfTask <17>						837
+3	8	504510.957	504516.69	504517.647	#00ff72	1.0	Tighten Index Space	17					87
+3	8	504685.88	504685.88	504686.044	#FFC0CB	1.0	ProfTask <17>						839
+3	8	504692.791	504699.915	504709.408	#00ff72	1.0	Tighten Index Space	17					88
+3	8	506216.758	506216.758	506216.98	#FFC0CB	1.0	ProfTask <17>						841
+3	8	506224.319	506229.344	506236.096	#00ff72	1.0	Tighten Index Space	17					1637
+3	8	508333.812	508333.812	508334.019	#FFC0CB	1.0	ProfTask <17>						843
+3	8	508342.106	508379.034	508380.397	#00ff72	1.0	Tighten Index Space	17					1638
+3	8	508470.074	508470.074	508470.327	#FFC0CB	1.0	ProfTask <17>						845
+3	8	508477.29	508484.968	508488.833	#00ff72	1.0	Tighten Index Space	17					89
+3	8	508691.921	508691.921	508692.22	#FFC0CB	1.0	ProfTask <17>						847
+3	8	508700.838	508706.135	508719.921	#00ff72	1.0	Tighten Index Space	17					90
+4	8	508909.198	508942.763	508948.919	#333399	1.0	Deferred Ready Trigger	18					1639
+4	7	508948.581	508955.825	508982.948	#0a00ff	1.0	Scheduler	0					975
+4	8	508982.146	508991.345	509014.251	#ca00ff	1.0	Task Physical Dependence Analysis	18					976
+4	8	509092.676	509092.676	509096.311	#FFC0CB	1.0	ProfTask <17>						849
+4	8	509099.058	509106.504	509130.839	#006600	1.0	Post-Task Execution	17					1640
+4	8	509142.899	509142.899	509143.799	#FFC0CB	1.0	ProfTask <18>						851
+4	8	509150.555	509155.869	509165.047	#006600	1.0	Post-Task Execution	18					977
+4	8	509249.369	509256.7	509313.093	#00ff5d	1.0	Logical Dependence Analysis	23					978
+4	7	509305.609	509324.693	509327.221	#333399	1.0	Deferred Ready Trigger	25					979
+4	8	509323.911	509338.427	509376.407	#00ff5d	1.0	Logical Dependence Analysis	24					980
+4	8	509362.814	509396.623	509398.651	#333399	1.0	Deferred Ready Trigger	27					92
+4	8	509375.652	509409.119	509417.507	#333399	1.0	Deferred Ready Trigger	26					93
+4	8	509417.215	509431.172	509436.718	#0a00ff	1.0	Scheduler	0					94
+4	8	509326.966	509452.534	509455.81	#0069ff	1.0	Operation Physical Dependence Analysis	25					96
+4	8	509453.183	509466.664	509472.665	#333399	1.0	Deferred Ready Trigger	23					97
+4	8	509398.395	509485.965	509487.03	#0069ff	1.0	Operation Physical Dependence Analysis	27					98
+4	8	509486.398	509501.043	509510.332	#333399	1.0	Deferred Ready Trigger	24					99
+4	7	509436.285	509520.954	509572.032	#ca00ff	1.0	Task Physical Dependence Analysis	26					1360
+4	6	509472.391	509580.938	509666.662	#0069ff	1.0	Operation Physical Dependence Analysis	23					100
+4	8	509587.63	509679.156	509687.92	#006600	1.0	Post-Task Execution	26					981
+4	5	509510.052	509702.335	509923.724	#0069ff	1.0	Operation Physical Dependence Analysis	24					982
+4	8	509708.126	509971.003	510021.305	#00ff5d	1.0	Logical Dependence Analysis	28					101
+4	8	509980.762	510046.591	510053.15	#333399	1.0	Deferred Ready Trigger	28					102
+4	8	510052.846	510076.326	510085.163	#0a00ff	1.0	Scheduler	0					103
+4	8	510015.115	510109.628	510113.115	#333399	1.0	Deferred Ready Trigger	29					104
+4	7	510084.525	510124.434	510148.469	#ca00ff	1.0	Task Physical Dependence Analysis	28					1641
+4	8	510133.74	510153.858	510177.319	#333399	1.0	Deferred Ready Trigger	30					105
+4	7	510175.467	510203.928	510220.618	#0a00ff	1.0	Scheduler	0					106
+4	8	510180.516	510236.641	510254.127	#006600	1.0	Post-Task Execution	28					107
+4	7	510230.954	510267.838	510280.174	#009900	1.0	Deferred Commit	24					108
+4	6	510112.876	510292.735	510319.675	#0069ff	1.0	Operation Physical Dependence Analysis	29					109
+4	8	510312.092	510334.553	510338.293	#0a00ff	1.0	Scheduler	0					110
+4	8	510314.525	510351.645	510354.741	#0a00ff	1.0	Scheduler	0					111
+4	8	510317.273	510365.395	510367.968	#0a00ff	1.0	Scheduler	0					112
+4	8	510319.1	510378.084	510381.577	#0a00ff	1.0	Scheduler	0					113
+4	5	510219.365	510395.075	510414.806	#ca00ff	1.0	Task Physical Dependence Analysis	30					1361
+4	7	510337.911	510422.812	510444.118	#ca00ff	1.0	Task Physical Dependence Analysis	31					115
+4	8	510439.283	510459.294	510471.113	#006600	1.0	Post-Task Execution	30					983
+4	5	510487.937	510487.937	510501.279	#7c00ff	1.0	Defer Task Perform Mapping	35					121
+4	5	510501.279	510501.279	510561.493	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					121
+4	5	510561.493	510561.493	510581.021	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					121
+4	5	510581.021	510581.021	510585.812	#7c00ff	1.0	Defer Task Perform Mapping	35					121
+4	5	510585.812	510585.812	510588.919	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					121
+4	5	510588.919	510588.919	510598.256	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					121
+4	5	510598.256	510598.256	510605.936	#7c00ff	1.0	Defer Task Perform Mapping	35					121
+4	5	510605.936	510605.936	510610.585	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					121
+4	5	510610.585	510610.585	510621.32	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					121
+4	5	510621.32	510621.32	510626.289	#7c00ff	1.0	Defer Task Perform Mapping	35					121
+4	5	510626.289	510626.289	510629.326	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	35					121
+4	5	510629.326	510629.326	510639.077	#7c00ff	0.45	Defer Task Perform Mapping (ready)	35					121
+4	5	510639.077	510639.077	510777.886	#7c00ff	1.0	Defer Task Perform Mapping	35					121
+3	8	510489.979	510507.518	510534.991	#00ff5d	1.0	Logical Dependence Analysis	36					116
+3	8	510499.591	510557.202	510565.816	#00ffa8	1.0	Refinement	35					118
+3	8	510585.121	510587.231	510589.167	#00ffa8	1.0	Refinement	35					119
+3	8	510604.366	510608.838	510611.084	#00ffa8	1.0	Refinement	35					120
+3	8	510625.918	510627.686	510629.604	#00ffa8	1.0	Refinement	35					1642
+4	8	510711.669	510793.363	510894.448	#00ff78	1.0	Copy Fill Aggregation	35					122
+4	7	510894.214	510908.359	510923.901	#c4ff00	1.0	Copy Fill Deletion	35					123
+4	8	510893.841	510934.433	510943.395	#d6ff00	1.0	Defer Physical Registration	35					124
+4	8	510966.091	510968.127	510971.726	#7c00ff	1.0	Defer Task Perform Mapping	35					125
+4	7	510971.585	510999.64	511023.309	#00ff3c	1.0	Defer Task Launch	35					1362
+4	6	510354.384	511035.414	511049.744	#ca00ff	1.0	Task Physical Dependence Analysis	32					1643
+4	8	511057.71	511057.71	511070.8	#7c00ff	1.0	Defer Task Perform Mapping	39					986
+4	8	511070.8	511070.8	511075.041	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	39					986
+4	8	511075.041	511075.041	511085.762	#7c00ff	0.45	Defer Task Perform Mapping (ready)	39					986
+4	8	511085.762	511085.762	511089.005	#7c00ff	1.0	Defer Task Perform Mapping	39					986
+4	8	511089.005	511089.005	511091.643	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	39					986
+4	8	511091.643	511091.643	511104.026	#7c00ff	0.45	Defer Task Perform Mapping (ready)	39					986
+4	8	511104.026	511104.026	511171.162	#7c00ff	1.0	Defer Task Perform Mapping	39					986
+3	7	511070.135	511072.687	511075.819	#00ffa8	1.0	Refinement	39					984
+3	7	511088.482	511090.313	511092.082	#00ffa8	1.0	Refinement	39					985
+4	7	511124.512	511181.131	511200.764	#00ff78	1.0	Copy Fill Aggregation	39					987
+4	8	511200.549	511209.416	511210.77	#c4ff00	1.0	Copy Fill Deletion	39					1363
+4	8	511200.225	511215.538	511222.549	#d6ff00	1.0	Defer Physical Registration	39					988
+4	8	511230.852	511233.059	511235.494	#7c00ff	1.0	Defer Task Perform Mapping	39					989
+4	7	511235.358	511245.565	511256.475	#00ff3c	1.0	Defer Task Launch	39					990
+4	4	510367.605	511265.736	511279.781	#ca00ff	1.0	Task Physical Dependence Analysis	33					1644
+4	8	511284.988	511284.988	511296.063	#7c00ff	1.0	Defer Task Perform Mapping	40					992
+4	8	511296.063	511296.063	511299.827	#7c00ff	0.15	Defer Task Perform Mapping (waiting)	40					992
+4	8	511299.827	511299.827	511304.815	#7c00ff	0.45	Defer Task Perform Mapping (ready)	40					992
+4	8	511304.815	511304.815	511368.457	#7c00ff	1.0	Defer Task Perform Mapping	40					992
+3	7	511294.531	511298.038	511300.349	#00ffa8	1.0	Refinement	40					991
+4	7	511328.58	511375.513	511392.998	#00ff78	1.0	Copy Fill Aggregation	40					993
+4	7	511392.812	511400.438	511401.677	#c4ff00	1.0	Copy Fill Deletion	40					1364
+4	8	511392.608	511404.645	511418.516	#d6ff00	1.0	Defer Physical Registration	40					994
+4	8	511425.283	511425.702	511428.353	#7c00ff	1.0	Defer Task Perform Mapping	40					995
+4	7	511428.218	511434.353	511444.916	#00ff3c	1.0	Defer Task Launch	40					996
+4	3	510381.22	511451.589	511492.324	#ca00ff	1.0	Task Physical Dependence Analysis	34					1365
+4	8	511482.66	511498.271	511547.442	#7c00ff	1.0	Defer Task Perform Mapping	41					1366
+4	7	511529.671	511552.797	511577.459	#00ff78	1.0	Copy Fill Aggregation	41					1367
+4	8	511577.279	511582.685	511583.937	#c4ff00	1.0	Copy Fill Deletion	41					1368
+4	8	511577.046	511587.895	511591.743	#d6ff00	1.0	Defer Physical Registration	41					1369
+4	8	511594.75	511595.335	511600.34	#7c00ff	1.0	Defer Task Perform Mapping	41					1370
+4	8	511597.207	511605.265	511614.369	#333399	1.0	Deferred Ready Trigger	38					1371
+4	7	511600.198	511625.431	511650.055	#00ff3c	1.0	Defer Task Launch	41					1372
+4	8	511613.909	511663.497	511666.641	#0069ff	1.0	Operation Physical Dependence Analysis	38					560
+4	8	511664.245	511671.585	511676.833	#333399	1.0	Deferred Ready Trigger	36					561
+4	8	511676.442	511680.691	511686.701	#0a00ff	1.0	Scheduler	0					562
+4	7	511686.206	511689.419	511738.19	#ca00ff	1.0	Task Physical Dependence Analysis	36					563
+4	8	511732.151	511740.507	511743.114	#333399	1.0	Deferred Ready Trigger	37					564
+4	8	511742.833	511745.693	511749.308	#0a00ff	1.0	Scheduler	0					565
+4	7	511748.876	511751.197	511762.015	#ca00ff	1.0	Task Physical Dependence Analysis	37					566
+4	8	511764.792	511764.792	511765.929	#FFC0CB	1.0	ProfTask <38>						853
+4	8	511766.697	511766.697	511767.056	#FFC0CB	1.0	ProfTask <36>						855
+4	8	511767.627	511767.627	511767.94	#FFC0CB	1.0	ProfTask						857
+4	8	511768.451	511768.451	511769.377	#FFC0CB	1.0	ProfTask <36>						859
+4	8	511769.945	511769.945	511770.358	#FFC0CB	1.0	ProfTask <37>						861
+4	8	511770.866	511770.866	511771.218	#FFC0CB	1.0	ProfTask						863
+4	8	511771.749	511771.749	511772.098	#FFC0CB	1.0	ProfTask <37>						865
+4	8	531324.475	531326.947	531351.186	#006600	1.0	Post-Task Execution	41					567
+4	8	531357.381	531357.381	531358.015	#FFC0CB	1.0	ProfTask <41>						867
+4	8	544484.457	544484.457	544487.254	#FFC0CB	1.0	ProfTask <40>						869
+4	7	544487.603	544488.963	544499.894	#006600	1.0	Post-Task Execution	40					568
+4	8	544506.239	544506.239	544506.841	#FFC0CB	1.0	ProfTask <40>						871
+4	8	559556.064	559556.064	559556.88	#FFC0CB	1.0	ProfTask <39>						873
+4	8	559561.458	559570.861	559583.673	#006600	1.0	Post-Task Execution	39					997
+4	8	607878.601	607923.422	607972.208	#006600	1.0	Post-Task Execution	35					998
+4	8	608040.219	608040.219	608042.449	#FFC0CB	1.0	ProfTask <36>						875
+4	8	608046.008	608050.172	608078.981	#006600	1.0	Post-Task Execution	36					569
+4	8	608084.744	608084.744	608085.272	#FFC0CB	1.0	ProfTask <37>						877
+4	8	608086.373	608086.373	608087.751	#FFC0CB	1.0	ProfTask <36>						879
+4	7	608088.063	608088.948	608099.48	#006600	1.0	Post-Task Execution	37					999
+4	8	608128.601	608136.796	608169.882	#00ff5d	1.0	Logical Dependence Analysis	42					1000
+4	7	608162.68	608183.037	608185.89	#333399	1.0	Deferred Ready Trigger	44					127
+4	8	608182.254	608197.664	608226.085	#00ff5d	1.0	Logical Dependence Analysis	43					1001
+4	8	608210.9	608238.566	608240.836	#333399	1.0	Deferred Ready Trigger	46					129
+4	8	608225.39	608251.583	608256.394	#333399	1.0	Deferred Ready Trigger	45					1002
+4	8	608256.053	608269.545	608276.308	#0a00ff	1.0	Scheduler	0					130
+4	8	608185.617	608287.216	608288.877	#0069ff	1.0	Operation Physical Dependence Analysis	44					131
+4	8	608287.551	608304.084	608310.374	#333399	1.0	Deferred Ready Trigger	42					1003
+4	8	608240.599	608322.493	608323.729	#0069ff	1.0	Operation Physical Dependence Analysis	46					132
+4	8	608322.982	608332.441	608341.795	#333399	1.0	Deferred Ready Trigger	43					133
+4	7	608275.631	608350.689	608372.222	#ca00ff	1.0	Task Physical Dependence Analysis	45					1373
+4	6	608310.1	608382.805	608425.741	#0069ff	1.0	Operation Physical Dependence Analysis	42					134
+4	8	608429.54	608436.962	608459.742	#006600	1.0	Post-Task Execution	45					1004
+4	5	608341.516	608469.094	608552.1	#0069ff	1.0	Operation Physical Dependence Analysis	43					1005
+4	8	608470.755	608571.824	608618.069	#00ff5d	1.0	Logical Dependence Analysis	47					135
+4	7	608579.04	608633.375	608643.939	#333399	1.0	Deferred Ready Trigger	47					136
+4	8	608643.499	608657.92	608663.962	#0a00ff	1.0	Scheduler	0					1006
+4	8	608611.858	608675.664	608678.003	#333399	1.0	Deferred Ready Trigger	48					1007
+4	7	608663.418	608689.926	608714.059	#ca00ff	1.0	Task Physical Dependence Analysis	47					1008
+4	8	608697.319	608737.715	608743.72	#333399	1.0	Deferred Ready Trigger	49					1009
+4	7	608743.189	608771.767	608776.896	#0a00ff	1.0	Scheduler	0					137
+4	8	608768.03	608799.929	608816.934	#006600	1.0	Post-Task Execution	47					138
+4	8	608769.756	608832.306	608836.657	#009900	1.0	Deferred Commit	43					139
+4	6	608677.764	608847.363	608871.258	#0069ff	1.0	Operation Physical Dependence Analysis	48					140
+4	8	608865.303	608893.21	608897.109	#0a00ff	1.0	Scheduler	0					141
+4	8	608867.226	608910.237	608913.23	#0a00ff	1.0	Scheduler	0					142
+4	8	608868.906	608926.577	608929.423	#0a00ff	1.0	Scheduler	0					143
+4	8	608870.776	608942.356	608946.533	#0a00ff	1.0	Scheduler	0					144
+4	5	608776.411	608959.517	608978.717	#ca00ff	1.0	Task Physical Dependence Analysis	49					1374
+4	7	608896.676	608989.97	609010.682	#ca00ff	1.0	Task Physical Dependence Analysis	50					146
+4	8	609004.453	609022.707	609037.659	#006600	1.0	Post-Task Execution	49					1010
+4	5	609005.684	609050.203	609103.268	#7c00ff	1.0	Defer Task Perform Mapping	54					148
+4	8	609049.055	609116.787	609143.909	#00ff5d	1.0	Logical Dependence Analysis	55					149
+4	7	609080.085	609159.074	609183.743	#00ff78	1.0	Copy Fill Aggregation	54					150
+4	8	609183.53	609195.167	609197.37	#c4ff00	1.0	Copy Fill Deletion	54					151
+4	8	609183.016	609208.672	609214.769	#d6ff00	1.0	Defer Physical Registration	54					152
+4	8	609228.407	609229.434	609232.288	#7c00ff	1.0	Defer Task Perform Mapping	54					153
+4	7	609232.157	609260.932	609299.22	#00ff3c	1.0	Defer Task Launch	54					1375
+4	6	608912.884	609307.219	609321.341	#ca00ff	1.0	Task Physical Dependence Analysis	51					1011
+4	8	609318.29	609331.972	609382.904	#7c00ff	1.0	Defer Task Perform Mapping	58					1012
+4	7	609361.637	609393.178	609411.109	#00ff78	1.0	Copy Fill Aggregation	58					1013
+4	8	609410.89	609420.677	609421.819	#c4ff00	1.0	Copy Fill Deletion	58					1014
+4	8	609410.699	609431.163	609435.165	#d6ff00	1.0	Defer Physical Registration	58					1015
+4	8	609442.899	609443.367	609445.59	#7c00ff	1.0	Defer Task Perform Mapping	58					1016
+4	7	609445.464	609455.699	609473.081	#00ff3c	1.0	Defer Task Launch	58					1017
+4	8	608929.09	609484.327	609494.042	#ca00ff	1.0	Task Physical Dependence Analysis	52					1645
+4	7	609491.332	609501.222	609543.085	#7c00ff	1.0	Defer Task Perform Mapping	59					1646
+4	8	609525.63	609550.02	609571.247	#00ff78	1.0	Copy Fill Aggregation	59					1647
+4	8	609571.049	609578.248	609579.446	#c4ff00	1.0	Copy Fill Deletion	59					1376
+4	8	609570.794	609582.34	609588.056	#d6ff00	1.0	Defer Physical Registration	59					1648
+4	8	609596.945	609597.398	609600.09	#7c00ff	1.0	Defer Task Perform Mapping	59					1649
+4	7	609599.974	609605.591	609616.186	#00ff3c	1.0	Defer Task Launch	59					1650
+4	4	608946.18	609623.069	609641.523	#ca00ff	1.0	Task Physical Dependence Analysis	53					1377
+4	8	609632.63	609644.755	609698.008	#7c00ff	1.0	Defer Task Perform Mapping	60					1378
+4	7	609680.499	609703.765	609724.12	#00ff78	1.0	Copy Fill Aggregation	60					1379
+4	8	609723.914	609729.373	609730.536	#c4ff00	1.0	Copy Fill Deletion	60					1380
+4	8	609723.545	609733.867	609737.459	#d6ff00	1.0	Defer Physical Registration	60					1381
+4	8	609746.806	609747.423	609753.237	#7c00ff	1.0	Defer Task Perform Mapping	60					1382
+4	8	609749.853	609759.363	609762.207	#333399	1.0	Deferred Ready Trigger	57					1383
+4	7	609753.095	609764.941	609778.925	#00ff3c	1.0	Defer Task Launch	60					570
+4	8	609761.967	609791.525	609793.702	#0069ff	1.0	Operation Physical Dependence Analysis	57					571
+4	8	609792.049	609800.036	609804.057	#333399	1.0	Deferred Ready Trigger	55					572
+4	8	609803.6	609807.309	609812.558	#0a00ff	1.0	Scheduler	0					573
+4	7	609812.102	609815.059	609859.88	#ca00ff	1.0	Task Physical Dependence Analysis	55					574
+4	8	609853.606	609862.711	609865.192	#333399	1.0	Deferred Ready Trigger	56					575
+4	8	609864.882	609867.686	609871.386	#0a00ff	1.0	Scheduler	0					576
+4	7	609870.952	609873.56	609883.962	#ca00ff	1.0	Task Physical Dependence Analysis	56					577
+4	8	609886.76	609886.76	609888.345	#FFC0CB	1.0	ProfTask <60>						881
+4	8	609889.379	609889.379	609889.976	#FFC0CB	1.0	ProfTask <57>						883
+4	8	609890.535	609890.535	609891.336	#FFC0CB	1.0	ProfTask <55>						885
+4	8	609891.996	609891.996	609892.458	#FFC0CB	1.0	ProfTask						887
+4	8	609893.084	609893.084	609893.482	#FFC0CB	1.0	ProfTask <55>						889
+4	8	609894.084	609894.084	609894.595	#FFC0CB	1.0	ProfTask <56>						891
+3	7	609895.081	609895.081	609895.526	#FFC0CB	1.0	ProfTask						893
+4	8	609896.228	609896.228	609896.678	#FFC0CB	1.0	ProfTask <56>						895
+4	8	628707.371	628709.72	628734.104	#006600	1.0	Post-Task Execution	60					578
+4	8	628740.955	628740.955	628741.659	#FFC0CB	1.0	ProfTask <60>						897
+4	8	643332.919	643332.919	643334.978	#FFC0CB	1.0	ProfTask <59>						899
+4	8	643336.14	643339.114	643349.585	#006600	1.0	Post-Task Execution	59					579
+4	8	643355.576	643355.576	643356.157	#FFC0CB	1.0	ProfTask <59>						901
+4	8	656228.012	656273.86	656301.343	#006600	1.0	Post-Task Execution	58					1018
+4	8	705372.805	705440.011	705494.172	#006600	1.0	Post-Task Execution	54					154
+4	8	705546.444	705546.444	705548.573	#FFC0CB	1.0	ProfTask <55>						903
+4	8	705550.741	705558.568	705590.06	#006600	1.0	Post-Task Execution	55					1019
+4	8	705599.612	705604.051	705616.609	#006600	1.0	Post-Task Execution	56					1020
+4	8	705641.344	705651.294	705685.298	#00ff5d	1.0	Logical Dependence Analysis	61					155
+4	7	705677.21	705700.564	705704.871	#333399	1.0	Deferred Ready Trigger	64					157
+4	8	705699.36	705719.921	705748.131	#00ff5d	1.0	Logical Dependence Analysis	62					158
+4	8	705732.36	705763.42	705766.075	#333399	1.0	Deferred Ready Trigger	65					160
+4	8	705747.283	705776.599	705782.302	#333399	1.0	Deferred Ready Trigger	63					161
+4	8	705781.913	705795.186	705802.953	#0a00ff	1.0	Scheduler	0					162
+4	8	705704.567	705813.86	705815.987	#0069ff	1.0	Operation Physical Dependence Analysis	64					163
+4	8	705814.445	705829.889	705836.052	#333399	1.0	Deferred Ready Trigger	61					164
+4	8	705765.835	705849.298	705850.536	#0069ff	1.0	Operation Physical Dependence Analysis	65					165
+4	5	705849.776	705861.232	705874.996	#333399	1.0	Deferred Ready Trigger	62					166
+4	7	705802.213	705888.417	705916.664	#ca00ff	1.0	Task Physical Dependence Analysis	63					1384
+4	6	705835.789	705924.516	705950.416	#0069ff	1.0	Operation Physical Dependence Analysis	61					1651
+4	8	705874.733	705953.407	706044.743	#0069ff	1.0	Operation Physical Dependence Analysis	62					167
+4	7	705960.6	706057.786	706085.387	#006600	1.0	Post-Task Execution	63					1021
+4	8	706108.469	706116.14	706123.209	#00ff5d	1.0	Logical Dependence Analysis	66					168
+4	8	706121.933	706147.141	706150.471	#333399	1.0	Deferred Ready Trigger	66					169
+4	8	706150.213	706160.83	706166.093	#0069ff	1.0	Operation Physical Dependence Analysis	66					170
+4	8	706269.785	706269.785	706272.215	#FFC0CB	1.0	ProfTask <62>						905
+4	8	706287.234	706294.88	706306.071	#009900	1.0	Deferred Commit	62					1022
+4	8	706294.43	706319.751	706324.803	#009900	1.0	Deferred Commit	66					1023
+4	8	706381.75	706389.261	706504.148	#00ff5d	1.0	Logical Dependence Analysis	67					171
+4	7	706439.894	706519.556	706525.994	#006600	1.0	Post-Task Execution	1					172
+4	7	706487.386	706541.83	706545.74	#333399	1.0	Deferred Ready Trigger	67					173
+4	8	706518.18	706555.702	706572.635	#00ff5d	1.0	Logical Dependence Analysis	69					174
+4	6	706545.507	706585.726	708157.191	#0069ff	1.0	Operation Physical Dependence Analysis	67					175
+4	8	706611.534	708174.507	708178.512	#333399	1.0	Deferred Ready Trigger	68					1652
+4	7	708178.166	708189.993	708485.627	#0069ff	1.0	Operation Physical Dependence Analysis	68					176
+4	8	708196.368	708500.797	708506.103	#333399	1.0	Deferred Ready Trigger	69					177
+4	7	708505.809	708518.685	708570.384	#0069ff	1.0	Operation Physical Dependence Analysis	69					178
+4	8	708520.847	708585.061	708782.083	#d0ff00	1.0	Trigger Complete	1					179
+4	7	708647.009	708798.664	708816.668	#00b7ff	1.0	Top Finish	0					180
+4	8	708703.628	708830.181	708834.105	#009900	1.0	Garbage Collection	1					181
+4	8	708706.278	708848.87	708849.441	#009900	1.0	Garbage Collection	1					182
+4	8	708708.125	708863.296	708863.684	#009900	1.0	Garbage Collection	1					183
+4	8	708709.728	708873.761	708874.936	#009900	1.0	Garbage Collection	1					1024
+4	8	708711.787	708899.204	708899.751	#009900	1.0	Garbage Collection	1					1025
+4	8	708713.285	708909.659	708910.279	#009900	1.0	Garbage Collection	1					1385
+4	8	708714.583	708928.02	708928.798	#009900	1.0	Garbage Collection	1					1026
+4	8	708716.718	708944.629	708945.645	#009900	1.0	Garbage Collection	1					184
+4	6	708718.28	708956.697	709207.991	#009900	1.0	Garbage Collection	1					185
+4	8	708731.945	709221.876	709222.378	#009900	1.0	Garbage Collection	1					186
+4	8	708733.573	709236.663	709237.496	#009900	1.0	Garbage Collection	1					187
+4	8	708735.543	709250.614	709251.284	#009900	1.0	Garbage Collection	1					188
+4	8	708737.257	709270.53	709271.145	#009900	1.0	Garbage Collection	1					189
+4	5	708738.853	709284.45	709320.835	#009900	1.0	Garbage Collection	1					190

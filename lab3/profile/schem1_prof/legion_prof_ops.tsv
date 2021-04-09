@@ -1,137 +1,89 @@
 op_id	desc	proc	level
 0	Operation <0>		
-1	toplevel [primary] <1>	CPU Processor 0x1d00000000000002	2
+1	toplevel [primary] <1>	CPU Processor 0x1d00000000000001	2
 3	Pending Partition Operation <3>		
-4	initialize_graph [primary] <4>	CPU Processor 0x1d00000000000001	2
+4	initialize_graph [primary] <4>	CPU Processor 0x1d00000000000002	2
 5	Dependent Partition Operation <5>		
 6	Dependent Partition Operation <6>		
 7	Fence Operation <7>		
-8	__unary_bool_not [primary] <8>	CPU Processor 0x1d00000000000001	2
-9	__binary_int32_int32_+ [primary] <9>	CPU Processor 0x1d00000000000001	2
+8	__unary_bool_not [primary] <8>	CPU Processor 0x1d00000000000001	3
+9	__binary_int32_int32_+ [primary] <9>	CPU Processor 0x1d00000000000002	2
 10	update_ranks <10>		
-11	__binary_int32_uint32_>= [primary] <11>	CPU Processor 0x1d00000000000001	2
+11	__binary_int32_uint32_>= [primary] <11>	CPU Processor 0x1d00000000000001	3
 12	update_ranks <12>		
 13	update_ranks <13>		
 14	update_ranks <14>		
 15	update_ranks <15>		
-16	update_ranks [primary] <16>	CPU Processor 0x1d00000000000001	2
-17	l2_norm [primary] <17>	CPU Processor 0x1d00000000000001	2
-18	__binary_double_double_< [primary] <18>	CPU Processor 0x1d00000000000001	2
+16	update_ranks [primary] <16>	CPU Processor 0x1d00000000000001	3
+17	l2_norm [primary] <17>	CPU Processor 0x1d00000000000001	3
+18	__binary_double_double_< [primary] <18>	CPU Processor 0x1d00000000000001	3
 19	Merge Close Operation <19>		
-20	update_ranks [primary] <20>	CPU Processor 0x1d00000000000001	2
-21	sum_calc [primary] <21>	CPU Processor 0x1d00000000000001	2
-22	final_rank [primary] <22>	CPU Processor 0x1d00000000000001	2
-23	Virtual Close Operation <23>		
-24	sum_calc [primary] <24>	CPU Processor 0x1d00000000000002	3
-25	update_ranks [primary] <25>	CPU Processor 0x1d00000000000001	2
-26	final_rank [primary] <26>	CPU Processor 0x1d00000000000001	2
-27	Virtual Close Operation <27>		
-28	update_ranks [primary] <28>	CPU Processor 0x1d00000000000001	2
-29	sum_calc [primary] <29>	CPU Processor 0x1d00000000000001	2
-30	final_rank [primary] <30>	CPU Processor 0x1d00000000000001	2
-31	Virtual Close Operation <31>		
-32	sum_calc [primary] <32>	CPU Processor 0x1d00000000000001	2
-33	final_rank [primary] <33>	CPU Processor 0x1d00000000000001	2
-34	Virtual Close Operation <34>		
-35	Fill Operation <35>		
-36	Copy Operation <36>		
-37	__unary_bool_not [primary] <37>	CPU Processor 0x1d00000000000001	2
+20	update_ranks [primary] <20>	CPU Processor 0x1d00000000000002	2
+21	update_ranks [primary] <21>	CPU Processor 0x1d00000000000001	3
+22	update_ranks [primary] <22>	CPU Processor 0x1d00000000000001	3
+23	Fill Operation <23>		
+24	Copy Operation <24>		
+25	__unary_bool_not [primary] <25>	CPU Processor 0x1d00000000000001	3
+26	Merge Close Operation <26>		
+27	Merge Close Operation <27>		
+28	__binary_int32_int32_+ [primary] <28>	CPU Processor 0x1d00000000000001	3
+29	update_ranks <29>		
+30	__binary_int32_uint32_>= [primary] <30>	CPU Processor 0x1d00000000000001	3
+31	update_ranks <31>		
+32	update_ranks <32>		
+33	update_ranks <33>		
+34	update_ranks <34>		
+35	update_ranks [primary] <35>	CPU Processor 0x1d00000000000001	3
+36	l2_norm [primary] <36>	CPU Processor 0x1d00000000000001	3
+37	__binary_double_double_< [primary] <37>	CPU Processor 0x1d00000000000001	3
 38	Merge Close Operation <38>		
-39	Merge Close Operation <39>		
-40	__binary_int32_int32_+ [primary] <40>	CPU Processor 0x1d00000000000001	2
-41	update_ranks <41>		
-42	__binary_int32_uint32_>= [primary] <42>	CPU Processor 0x1d00000000000001	2
-43	update_ranks <43>		
-44	update_ranks <44>		
-45	update_ranks <45>		
-46	update_ranks <46>		
-47	update_ranks [primary] <47>	CPU Processor 0x1d00000000000001	2
-48	l2_norm [primary] <48>	CPU Processor 0x1d00000000000001	2
-49	__binary_double_double_< [primary] <49>	CPU Processor 0x1d00000000000001	2
-50	Merge Close Operation <50>		
-51	sum_calc [primary] <51>	CPU Processor 0x1d00000000000001	2
-52	update_ranks [primary] <52>	CPU Processor 0x1d00000000000001	2
-53	final_rank [primary] <53>	CPU Processor 0x1d00000000000003	2
-54	Virtual Close Operation <54>		
-55	sum_calc [primary] <55>	CPU Processor 0x1d00000000000002	3
-56	update_ranks [primary] <56>	CPU Processor 0x1d00000000000001	2
-57	final_rank [primary] <57>	CPU Processor 0x1d00000000000001	2
-58	Virtual Close Operation <58>		
-59	sum_calc [primary] <59>	CPU Processor 0x1d00000000000003	2
-60	update_ranks [primary] <60>	CPU Processor 0x1d00000000000001	2
-61	final_rank [primary] <61>	CPU Processor 0x1d00000000000001	2
-62	Virtual Close Operation <62>		
-63	sum_calc [primary] <63>	CPU Processor 0x1d00000000000002	3
-64	final_rank [primary] <64>	CPU Processor 0x1d00000000000001	2
-65	Virtual Close Operation <65>		
-66	Fill Operation <66>		
-67	Copy Operation <67>		
-68	Merge Close Operation <68>		
-69	__unary_bool_not [primary] <69>	CPU Processor 0x1d00000000000001	2
-70	Merge Close Operation <70>		
-71	__binary_int32_int32_+ [primary] <71>	CPU Processor 0x1d00000000000001	2
+39	update_ranks [primary] <39>	CPU Processor 0x1d00000000000002	2
+40	update_ranks [primary] <40>	CPU Processor 0x1d00000000000003	2
+41	update_ranks [primary] <41>	CPU Processor 0x1d00000000000001	3
+42	Fill Operation <42>		
+43	Copy Operation <43>		
+44	__unary_bool_not [primary] <44>	CPU Processor 0x1d00000000000001	3
+45	Merge Close Operation <45>		
+46	Merge Close Operation <46>		
+47	__binary_int32_int32_+ [primary] <47>	CPU Processor 0x1d00000000000001	3
+48	update_ranks <48>		
+49	__binary_int32_uint32_>= [primary] <49>	CPU Processor 0x1d00000000000001	3
+50	update_ranks <50>		
+51	update_ranks <51>		
+52	update_ranks <52>		
+53	update_ranks <53>		
+54	update_ranks [primary] <54>	CPU Processor 0x1d00000000000001	3
+55	l2_norm [primary] <55>	CPU Processor 0x1d00000000000001	3
+56	__binary_double_double_< [primary] <56>	CPU Processor 0x1d00000000000001	3
+57	Merge Close Operation <57>		
+58	update_ranks [primary] <58>	CPU Processor 0x1d00000000000002	2
+59	update_ranks [primary] <59>	CPU Processor 0x1d00000000000003	2
+60	update_ranks [primary] <60>	CPU Processor 0x1d00000000000001	3
+61	Fill Operation <61>		
+62	Copy Operation <62>		
+63	__unary_bool_not [primary] <63>	CPU Processor 0x1d00000000000001	3
+64	Merge Close Operation <64>		
+65	Merge Close Operation <65>		
+66	__binary_int32_int32_+ [primary] <66>	CPU Processor 0x1d00000000000001	3
+67	update_ranks <67>		
+68	__binary_int32_uint32_>= [primary] <68>	CPU Processor 0x1d00000000000001	3
+69	update_ranks <69>		
+70	update_ranks <70>		
+71	update_ranks <71>		
 72	update_ranks <72>		
-73	__binary_int32_uint32_>= [primary] <73>	CPU Processor 0x1d00000000000001	2
-74	update_ranks <74>		
-75	update_ranks <75>		
-76	update_ranks <76>		
-77	update_ranks <77>		
-78	update_ranks [primary] <78>	CPU Processor 0x1d00000000000001	2
-79	l2_norm [primary] <79>	CPU Processor 0x1d00000000000001	2
-80	__binary_double_double_< [primary] <80>	CPU Processor 0x1d00000000000001	2
-81	Merge Close Operation <81>		
-82	sum_calc [primary] <82>	CPU Processor 0x1d00000000000001	2
-83	update_ranks [primary] <83>	CPU Processor 0x1d00000000000001	2
-84	final_rank [primary] <84>	CPU Processor 0x1d00000000000001	2
-85	Virtual Close Operation <85>		
-86	sum_calc [primary] <86>	CPU Processor 0x1d00000000000002	3
-87	update_ranks [primary] <87>	CPU Processor 0x1d00000000000001	2
-88	final_rank [primary] <88>	CPU Processor 0x1d00000000000001	2
-89	Virtual Close Operation <89>		
-90	sum_calc [primary] <90>	CPU Processor 0x1d00000000000003	2
-91	update_ranks [primary] <91>	CPU Processor 0x1d00000000000001	2
-92	final_rank [primary] <92>	CPU Processor 0x1d00000000000001	2
-93	Virtual Close Operation <93>		
-94	sum_calc [primary] <94>	CPU Processor 0x1d00000000000002	3
-95	final_rank [primary] <95>	CPU Processor 0x1d00000000000001	2
-96	Virtual Close Operation <96>		
-97	Fill Operation <97>		
-98	Copy Operation <98>		
-99	__unary_bool_not [primary] <99>	CPU Processor 0x1d00000000000001	2
-100	Merge Close Operation <100>		
-101	Merge Close Operation <101>		
-102	__binary_int32_int32_+ [primary] <102>	CPU Processor 0x1d00000000000001	2
-103	update_ranks <103>		
-104	__binary_int32_uint32_>= [primary] <104>	CPU Processor 0x1d00000000000001	2
-105	update_ranks <105>		
-106	update_ranks <106>		
-107	update_ranks <107>		
-108	update_ranks <108>		
-109	update_ranks [primary] <109>	CPU Processor 0x1d00000000000001	2
-110	l2_norm [primary] <110>	CPU Processor 0x1d00000000000001	2
-111	__binary_double_double_< [primary] <111>	CPU Processor 0x1d00000000000001	2
-112	Merge Close Operation <112>		
-113	sum_calc [primary] <113>	CPU Processor 0x1d00000000000001	2
-114	update_ranks [primary] <114>	CPU Processor 0x1d00000000000003	2
-115	final_rank [primary] <115>	CPU Processor 0x1d00000000000002	3
-116	Virtual Close Operation <116>		
-117	update_ranks [primary] <117>	CPU Processor 0x1d00000000000001	2
-118	sum_calc [primary] <118>	CPU Processor 0x1d00000000000002	3
-119	final_rank [primary] <119>	CPU Processor 0x1d00000000000001	2
-120	Virtual Close Operation <120>		
-121	sum_calc [primary] <121>	CPU Processor 0x1d00000000000003	2
-122	final_rank [primary] <122>	CPU Processor 0x1d00000000000001	2
-123	Virtual Close Operation <123>		
-124	update_ranks [primary] <124>	CPU Processor 0x1d00000000000001	2
-125	sum_calc [primary] <125>	CPU Processor 0x1d00000000000001	2
-126	final_rank [primary] <126>	CPU Processor 0x1d00000000000001	2
-127	Virtual Close Operation <127>		
-128	Fill Operation <128>		
-129	Copy Operation <129>		
-130	__unary_bool_not [primary] <130>	CPU Processor 0x1d00000000000001	2
-131	Merge Close Operation <131>		
-132	Merge Close Operation <132>		
-133	Fence Operation <133>		
-134	Deletion Operation <134>		
-135	Deletion Operation <135>		
-136	Deletion Operation <136>		
+73	update_ranks [primary] <73>	CPU Processor 0x1d00000000000001	3
+74	l2_norm [primary] <74>	CPU Processor 0x1d00000000000001	3
+75	__binary_double_double_< [primary] <75>	CPU Processor 0x1d00000000000001	3
+76	Merge Close Operation <76>		
+77	update_ranks [primary] <77>	CPU Processor 0x1d00000000000002	2
+78	update_ranks [primary] <78>	CPU Processor 0x1d00000000000003	2
+79	update_ranks [primary] <79>	CPU Processor 0x1d00000000000001	3
+80	Fill Operation <80>		
+81	Copy Operation <81>		
+82	__unary_bool_not [primary] <82>	CPU Processor 0x1d00000000000001	3
+83	Merge Close Operation <83>		
+84	Merge Close Operation <84>		
+85	Fence Operation <85>		
+86	Deletion Operation <86>		
+87	Deletion Operation <87>		
+88	Deletion Operation <88>		

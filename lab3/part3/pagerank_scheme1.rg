@@ -83,37 +83,6 @@ task l2_norm(r_pages : region(Page)) : double
     sum = sqrt(sum)
   return sum	
 end
- __demand(__leaf) 
-task final_rank (
-     r_pages : region(Page),
-     damp : double,
-     numpages : int  
-     )
-where
- reads (r_pages.summation), reads writes(r_pages.summation,r_pages.rank)
-do
-      for page in r_pages do
-      	  var temp = page.summation * damp
-      	  temp += (1-damp) / numpages
-      	  page.rank = temp
-      end 
-end
-
- __demand(__leaf) 
-task sum_calc (
-r_pages : region(Page),
-r_src : region(Page),
-r_links :region( Link(wild))
-)
-where
-	 reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(r_pages.summation)
-do
-    for link in r_links do
-        var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
-	var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
-	tmp_ptr.summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks
-    end
-done
 
 --__demand(__leaf) 
 task update_ranks(r_pages : region(Page),
@@ -122,21 +91,21 @@ task update_ranks(r_pages : region(Page),
 	        damp : double,
                 numpages : int                
 	)
---  where
---    reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(r_pages.summation,r_pages.rank)
---  do
---      for link in r_links do
- sum_calc (r_pages,r_src ,r_links )     	  
---     	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
---	   var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
---           tmp_ptr.summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
---      end
---      for page in r_pages do
---      	  page.summation *= damp
---      	  page.summation += (1-damp) / numpages
---      	  page.rank = page.summation
---      end            
-      final_rank(r_pages,damp,numpages)
+  where
+    reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(r_pages.summation,r_pages.rank)
+  do
+      for link in r_links do
+-- sum_calc (r_pages,r_src ,r_links )     	  
+     	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
+	   var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
+           tmp_ptr.summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
+      end
+      for page in r_pages do
+      	  page.summation *= damp
+      	  page.summation += (1-damp) / numpages
+      	  page.rank = page.summation
+      end            
+--      final_rank(r_pages,damp,numpages)
       --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    
 end
 

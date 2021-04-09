@@ -1,5 +1,5 @@
 level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
-3			39642.927	39751.096	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	24					370
-3			41745.682	41771.174	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	43					371
-3			43570.559	43591.185	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	62					372
-3			45172.366	45198.146	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	81					373
+3			40634.742	40729.309	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	24					306
+3			43132.305	43158.7	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	43					307
+3			45227.993	45262.703	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	62					308
+3			47263.807	47303.871	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	81					1267

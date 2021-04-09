@@ -1,5 +1,18 @@
 level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
-3			5090372.617	5090470.255	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	24					1541
-3			5094572.231	5094601.792	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	43					1542
-3			5098071.009	5098108.274	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	62					346
-3			5101679.182	5101712.44	#ff00bc	1.0	size=4.156 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	81					347
+3			514707.146	515044.254	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	24					4354
+3			625153.853	625450.503	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	43					856
+3			735198.604	735529.36	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	62					857
+3			841707.608	842033.353	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	81					858
+3			941407.179	941621.272	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	100					859
+3			1049676.244	1049894.971	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	119					860
+3			1155935.908	1156288.551	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	138					861
+3			1268562.368	1268890.774	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	157					3493
+3			1377924.644	1378202.087	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	176					862
+3			1482477.274	1482718.719	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	195					863
+3			1583112.616	1583416.202	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	214					864
+3			1680862.127	1681121.356	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	233					4355
+3			1782077.396	1782394.953	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	252					865
+3			1868901.681	1869215.333	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	271					866
+3			1953487.706	1953806.322	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	290					867
+3			2053992.608	2054306.714	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	309					868
+3			2152912.763	2153137.949	#ff00bc	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	328					2542

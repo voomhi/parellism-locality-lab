@@ -70,7 +70,7 @@ end
 
 task l2_norm(r_pages : region(Page)) : double
   where 
-    reads (r_pages.rank,r_pages.prevrank) --, reads writes (r_pages.prevrank,r_pages.summation)
+    reads (r_pages.rank,r_pages.prevrank) --, reads writes (r_pages.summation)
   do
     var sum = 0.0
     for page in r_pages do
@@ -86,6 +86,7 @@ end
 
 
 --__demand(__parallel)
+__demand(__leaf) 
 task update_ranks(r_pages : region(Page),
      	          r_src : region(Page),
                   r_links : region(Link(wild)),
@@ -93,7 +94,7 @@ task update_ranks(r_pages : region(Page),
                 numpages : int                
 	)
   where
-    reads(r_src.prevrank,r_src.numlinks), reads writes(r_pages.summation,r_pages.rank, r_links)
+    reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(r_pages.summation,r_pages.rank)
   do
       for link in r_links do
      	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
@@ -105,6 +106,7 @@ task update_ranks(r_pages : region(Page),
       	  page.summation *= damp
       	  page.summation += (1-damp) / numpages
       	  page.rank = page.summation
+--	  page.rank = page.summation
       end            
 
       --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    

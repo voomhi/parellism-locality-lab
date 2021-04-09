@@ -110,6 +110,15 @@ task update_ranks(r_pages : region(Page),
       --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    
 end
 
+task dump_ranks(r_pages  : region(Page),
+                filename : int8[512])
+where
+  reads(r_pages.rank)
+do
+  var f = c.fopen(filename, "w")
+  for page in r_pages do c.fprintf(f, "%g\n", page.rank) end
+  c.fclose(f)
+end
 
 task toplevel()
   var config : PageRankConfig

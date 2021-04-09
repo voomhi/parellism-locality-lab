@@ -135,7 +135,6 @@ task update_prev_rank(r_pages : region(Page))
       page.prevrank = page.rank
       page.summation = 0.0
     end
-  
 end
 
 task dump_ranks(r_pages  : region(Page),
@@ -179,14 +178,15 @@ task toplevel()
   --       You can use as many partitions as you want.
   --
   var c0 = ispace(int1d, config.parallelism)
-  var p0 = partition(equal, r_links, c0)
+  var image0 = partition(equal,r_links, c0)
 --  var image0 = preimage(r_links,p0,r_links.destptr)
 --  var srcimage = image(r_pages,image0,r_links.srcptr)  
   -- Initialize the page graph from a file
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
-  var srcimage = image(r_pages,p0,r_links.srcptr)
-  var image0 = preimage(r_links,srcimage,r_links.destptr)
-  
+  var srcimage = image(r_pages,image0,r_links.srcptr)
+  var p0 = partition(equal,r_pages,c0)  
+  var dest_edge = preimage(r_links,p0,r_links.destptr)
+
   var num_iterations = 0
   var converged = false
   c.printf("Start \n")
@@ -196,20 +196,20 @@ task toplevel()
   while not converged do
     num_iterations += 1
 
-    --update_ranks(r_pages, r_links, config.damp, config.num_pages)
-    __demand(__index_launch)
+    --update_ranks(r_pages, r_links, config.damp, config.num_pages)-    
+__demand(__index_launch)
     for count in c0 do    
     	update_cont(srcimage[count],image0[count])
     end
     __demand(__index_launch)
      for count in c0 do
-	update_ranks(p0[count],image0[count])
+	update_ranks(p0[count],dest_edge[count])
      end
     __demand(__index_launch)
-     for count in c0 do
+    for count in c0 do
         update_sum(p0[count],config.damp,config.num_pages)
       end	
-
+--  for count in c0 do
 --	for page in p0[count] do
 --	    c.printf("Page:%d \n",page)
 --	end
@@ -219,7 +219,7 @@ task toplevel()
 --	for page in srcimage[count] do
 --	c.printf("Partition %d source %d \n" , count,page)
 --	end
---    end
+--  end
     if num_iterations >= config.max_iterations then
       converged = true
     end
@@ -227,7 +227,7 @@ task toplevel()
     if l2_norm(r_pages) < config.error_bound then
       	 converged = true
    end
-__demand(__index_launch)
+--__demand(__index_launch)
  for count in c0 do
     update_prev_rank(p0[count])
 end

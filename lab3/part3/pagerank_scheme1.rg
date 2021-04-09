@@ -71,12 +71,14 @@ end
 
 task l2_norm(r_pages : region(Page)) : double
   where 
-    reads (r_pages)
+    reads (r_pages.rank,r_pages.prevrank) --, reads writes (r_pages.prevrank,r_pages.summation)
   do
     var sum = 0.0
     for page in r_pages do
     	--c.printf("sum %f \n",sum)
         sum += (page.rank - page.prevrank) * (page.rank - page.prevrank)
+--	page.prevrank = page.rank
+--	page.summation = 0.0
     end
     
     sum = sqrt(sum)
@@ -98,32 +100,31 @@ task update_cont(r_source: region(Page),
 end
 
 --__demand(__parallel)
-task update_sum(r_pages : region(Page),
-     		damp : double,
-                numpages : int
-		)
-where
-	reads writes(r_pages)
-do
-      for page in r_pages do
-      page.summation *= damp
-      page.summation += (1-damp) / numpages
-      page.rank = page.summation
-      end
 
-end
+--end
 
 --__demand(__parallel)
 task update_ranks(r_pages : region(Page),
-                r_links : region(Link(wild))                
+     	          r_src : region(Page),
+                  r_links : region(Link(wild)),
+	        damp : double,
+                numpages : int                
 	)
   where
-    reads writes(r_pages, r_links)
+    reads(r_src.prevrank,r_src.numlinks), reads writes(r_pages.summation,r_pages.rank, r_links)
   do
       for link in r_links do
      	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
-           tmp_ptr.summation += link.cont	  
+	   var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
+           tmp_ptr.summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
+--           tmp_ptr.rank = tmp_ptr.summation*damp + (1-damp) / numpages
       end
+      for page in r_pages do
+      	  page.summation *= damp
+      	  page.summation += (1-damp) / numpages
+      	  page.rank = page.summation
+      end            
+
       --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    
 end
 
@@ -149,6 +150,34 @@ do
 end
 
 
+task main_page_rank (
+     		    r_source : region(Page),
+		    r_dest : region(Page),
+		    r_links : region(Link(wild)),
+                    damp : double,
+                    numpages : int
+     		    )
+
+where
+	reads(r_source),reads writes(r_links,r_dest)
+do
+    --    update_cont(r_source,r_links)
+      for link in r_links do
+            var tmp_ptr = dynamic_cast(ptr(Page,r_source),link.srcptr)
+            link.cont = tmp_ptr.prevrank / tmp_ptr.numlinks
+      end
+      for link in r_links do
+           var tmp_ptr = dynamic_cast(ptr(Page,r_dest),link.destptr)
+           tmp_ptr.summation += link.cont
+      end
+      for page in r_dest do
+         page.summation *= damp
+         page.summation += (1-damp) / numpages
+         page.rank = page.summation
+      end
+--        update_ranks(r_dest,r_links)
+--        update_sum(r_dest,damp,numpages)
+end		   
 
 
 task toplevel()
@@ -185,7 +214,8 @@ task toplevel()
   -- Initialize the page graph from a file
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
   var image0 = preimage(r_links,p0,r_links.destptr)
-  var srcimage = image(r_pages,image0,r_links.srcptr)
+  var srcimage = image(r_pages,image0,r_links.srcptr) 
+  var page_union= srcimage | p0
   var num_iterations = 0
   var converged = false
   c.printf("Start \n")
@@ -196,17 +226,18 @@ task toplevel()
     num_iterations += 1
 
     --update_ranks(r_pages, r_links, config.damp, config.num_pages)
-    __demand(__index_launch)
-    for count in c0 do    
-    	update_cont(srcimage[count],image0[count])
-    end
-    __demand(__index_launch)
-     for count in c0 do
-	update_ranks(p0[count],image0[count])
-     end
+--    __demand(__index_launch)
+--    for count in c0 do    
+--    	main_page_rank(srcimage[count],p0[count],image0[count],config.damp,config.num_pages)
+--    	update_cont(srcimage[count],image0[count])
+--    end
     __demand(__index_launch)
      for count in c0 do
-        update_sum(p0[count],config.damp,config.num_pages)
+	update_ranks(p0[count],srcimage[count],image0[count],config.damp,config.num_pages)
+ --    end
+ --   __demand(__index_launch)
+ --    for count in c0 do
+--        update_sum(p0[count],config.damp,config.num_pages)
       end	
 
 --	for page in p0[count] do
@@ -226,10 +257,12 @@ task toplevel()
     if l2_norm(r_pages) < config.error_bound then
       	 converged = true
    end
-__demand(__index_launch)
- for count in c0 do
-    update_prev_rank(p0[count])
-end
+   copy(r_pages.rank,r_pages.prevrank)
+   fill(r_pages.summation,0.0)
+--__demand(__index_launch)
+-- for count in c0 do
+--    update_prev_rank(p0[count])
+--end
 --    break
   end
    __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation

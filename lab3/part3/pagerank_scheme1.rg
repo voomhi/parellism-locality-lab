@@ -20,7 +20,6 @@ fspace Page {
 fspace Link(r : region(Page)) {
   srcptr : ptr(Page, r),
   destptr : ptr(Page, r),
-  cont : double
 }
 
 terra skip_header(f : &c.FILE)
@@ -85,23 +84,6 @@ task l2_norm(r_pages : region(Page)) : double
   return sum	
 end
 
---__demand(__parallel)
-task update_cont(r_source: region(Page),
-     		r_links : region(Link(wild))
-     			   )
-	where
-	    reads (r_source) ,
-	    reads writes(r_links)
-	do
-	    for link in r_links do
-	    var tmp_ptr = dynamic_cast(ptr(Page,r_source),link.srcptr)
-	    link.cont = tmp_ptr.prevrank / tmp_ptr.numlinks	
-	    end
-end
-
---__demand(__parallel)
-
---end
 
 --__demand(__parallel)
 task update_ranks(r_pages : region(Page),
@@ -127,57 +109,6 @@ task update_ranks(r_pages : region(Page),
 
       --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    
 end
-
-task update_prev_rank(r_pages : region(Page))
-  where
-    reads writes(r_pages)
-  do
-    for page in r_pages do
-      page.prevrank = page.rank
-      page.summation = 0.0
-    end
-  
-end
-
-task dump_ranks(r_pages  : region(Page),
-                filename : int8[512])
-where
-  reads(r_pages.rank)
-do
-  var f = c.fopen(filename, "w")
-  for page in r_pages do c.fprintf(f, "%g\n", page.rank) end
-  c.fclose(f)
-end
-
-
-task main_page_rank (
-     		    r_source : region(Page),
-		    r_dest : region(Page),
-		    r_links : region(Link(wild)),
-                    damp : double,
-                    numpages : int
-     		    )
-
-where
-	reads(r_source),reads writes(r_links,r_dest)
-do
-    --    update_cont(r_source,r_links)
-      for link in r_links do
-            var tmp_ptr = dynamic_cast(ptr(Page,r_source),link.srcptr)
-            link.cont = tmp_ptr.prevrank / tmp_ptr.numlinks
-      end
-      for link in r_links do
-           var tmp_ptr = dynamic_cast(ptr(Page,r_dest),link.destptr)
-           tmp_ptr.summation += link.cont
-      end
-      for page in r_dest do
-         page.summation *= damp
-         page.summation += (1-damp) / numpages
-         page.rank = page.summation
-      end
---        update_ranks(r_dest,r_links)
---        update_sum(r_dest,damp,numpages)
-end		   
 
 
 task toplevel()
@@ -215,7 +146,7 @@ task toplevel()
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
   var image0 = preimage(r_links,p0,r_links.destptr)
   var srcimage = image(r_pages,image0,r_links.srcptr) 
-  var page_union= srcimage | p0
+--  var page_union= srcimage | p0
   var num_iterations = 0
   var converged = false
   c.printf("Start \n")
@@ -225,19 +156,9 @@ task toplevel()
   while not converged do
     num_iterations += 1
 
-    --update_ranks(r_pages, r_links, config.damp, config.num_pages)
---    __demand(__index_launch)
---    for count in c0 do    
---    	main_page_rank(srcimage[count],p0[count],image0[count],config.damp,config.num_pages)
---    	update_cont(srcimage[count],image0[count])
---    end
     __demand(__index_launch)
      for count in c0 do
 	update_ranks(p0[count],srcimage[count],image0[count],config.damp,config.num_pages)
- --    end
- --   __demand(__index_launch)
- --    for count in c0 do
---        update_sum(p0[count],config.damp,config.num_pages)
       end	
 
 --	for page in p0[count] do
@@ -250,21 +171,17 @@ task toplevel()
 --	c.printf("Partition %d source %d \n" , count,page)
 --	end
 --    end
-    if num_iterations >= config.max_iterations then
+
+   if num_iterations >= config.max_iterations then
       converged = true
-    end
---    c.printf("n")
-    if l2_norm(r_pages) < config.error_bound then
-      	 converged = true
-   end
+      end
+   if l2_norm(r_pages) < config.error_bound then
+      converged = true
+      end
    copy(r_pages.rank,r_pages.prevrank)
    fill(r_pages.summation,0.0)
---__demand(__index_launch)
--- for count in c0 do
---    update_prev_rank(p0[count])
---end
---    break
-  end
+
+end
    __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
   var ts_stop = c.legion_get_current_time_in_micros()
   c.printf("PageRank converged after %d iterations in %.4f sec\n",

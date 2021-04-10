@@ -201,7 +201,7 @@ task toplevel()
     num_iterations += 1
      __demand(__index_launch)
      for count in c0 do
-     	 update_ranks(dst_part[count],src_part[count],p0[count],is,sums_r[count],config.damp,config.num_pages,count)
+     	 update_ranks(dst_part[count],src_part[count],p0[count],sums_r[count],config.damp,config.num_pages,count)
      end
      __demand(__index_launch)
 --     for count in c0 do

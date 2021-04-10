@@ -84,15 +84,17 @@ end
 task final_ranks(r_pages : region(Page),
                   damp : double,		  
                   numpages : int,
-		  index_space : ispace(int1d)
+		  index_space : ispace(int1d),
+		  summation : region(double)
         )
 where
-reads(r_pages.summation_array), writes(r_pages.rank)
+reads(summation), writes(r_pages.rank)
 do
       	  var temp = 0.0
 	  for page in r_pages do
 	  	for count in index_space do
-		    temp += page.summation_array[count]
+		    var index = int2d{x = count, y = page}
+		    temp += summation[index]
 		end
 		temp = temp * damp
           temp += (1-damp) / numpages
@@ -105,7 +107,6 @@ task update_ranks(r_pages : region(Page),
                   r_links : region(Link(wild)),
 	          damp : double,
                   numpages : int,
-		  summation : region(int1d,double)
 	)
   where
     reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(summation)
@@ -164,7 +165,7 @@ task toplevel()
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
   var dst_part = image(r_pages,p0,r_links.destptr)
   var src_part = image(r_pages,p0,r_links.srcptr) 
-  var temp = region(c0,region(r_pages.ispace,double))
+  var partial_sums = region(ispace(int2d,{config.parallelism,config.num_pages}),double))
 for count in c0 do
     
 end
@@ -178,11 +179,11 @@ end
     num_iterations += 1
      __demand(__index_launch)
      for count in c0 do
-     	 update_ranks(dst_part[count],src_part[count],p0[count],config.damp,config.num_pages,count)
+--     	 update_ranks(dst_part[count],src_part[count],p0[count],config.damp,config.num_pages,count)
      end
      __demand(__index_launch)
      for count in c0 do
-     	 final_ranks(dst_part[count],config.damp,config.num_pages,count)
+     	 final_ranks(dst_part[count],config.damp,config.num_pages,c0,partial_sums)
      end
    if num_iterations >= config.max_iterations then
       converged = true

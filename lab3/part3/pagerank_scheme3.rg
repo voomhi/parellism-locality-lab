@@ -14,8 +14,7 @@ fspace Page {
 }
 
 fspace Summation{
-summation : double,
-dstptr : ptr(Page, r),
+  summation : double,
 }
 
 --
@@ -181,16 +180,13 @@ task toplevel()
 
   var dst_part = image(r_pages,p0,r_links.destptr)
   var src_part = image(r_pages,p0,r_links.srcptr) 
-  var temp = region(c0,region(r_pages.ispace,Summation))
-for count in c0 do
-    
-end
+  var sums_r = region(c0,region(r_pages.ispace,Summation))
 
   var num_iterations = 0
   var converged = false
   c.printf("Start \n")
-   __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
- c.printf("Start \n")
+  __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
+  c.printf("Start \n")
   var ts_start = c.legion_get_current_time_in_micros()  
   while not converged do
     num_iterations += 1
@@ -206,14 +202,16 @@ end
 
    if num_iterations >= config.max_iterations then
       converged = true
-      end
+   end
    if l2_norm(r_pages) < config.error_bound then
       converged = true
-      end
+   end
    copy(r_pages.rank,r_pages.prevrank)
    fill(r_pages.summation,0.0)
-   for count in c0 do
-       fill(r_pages.summation_array[count],0.0)
+   for count1 in c0 do
+      for count2 in c0 do
+       fill(sums_r[count1][count2],0.0) -- Idk if this makes sense
+      end
    end
    
 

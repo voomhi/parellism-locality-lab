@@ -112,24 +112,24 @@ end
 
 __demand(__leaf) 
 task update_ranks(r_pages : region(Page),
-     	          r_src : region(Page),
+                  r_src : region(Page),
                   r_links : region(Link(wild)),
-                  is : ispace(int1d),
-		  sums : region(is, Summation),
-	          damp : double,
+                  is : ispace(ptr),
+                  sums : region(is, Summation),
+                  damp : double,
                   numpages : int,
-		  partition_idx : int
-	)
+                  partition_idx : int
+                  )
   where
     reads(r_src.prevrank,r_src.numlinks,r_links, r_pages), reads writes(sums)
   do
-      for link in r_links do
+    for link in r_links do
 -- sum_calc (r_pages,r_src ,r_links )     	  
-	 var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
-	 var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
+	    var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
+	    var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
 --         tmp_ptr.summation_array[summation_idx] += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks
-	 sums[tmp_ptr].summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
-      end
+	    sums[tmp_ptr].summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
+    end
 --      for page in r_pages do
 --     	  var temp = page.summation * damp
 --      	  temp += (1-damp) / numpages
@@ -167,7 +167,8 @@ task toplevel()
   c.printf("**********************************\n")
 
   -- Create a region of pages
-  var r_pages = region(ispace(ptr, config.num_pages), Page)
+  var is = ispace(ptr, config.num_pages)
+  var r_pages = region(is, Page)
   
   --
   -- TODO: Create a region of links.
@@ -180,7 +181,6 @@ task toplevel()
   --       You can use as many partitions as you want.
   --
   var c0 = ispace(int1d, config.parallelism)
-  var is = ispace(int1d, config.num_pages)
   var sums_r = region(c0, region(is, Summation))
 
 

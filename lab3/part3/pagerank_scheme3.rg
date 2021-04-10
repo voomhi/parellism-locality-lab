@@ -13,6 +13,11 @@ fspace Page {
   summation_array : region(ispace(int1d, 64),double)
 }
 
+fspace Summation{
+summation : double,
+dstptr : ptr(Page, r),
+}
+
 --
 -- TODO: Define fieldspace 'Link' which has two pointer fields,
 --       one that points to the source and another to the destination.
@@ -176,9 +181,9 @@ task toplevel()
 
   var dst_part = image(r_pages,p0,r_links.destptr)
   var src_part = image(r_pages,p0,r_links.srcptr) 
-
+  var temp = region(c0,region(r_pages.ispace,Summation))
 for count in c0 do
-
+    
 end
 
   var num_iterations = 0

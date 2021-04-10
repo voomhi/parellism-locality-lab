@@ -88,41 +88,47 @@ task l2_norm(r_pages : region(Page)) : double
   return sum	
 end
 task final_ranks(r_pages : region(Page),
-                  damp : double,		  
-                  numpages : int,
-		  index_space : ispace(int1d)
-        )
+                 sums : region(int1d, region(int1d, Summation)),
+                 c0 : ispace(int1d),
+                 damp : double,		  
+                 numpages : int
+                 )
 where
-reads(r_pages.summation_array), writes(r_pages.rank)
+  reads(sums), writes(r_pages.rank)
 do
-      	  var temp = 0.0
-	  for page in r_pages do
-	  	for count in index_space do
-		    temp += page.summation_array[count]
-		end
-		temp = temp * damp
-          temp += (1-damp) / numpages
-          page.rank = temp
-      end
+  var temp = 0.0
+  for page in r_pages do
+    for color in c0 do
+--      temp += (sums[color])[page].summation
+    end
+--  for count in index_space do
+--    temp += sum[page].summation
+--  end
+    temp = temp * damp
+    temp += (1-damp) / numpages
+    page.rank = temp
+  end
 end
 
 __demand(__leaf) 
 task update_ranks(r_pages : region(Page),
-     	            r_src : region(Page),
+     	          r_src : region(Page),
                   r_links : region(Link(wild)),
-	                damp : double,
+                  is : ispace(int1d),
+		  sums : region(is, Summation),
+	          damp : double,
                   numpages : int,
-		              partition_idx : int
-
+		  partition_idx : int
 	)
   where
-    reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(sum_r[color])
+    reads(r_src.prevrank,r_src.numlinks,r_links, r_pages), reads writes(sums)
   do
       for link in r_links do
 -- sum_calc (r_pages,r_src ,r_links )     	  
-     	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
-	   var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
-           tmp_ptr.summation_array[summation_idx] += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
+	 var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
+	 var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
+--         tmp_ptr.summation_array[summation_idx] += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks
+	 sums[tmp_ptr].summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
       end
 --      for page in r_pages do
 --     	  var temp = page.summation * damp
@@ -162,6 +168,7 @@ task toplevel()
 
   -- Create a region of pages
   var r_pages = region(ispace(ptr, config.num_pages), Page)
+  
   --
   -- TODO: Create a region of links.
   --       It is your choice how you allocate the elements in this region.
@@ -173,6 +180,9 @@ task toplevel()
   --       You can use as many partitions as you want.
   --
   var c0 = ispace(int1d, config.parallelism)
+  var is = ispace(int1d, config.num_pages)
+  var sums_r = region(c0, region(is, Summation))
+
 
   var p0 = partition(equal, r_links, c0)
   
@@ -180,7 +190,6 @@ task toplevel()
 
   var dst_part = image(r_pages,p0,r_links.destptr)
   var src_part = image(r_pages,p0,r_links.srcptr) 
-  var sums_r = region(c0,region(r_pages.ispace,Summation))
 
   var num_iterations = 0
   var converged = false
@@ -192,12 +201,12 @@ task toplevel()
     num_iterations += 1
      __demand(__index_launch)
      for count in c0 do
-     	 update_ranks(dst_part[count],src_part[count],p0[count],config.damp,config.num_pages,count)
+     	 update_ranks(dst_part[count],src_part[count],p0[count],is,sums_r[count],config.damp,config.num_pages,count)
      end
      __demand(__index_launch)
-     for count in c0 do
-     	 final_ranks(dst_part[count],config.damp,config.num_pages,count)
-     end
+--     for count in c0 do
+     	 final_ranks(r_pages, sums_r, c0, config.damp, config.num_pages)
+--     end
 
 
    if num_iterations >= config.max_iterations then
@@ -208,9 +217,9 @@ task toplevel()
    end
    copy(r_pages.rank,r_pages.prevrank)
    fill(r_pages.summation,0.0)
-   for count1 in c0 do
-      for count2 in c0 do
-       fill(sums_r[count1][count2],0.0) -- Idk if this makes sense
+   for sum in sums_r do
+      for count in c0 do
+         fill((sum[count]).summation,0.0)
       end
    end
    

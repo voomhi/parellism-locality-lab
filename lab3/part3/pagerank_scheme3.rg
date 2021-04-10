@@ -17,6 +17,10 @@ fspace Summation{
   summation : double,
 }
 
+fspace Sum_Region{
+  r : region(wild, Summation)
+}
+
 --
 -- TODO: Define fieldspace 'Link' which has two pointer fields,
 --       one that points to the source and another to the destination.
@@ -181,10 +185,11 @@ task toplevel()
   --       You can use as many partitions as you want.
   --
   var c0 = ispace(int1d, config.parallelism)
-  var sums_r = region(c0, region(is, Summation))
+  --var sums_r = region(c0, region(is, Summation))
+  var sums_r = region(c0, Sum_Region)
 
   for color in c0 do
-    sums_r[color] = region(is, Summation)
+    sums_r[color].r = region(is, Summation)
   end
 
   var p0 = partition(equal, r_links, c0)

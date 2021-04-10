@@ -183,6 +183,9 @@ task toplevel()
   var c0 = ispace(int1d, config.parallelism)
   var sums_r = region(c0, region(is, Summation))
 
+  for color in c0 do
+    sums_r[color] = new(region(is, Summation))
+  end
 
   var p0 = partition(equal, r_links, c0)
   

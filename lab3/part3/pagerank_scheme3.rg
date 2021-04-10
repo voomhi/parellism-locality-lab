@@ -21,6 +21,33 @@ fspace Sum_Region{
   r : region(wild, Summation)
 }
 
+struct ArrayType{
+  data: &ArrayType;
+  N: int
+}
+
+function Array(ElemType)  
+ local struct ArrayType{
+    data: &ElemType;
+    N: int
+ }
+  -- Every struct has a namespace for associated methods.
+  -- Similar to, but a bit more restrictive than, methods in object-oriented languages.
+  terra ArrayType:get(i: int): ElemType
+    return self.data[i]
+  end
+
+  terra ArrayType:init(size: int)
+      self.data = [&ElemType](c.malloc(size * sizeof(ElemType)))
+      self.N = size
+  end
+  
+  return ArrayType
+end
+
+DoubleArray = Array(double)
+PtrArray = Array(&ArrayType)
+
 --
 -- TODO: Define fieldspace 'Link' which has two pointer fields,
 --       one that points to the source and another to the destination.
@@ -132,7 +159,7 @@ task update_ranks(r_pages : region(Page),
 	    var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
 	    var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
 --         tmp_ptr.summation_array[summation_idx] += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks
-	    sums[tmp_ptr].summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
+	   sums[tmp_ptr].summation += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
     end
 --      for page in r_pages do
 --     	  var temp = page.summation * damp
@@ -171,33 +198,49 @@ task toplevel()
   c.printf("**********************************\n")
 
   -- Create a region of pages
-  var is = ispace(ptr, config.num_pages)
-  var r_pages = region(is, Page)
+--  var is = ispace(ptr, config.num_pages)
+--  var r_pages = region(ispace(ptr, config.num_pages), Page)
   
   --
   -- TODO: Create a region of links.
   --       It is your choice how you allocate the elements in this region.
   --
-  var r_links = region(ispace(ptr, config.num_links), Link(wild))
+--  var r_links = region(ispace(ptr, config.num_links), Link(wild))
 
   --   
   -- TODO: Create partitions for links and pages.
   --       You can use as many partitions as you want.
   --
-  var c0 = ispace(int1d, config.parallelism)
+--  var c0 = ispace(int1d, config.parallelism)
   --var sums_r = region(c0, region(is, Summation))
-  var sums_r = region(c0, Sum_Region)
-
-  for color in c0 do
-    sums_r[color].r = region(is, Summation)
+  --var sums_r = region(c0, Sum_Region)
+  var sums_r : PtrArray
+  sums_r:init(config.parallelism)
+  for i = 0, config.parallelism do
+    var temp : DoubleArray
+    temp:init(config.num_pages)
+    for j = 0, config.num_pages do
+      temp.data[j] = 0.0
+    end
+    sums_r.data[i] = [&ArrayType](&temp) 
   end
 
-  var p0 = partition(equal, r_links, c0)
-  
-  initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
+  for i = 0, config.parallelism do
+    for j = 0, config.num_pages do
+      c.printf("%lf \n", (sums_r.data[i]).data[j])
+    end
+  end
 
-  var dst_part = image(r_pages,p0,r_links.destptr)
-  var src_part = image(r_pages,p0,r_links.srcptr) 
+--  for color in c0 do
+--    sums_r[color].r = region(ispace(int1d,config.num_pages), Summation) -- Throws a "Partition requires index space" error for some reason?????
+--  end
+
+--  var p0 = partition(equal, r_links, c0)
+  
+--  initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
+
+--  var dst_part = image(r_pages,p0,r_links.destptr)
+--  var src_part = image(r_pages,p0,r_links.srcptr) 
 
   var num_iterations = 0
   var converged = false
@@ -205,40 +248,40 @@ task toplevel()
   __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
   c.printf("Start \n")
   var ts_start = c.legion_get_current_time_in_micros()  
-  while not converged do
-    num_iterations += 1
-     __demand(__index_launch)
-     for count in c0 do
-     	 update_ranks(dst_part[count],src_part[count],p0[count],sums_r[count],config.damp,config.num_pages,count)
-     end
-     __demand(__index_launch)
+--  while not converged do
+--    num_iterations += 1
+--     __demand(__index_launch)
 --     for count in c0 do
-     	 final_ranks(r_pages, sums_r, c0, config.damp, config.num_pages)
+--     	 update_ranks(dst_part[count],src_part[count],p0[count],(sums_r[count]).r,config.damp,config.num_pages,count)
+--     end
+--     __demand(__index_launch)
+--     for count in c0 do
+--     	 final_ranks(r_pages, sums_r, c0, config.damp, config.num_pages)
 --     end
 
 
-   if num_iterations >= config.max_iterations then
-      converged = true
-   end
-   if l2_norm(r_pages) < config.error_bound then
-      converged = true
-   end
-   copy(r_pages.rank,r_pages.prevrank)
-   fill(r_pages.summation,0.0)
-   for sum in sums_r do
-      for count in c0 do
-         fill((sum[count]).summation,0.0)
-      end
-   end
+--   if num_iterations >= config.max_iterations then
+--      converged = true
+--   end
+--   if l2_norm(r_pages) < config.error_bound then
+--      converged = true
+--   end
+--   copy(r_pages.rank,r_pages.prevrank)
+--   fill(r_pages.summation,0.0)
+--   for sum in sums_r do
+--      for count in c0 do
+--         fill((sum[count]).summation,0.0)
+--      end
+--   end
    
 
-end
+-- end
    __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation
   var ts_stop = c.legion_get_current_time_in_micros()
   c.printf("PageRank converged after %d iterations in %.4f sec\n",
     num_iterations, (ts_stop - ts_start) * 1e-6)
 
-  if config.dump_output then dump_ranks(r_pages, config.output) end
+--  if config.dump_output then dump_ranks(r_pages, config.output) end
 end
 
 regentlib.start(toplevel)

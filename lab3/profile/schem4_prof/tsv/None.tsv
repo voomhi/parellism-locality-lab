@@ -1,0 +1,132 @@
+level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
+3			48333.062	48346.619	#d600ff	1.0	Equal Partition	3					1421
+3			50671.788	50672.357	#d600ff	1.0	Equal Partition	8					1422
+3			334445.134	407287.102	#00ff69	1.0	Partition by Image	5					765
+2			334500.392	408496.278	#00ff69	1.0	Partition by Image	6					233
+3			409422.683	409892.787	#00ff03	1.0	Intersection Reduction	1					2067
+3			411363.64	411809.52	#00ff03	1.0	Intersection Reduction	1					2068
+3			412868.567	413268.536	#ff0071	1.0	Difference	21					2069
+2			413169.184	413171.325	#ff0071	1.0	Difference	21					234
+2			413191.054	413191.305	#ff0071	1.0	Difference	21					235
+3			413866.991	414198.713	#ff0071	1.0	Difference	25					236
+3			414333.689	414762.274	#ff0071	1.0	Difference	25					766
+3			414847.348	415178.924	#ff0071	1.0	Difference	25					1423
+2			414968.919	415178.634	#ff0071	1.0	Intersection Reduction	26					239
+1			415106.342	415108.83	#ff0071	1.0	Difference	25					237
+1			415126.908	415127.147	#ff0071	1.0	Difference	25					238
+3			415248.29	415248.588	#ff0071	1.0	Intersection Reduction	25					240
+3			415357.895	415571.505	#ff0071	1.0	Intersection Reduction	26					767
+2			415368.135	415368.433	#ff0071	1.0	Intersection Reduction	25					241
+3			415666.705	415875.985	#ff0071	1.0	Union Reduction	26					768
+3			415941.48	416095.079	#ff0071	1.0	Difference	26					769
+3			416149.852	416791.357	#ff0071	1.0	Difference	26					770
+3			416879.549	417058.761	#ff0071	1.0	Intersection Reduction	26					771
+2			416907.59	417120.865	#ff0071	1.0	Intersection Reduction	27					772
+3			417111.587	417173.45	#ff0071	1.0	Difference	26					773
+2			417168.877	417381.863	#ff0071	1.0	Intersection Reduction	27					774
+3			417240.101	417625.387	#ff0071	1.0	Difference	26					776
+2			417444.335	417557.553	#ff0071	1.0	Intersection Reduction	27					775
+2			417611.652	418041.935	#ff0071	1.0	Union Reduction	27					777
+3			417689.259	417887.679	#ff0071	1.0	Difference	26					1426
+1			417821.486	417821.891	#ff0071	1.0	Difference	26					1424
+1			417837.576	417837.793	#ff0071	1.0	Difference	26					1425
+3			417897.936	418139.51	#ff0071	1.0	Difference	26					778
+1			417961.573	417961.816	#ff0071	1.0	Intersection Reduction	26					1427
+1			417971.284	417971.575	#ff0071	1.0	Intersection Reduction	26					1428
+3			418152.041	418482.334	#ff0071	1.0	Intersection Reduction	26					779
+2			418356.978	418601.451	#ff0071	1.0	Difference	27					1431
+3			418534.804	418535.2	#ff0071	1.0	Intersection Reduction	26					1429
+3			418542.916	418543.056	#ff0071	1.0	Intersection Reduction	26					1430
+3			418653.687	419259.273	#ff0071	1.0	Difference	27					780
+3			419317.631	419611.166	#ff0071	1.0	Intersection Reduction	27					781
+3			419649.061	419698.218	#ff0071	1.0	Intersection Reduction	27					782
+3			419727.964	419943.305	#ff0071	1.0	Union Reduction	27					783
+3			419980.616	420022.075	#ff0071	1.0	Difference	27					784
+3			420056.415	420405.614	#ff0071	1.0	Difference	27					785
+3			420451.391	420604.371	#ff0071	1.0	Intersection Reduction	27					786
+3			420640.142	420681.06	#ff0071	1.0	Difference	27					787
+3			420719.46	420929.843	#ff0071	1.0	Difference	27					788
+3			420976.759	421018.324	#ff0071	1.0	Difference	27					1711
+2			420997.746	421018.446	#ff0071	1.0	Difference	27					1710
+3			421025.142	421173.946	#ff0071	1.0	Intersection Reduction	27					789
+3			421208.558	421276.454	#ff0071	1.0	Difference	27					790
+3			421316.514	421492.837	#ff0071	1.0	Difference	27					1712
+3			421639.818	421711.779	#ff0071	1.0	Difference	27					1713
+2			421670.024	421764.91	#ff0071	1.0	Difference	27					1715
+3			421763.297	421763.73	#ff0071	1.0	Difference	27					1714
+3			421774.633	421775.105	#ff0071	1.0	Difference	27					1716
+3			421867.57	422266.89	#ff0071	1.0	Intersection Reduction	27					791
+2			421884.562	421884.879	#ff0071	1.0	Intersection Reduction	27					1717
+2			421889.366	421889.783	#ff0071	1.0	Intersection Reduction	27					1718
+2			421907.491	421907.788	#ff0071	1.0	Intersection Reduction	27					1719
+3			422312.664	422661.483	#ff0071	1.0	Intersection Reduction	27					792
+3			422704.411	422704.716	#ff0071	1.0	Intersection Reduction	27					1720
+3			422709.832	422710.054	#ff0071	1.0	Intersection Reduction	27					1721
+3			422714.409	422714.682	#ff0071	1.0	Intersection Reduction	27					1722
+3			422929.013	422929.511	#ff0038	1.0	Difference	32					793
+3			422985.969	422986.312	#ff0038	1.0	Intersection Reduction	32					794
+3			422989.846	422990.011	#ff0038	1.0	Intersection Reduction	32					795
+3			422996.373	422996.553	#ff0038	1.0	Intersection Reduction	32					796
+3			423002.126	423002.36	#ff0038	1.0	Intersection Reduction	32					797
+3			423022.701	423026.788	#ff0038	1.0	Union Reduction	32					798
+3			423053.78	423053.991	#ff0038	1.0	Intersection Reduction	32					799
+3			423081.009	423081.152	#ff0038	1.0	Intersection Reduction	32					800
+3			423107.057	423107.227	#ff0038	1.0	Intersection Reduction	32					801
+3			423123.274	423123.428	#ff0038	1.0	Intersection Reduction	32					802
+3			423240.958	423241.378	#ff0038	1.0	Difference	33					803
+3			423285.96	423286.238	#ff0038	1.0	Intersection Reduction	33					804
+3			423292.713	423292.913	#ff0038	1.0	Intersection Reduction	33					805
+3			423315.469	423315.622	#ff0038	1.0	Intersection Reduction	33					806
+3			423336.891	423337.036	#ff0038	1.0	Intersection Reduction	33					807
+3			423353.715	423353.865	#ff0038	1.0	Intersection Reduction	33					808
+3			423459.815	423460.186	#ff0038	1.0	Difference	34					809
+3			423490.079	423490.37	#ff0038	1.0	Intersection Reduction	34					810
+3			423492.999	423493.169	#ff0038	1.0	Intersection Reduction	34					811
+3			423498.411	423498.592	#ff0038	1.0	Intersection Reduction	34					812
+3			423521.038	423521.199	#ff0038	1.0	Intersection Reduction	34					813
+3			423542.753	423542.924	#ff0038	1.0	Intersection Reduction	34					814
+3			423548.292	423548.43	#ff0038	1.0	Intersection Reduction	34					815
+3			423640.048	423640.405	#ff0038	1.0	Difference	35					816
+3			423665.291	423665.55	#ff0038	1.0	Intersection Reduction	35					817
+3			423668.083	423668.255	#ff0038	1.0	Intersection Reduction	35					818
+3			423673.295	423673.468	#ff0038	1.0	Intersection Reduction	35					819
+3			423675.991	423676.146	#ff0038	1.0	Intersection Reduction	35					820
+3			423697.699	423697.85	#ff0038	1.0	Intersection Reduction	35					821
+3			423721.904	423722.1	#ff0038	1.0	Intersection Reduction	35					822
+3			423724.334	423724.468	#ff0038	1.0	Intersection Reduction	35					823
+3			423958.698	423959.023	#ffec00	1.0	Intersection Reduction	22					824
+3			423989.165	423989.358	#ffec00	1.0	Intersection Reduction	22					825
+3			424009.446	424009.621	#ffec00	1.0	Intersection Reduction	22					826
+3			424019.974	424020.124	#ffec00	1.0	Intersection Reduction	22					827
+3			424027.855	424028.045	#ffec00	1.0	Intersection Reduction	22					828
+3			424033.324	424033.518	#ffec00	1.0	Intersection Reduction	22					829
+3			424035.937	424036.131	#ffec00	1.0	Intersection Reduction	22					830
+3			424041.928	424042.079	#ffec00	1.0	Intersection Reduction	22					831
+3			424045.137	424045.297	#ffec00	1.0	Intersection Reduction	22					832
+3			424099.092	424579.592	#ffec00	1.0	Union Reduction	22					833
+3			424609.023	424611.911	#ffec00	1.0	Union Reduction	22					834
+3			424635.55	425213.51	#ffec00	1.0	Intersection Reduction	22					835
+3			425266.193	425326.351	#ffec00	1.0	Intersection Reduction	22					836
+3			425351.613	425385.698	#ffec00	1.0	Intersection Reduction	22					837
+3			425409.215	425826.551	#ffec00	1.0	Intersection Reduction	22					838
+3			452493.255	453224.031	#ffec00	1.0	Union Reduction	22					839
+3			479836.081	480045.886	#ffec00	1.0	Intersection Reduction	22					840
+3			480087.626	480139.782	#ffec00	1.0	Intersection Reduction	22					841
+3			480170.118	480452.353	#ffec00	1.0	Intersection Reduction	22					842
+3			488932.863	489436.615	#ffec00	1.0	Union Reduction	22					843
+3			506503.892	506765.102	#ffec00	1.0	Intersection Reduction	22					844
+3			506807.241	506861.137	#ffec00	1.0	Intersection Reduction	22					845
+3			510488.55	510715.581	#ffec00	1.0	Union Reduction	22					846
+3			514640.401	514714.579	#ffec00	1.0	Intersection Reduction	22					847
+3			514745.672	514791.107	#ffec00	1.0	Intersection Reduction	22					848
+3			514946.248	514988.706	#ffec00	1.0	Union Reduction	22					849
+3			515224.601	515481.968	#ffec00	1.0	Intersection Reduction	22					850
+3			515519.444	515598.453	#ffec00	1.0	Intersection Reduction	22					851
+3			515626.277	515790.84	#ffec00	1.0	Intersection Reduction	22					242
+3			522173.906	522703.917	#ffec00	1.0	Union Reduction	22					852
+3			534701.504	534955.81	#ffec00	1.0	Intersection Reduction	22					853
+3			535029.801	535130.907	#ffec00	1.0	Intersection Reduction	22					854
+3			538123.724	538360.521	#ffec00	1.0	Union Reduction	22					855
+3			542452.385	542570.63	#ffec00	1.0	Intersection Reduction	22					856
+3			542621.272	542745.618	#ffec00	1.0	Intersection Reduction	22					857
+3			544369.048	544542.025	#ffec00	1.0	Union Reduction	22					858

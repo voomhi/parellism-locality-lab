@@ -1,0 +1,4 @@
+level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
+3			572626.579	572884.009	#00ffcf	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	36					2066
+3			730105.033	730458.468	#00ffcf	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	66					232
+3			914911.79	915237.217	#00ffcf	1.0	size=419.039 KiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	96					764

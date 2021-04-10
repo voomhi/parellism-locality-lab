@@ -108,15 +108,15 @@ end
 
 __demand(__leaf) 
 task update_ranks(r_pages : region(Page),
-     	          r_src : region(Page),
+     	            r_src : region(Page),
                   r_links : region(Link(wild)),
-	          damp : double,
+	                damp : double,
                   numpages : int,
-		  summation_idx : int
+		              partition_idx : int
 
 	)
   where
-    reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(r_pages.summation_array[summation_idx])
+    reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(sum_r[color])
   do
       for link in r_links do
 -- sum_calc (r_pages,r_src ,r_links )     	  

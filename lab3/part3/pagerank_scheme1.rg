@@ -181,9 +181,9 @@ task toplevel()
 
     __demand(__index_launch)
      for count in c0 do
-	update_ranks(p0[count],srcimage[count],image0[count],config.damp,config.num_pages)
+	update_ranks(p0[count],r_pages,image0[count],config.damp,config.num_pages)
       end	
-__demand(__index_launch)
+  __demand(__index_launch)
       for count in c0 do
       	  final_ranks(p0[count],config.damp,config.num_pages)
       end

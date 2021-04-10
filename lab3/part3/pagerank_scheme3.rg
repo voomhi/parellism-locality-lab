@@ -170,7 +170,24 @@ task update_ranks(r_pages : region(Page),
       --c.printf("Rank_out = %f \n Page %d \n new_rank %f \n",page.rank,page,new_rank)    
 end
 
+terra test() : &ArrayType
+   var sums_r : PtrArray
+  sums_r:init(config.parallelism)
+  for i = 0, config.parallelism do
+    var temp : DoubleArray
+    temp:init(config.num_pages)
+    for j = 0, config.num_pages do
+      temp.data[j] = 0.0
+    end
+    sums_r.data[i] = [&ArrayType](&temp) 
+  end
 
+  for i = 0, config.parallelism do
+    for j = 0, config.num_pages do
+      c.printf("%lf \n", (sums_r.data[i]).data[j])
+    end
+  end
+end
 
 task dump_ranks(r_pages  : region(Page),
                 filename : int8[512])
@@ -214,22 +231,7 @@ task toplevel()
 --  var c0 = ispace(int1d, config.parallelism)
   --var sums_r = region(c0, region(is, Summation))
   --var sums_r = region(c0, Sum_Region)
-  var sums_r : PtrArray
-  sums_r:init(config.parallelism)
-  for i = 0, config.parallelism do
-    var temp : DoubleArray
-    temp:init(config.num_pages)
-    for j = 0, config.num_pages do
-      temp.data[j] = 0.0
-    end
-    sums_r.data[i] = [&ArrayType](&temp) 
-  end
-
-  for i = 0, config.parallelism do
-    for j = 0, config.num_pages do
-      c.printf("%lf \n", (sums_r.data[i]).data[j])
-    end
-  end
+ test()
 
 --  for color in c0 do
 --    sums_r[color].r = region(ispace(int1d,config.num_pages), Summation) -- Throws a "Partition requires index space" error for some reason?????

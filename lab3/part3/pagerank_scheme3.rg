@@ -184,7 +184,7 @@ task toplevel()
   var sums_r = region(c0, region(is, Summation))
 
   for color in c0 do
-    sums_r[color] = new(region(is, Summation))
+    sums_r[color] = region(is, Summation)
   end
 
   var p0 = partition(equal, r_links, c0)

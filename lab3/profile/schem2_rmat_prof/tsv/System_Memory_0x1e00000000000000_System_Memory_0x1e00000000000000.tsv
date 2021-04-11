@@ -1,0 +1,8 @@
+level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
+3			32957063.411	32979768.872	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	54					3650
+3			35380670.549	35401376.585	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	100					3651
+3			37783884.949	37805037.018	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	146					3652
+3			40208230.622	40229079.262	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	192					3653
+3			42630356.547	42653830.103	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	238					3654
+3			44993486.36	45016727.569	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	284					3655
+3			47395923.28	47412890.306	#00ffcf	1.0	size=32.000 MiB, num reqs=1$req[0]: src_inst=0x4000000000000000, dst_inst=0x4000000000000000, fields=1, type=copy, hops=1	330					3656

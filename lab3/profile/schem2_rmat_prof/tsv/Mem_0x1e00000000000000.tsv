@@ -1,0 +1,4 @@
+level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
+3			21062.416	47417289.888	#85ff00	1.0	Region: ispace:1[0:4194303] x Page()[rank$,prevrank,numlinks,summation,summation_array.impl.tree_id$,summation_array.impl.index_space.id,summation_array.impl.index_space.tid$,summation_array.impl.index_space.type_tag$,summation_array.impl.field_space.id]$Layout Order: [Struct-of-arrays (SOA)] $Inst: 0x4000000000000000 $Size: 192.000 MiB	4					1267
+2			21255.801	47417573.508	#85ff00	1.0	Region: ispace:2[0:67108863] x Link($wild)[srcptr.__ptr$,destptr.__ptr]$Layout Order: [Struct-of-arrays (SOA)] $Inst: 0x4000000000000001 $Size: 1.000 GiB	4					1268
+1			30482518.959	47416509.728	#ff0071	1.0	Region: ispace:12[0:33554431] x double[__value]$Layout Order: [Struct-of-arrays (SOA)] $Inst: 0x4000000000000002 $Size: 256.000 MiB	25					1269

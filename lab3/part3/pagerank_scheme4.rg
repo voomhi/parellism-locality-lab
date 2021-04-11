@@ -22,6 +22,9 @@ fspace Link(r : region(Page)) {
   destptr : ptr(Page, r),
 }
 
+--fspace page_output(r : region(Page)) {
+--}
+
 terra skip_header(f : &c.FILE)
   var x : uint64, y : uint64
   c.fscanf(f, "%llu\n%llu\n", &x, &y)
@@ -85,15 +88,17 @@ task final_ranks(r_pages : region(Page),
                   damp : double,		  
                   numpages : int,
 		  index_space : ispace(int1d),
-		  summation : region(double)
+--		  sum_space : ispace(int1d),
+		  summation : region(ispace(int1d),double)
         )
 where
 reads(summation), writes(r_pages.rank)
 do
       	  var temp = 0.0
 	  for page in r_pages do
+	  temp = 0.0
 	  	for count in index_space do
-		    var index = int2d{x = count, y = page}
+		    var index = count*numpages + page
 		    temp += summation[index]
 		end
 		temp = temp * damp
@@ -107,6 +112,8 @@ task update_ranks(r_pages : region(Page),
                   r_links : region(Link(wild)),
 	          damp : double,
                   numpages : int,
+		  count : int,		 
+		  summation : region(ispace(int1d),double)
 	)
   where
     reads(r_src.prevrank,r_src.numlinks,r_links), reads writes(summation)
@@ -115,7 +122,8 @@ task update_ranks(r_pages : region(Page),
 -- sum_calc (r_pages,r_src ,r_links )     	  
      	   var tmp_ptr = dynamic_cast(ptr(Page,r_pages),link.destptr)
 	   var tmp_src_ptr = dynamic_cast(ptr(Page,r_src),link.srcptr)	
-           tmp_ptr.summation_array[summation_idx] += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
+	   var sum_idx = count*numpages + link.destptr
+           summation[sum_idx] += tmp_src_ptr.prevrank / tmp_src_ptr.numlinks	  
       end
 --      for page in r_pages do
 --     	  var temp = page.summation * damp
@@ -165,10 +173,14 @@ task toplevel()
   initialize_graph(r_pages, r_links, config.damp, config.num_pages, config.input)
   var dst_part = image(r_pages,p0,r_links.destptr)
   var src_part = image(r_pages,p0,r_links.srcptr) 
-  var partial_sums = region(ispace(int2d,{config.parallelism,config.num_pages}),double))
-for count in c0 do
-    
-end
+  var sum_space = ispace(int1d,config.parallelism*config.num_pages)
+  var partial_sums = region(sum_space,double)
+
+  var sum_partition = partition(equal, partial_sums ,c0)
+  var nodes_all = partition(equal,r_pages,c0)
+
+  fill (partial_sums,0.0)
+
   var num_iterations = 0
   var converged = false
   c.printf("Start \n")
@@ -179,11 +191,12 @@ end
     num_iterations += 1
      __demand(__index_launch)
      for count in c0 do
---     	 update_ranks(dst_part[count],src_part[count],p0[count],config.damp,config.num_pages,count)
+     	 update_ranks(r_pages,r_pages,p0[count],config.damp,config.num_pages,count,sum_partition[count])
+--	 c.printf("Range %d %d %d, count = %d\n",sum_partition[count].bounds, config.num_pages, count)
      end
      __demand(__index_launch)
      for count in c0 do
-     	 final_ranks(dst_part[count],config.damp,config.num_pages,c0,partial_sums)
+     	 final_ranks(nodes_all[count],config.damp,config.num_pages,c0,partial_sums)
      end
    if num_iterations >= config.max_iterations then
       converged = true
@@ -193,9 +206,7 @@ end
       end
    copy(r_pages.rank,r_pages.prevrank)
    fill(r_pages.summation,0.0)
-   for count in c0 do
-       fill(r_pages.summation_array[count],0.0)
-   end
+   fill(partial_sums,0.0)
    
 end
    __fence(__execution, __block) -- This blocks to make sure we only time the pagerank computation

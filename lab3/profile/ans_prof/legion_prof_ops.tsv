@@ -1,0 +1,12 @@
+op_id	desc	proc	level
+0	Operation <0>		
+1	main [primary] <1>	CPU Processor 0x1d00000000000001	2
+3	hit [primary] <3>	CPU Processor 0x1d00000000000001	3
+4	hit [primary] <4>	CPU Processor 0x1d00000000000002	2
+5	hit [primary] <5>	CPU Processor 0x1d00000000000002	2
+6	hit [primary] <6>	CPU Processor 0x1d00000000000001	3
+7	__binary_int64_int64_+ [primary] <7>	CPU Processor 0x1d00000000000001	3
+8	__binary_int64_int64_+ [primary] <8>	CPU Processor 0x1d00000000000001	3
+9	__binary_int64_int64_+ [primary] <9>	CPU Processor 0x1d00000000000001	3
+10	__binary_int64_double_/ [primary] <10>	CPU Processor 0x1d00000000000001	3
+11	__binary_double_int32_* [primary] <11>	CPU Processor 0x1d00000000000001	3

@@ -1,0 +1,45 @@
+level	level_ready	ready	start	end	color	opacity	title	initiation	in	out	children	parents	prof_uid
+2	5	26410.167	26424.085	26657.813	#00ff12	1.0	Deferred Enqueue Task	1					12
+1	4	26458.644	26458.644	26577.527	#ffe300	1.0	Mapper Call select_task_options						106
+2	4	26655.93	26690.77	26785.457	#0042ff	1.0	Scheduler	0					14
+2	5	26782.243	26802.15	27167.598	#0a00ff	1.0	Task Physical Dependence Analysis	1					111
+2	5	27267.452	27277.11	27416.1	#00ff5a	1.0	Logical Dependence Analysis	3					15
+2	4	27400.757	27430.357	27439.065	#333399	1.0	Deferred Ready Trigger	3					16
+2	4	27438.638	27454.081	27460.043	#0042ff	1.0	Scheduler	0					17
+2	4	27407.293	27474.254	27481.59	#333399	1.0	Deferred Ready Trigger	4					18
+2	4	27481.161	27495.004	27499.121	#0042ff	1.0	Scheduler	0					19
+2	4	27415.2	27515.681	27518.287	#333399	1.0	Deferred Ready Trigger	5					20
+2	4	27517.979	27536.626	27541.005	#0042ff	1.0	Scheduler	0					21
+2	5	27429.507	27555.151	27623.062	#00ff5a	1.0	Logical Dependence Analysis	6					22
+2	5	27559.545	27639.096	27642.937	#333399	1.0	Deferred Ready Trigger	6					23
+2	5	27642.608	27657.756	27662.151	#0042ff	1.0	Scheduler	0					24
+2	3	27459.407	27675.092	27729.828	#0a00ff	1.0	Task Physical Dependence Analysis	3					112
+2	2	27498.678	27742.558	27760.614	#0a00ff	1.0	Task Physical Dependence Analysis	4					160
+2	5	27749.012	27772.316	27775.363	#333399	1.0	Deferred Ready Trigger	7					142
+2	5	27775.057	27780.702	27784.518	#0042ff	1.0	Scheduler	0					25
+2	1	27540.518	27787.532	27813.899	#0a00ff	1.0	Task Physical Dependence Analysis	5					26
+2	4	27661.73	27817.495	27877.058	#0a00ff	1.0	Task Physical Dependence Analysis	6					143
+2	5	27827.311	27886.923	28047.484	#006600	1.0	Post-Task Execution	3					27
+2	5	27939.008	28078.444	28085.7	#006600	1.0	Post-Task Execution	6					28
+2	3	27784.096	28101.677	28124.137	#0a00ff	1.0	Task Physical Dependence Analysis	7					113
+2	5	28108.662	28133.964	28136.911	#333399	1.0	Deferred Ready Trigger	8					114
+2	5	28136.598	28155.503	28164.058	#0042ff	1.0	Scheduler	0					29
+2	5	28165.865	28180.402	28188.598	#006600	1.0	Post-Task Execution	7					30
+2	4	28163.384	28202.867	28222.099	#0a00ff	1.0	Task Physical Dependence Analysis	8					115
+2	5	28208.032	28235.807	28241.685	#333399	1.0	Deferred Ready Trigger	9					31
+2	5	28239.662	28258.519	28263.11	#0042ff	1.0	Scheduler	0					32
+2	5	28244.739	28277.391	28285.556	#006600	1.0	Post-Task Execution	8					33
+2	4	28262.591	28297.986	28320.502	#0a00ff	1.0	Task Physical Dependence Analysis	9					144
+2	5	28302.667	28331.577	28343.139	#333399	1.0	Deferred Ready Trigger	10					34
+2	5	28342.308	28356.053	28360.263	#0042ff	1.0	Scheduler	0					35
+2	5	28339.313	28374.602	28382.213	#006600	1.0	Post-Task Execution	9					36
+2	4	28359.85	28396.084	28415.112	#0a00ff	1.0	Task Physical Dependence Analysis	10					116
+2	5	28401.121	28433.379	28437.89	#333399	1.0	Deferred Ready Trigger	11					37
+2	5	28437.521	28450.988	28454.394	#0042ff	1.0	Scheduler	0					38
+2	5	28431.375	28467.469	28474.76	#006600	1.0	Post-Task Execution	10					39
+2	4	28454.036	28490.386	28510.625	#0a00ff	1.0	Task Physical Dependence Analysis	11					117
+2	5	28544.607	28556.184	28610.398	#006600	1.0	Post-Task Execution	11					118
+2	5	28710.051	28710.051	28718.11	#FFC0CB	1.0	ProfTask <1>						108
+2	4	28714.694	28722.084	28737.941	#006600	1.0	Post-Task Execution	1					40
+2	5	28736.503	28750.642	28816.216	#2b00ff	1.0	Trigger Complete	1					41
+2	4	28763.215	28830.324	28848.182	#ff2300	1.0	Top Finish	0					42
